@@ -1,0 +1,33 @@
+.post{
+    border-radius: 1rem;
+    color: #222;
+    background-color: #fff;
+    border: 1px solid #222;
+}
+
+.image{
+    border-radius: 1rem 1rem 0 0;
+}
+
+.title{
+    font-size: 1rem;
+}
+
+.postCard {
+    display: flex;
+    flex-flow: column;
+    text-align: center;
+}
+
+.location {
+    color: rgb(46, 109, 226);
+    font-weight: bold;
+}
+
+.price {
+    background-color: #ccc;
+    padding: 1rem 1rem;
+    font-size: 1.2rem;
+    text-align: center;
+    font-weight: bold;
+}

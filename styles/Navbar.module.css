@@ -1,0 +1,14 @@
+.navbar, .logo, .navigation, .acess{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: .5rem .4rem;
+}
+
+.acess a {
+    padding: .7rem 2.5rem;
+    border-radius: .3rem;
+}
+
+

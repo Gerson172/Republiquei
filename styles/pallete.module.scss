@@ -1,0 +1,59 @@
+/* paleta de cores */
+$primary-color: #00A3D8;
+$second-color: #FF3D6F;
+$third-color: #F8F9FA;
+
+$primary-font-color: #212529;
+
+$light: #eee;
+$dark: #222;
+
+/* estilo de texto*/
+$title: 2rem;
+$strong: bold;
+
+
+
+.light{
+    background-color: $light;
+}
+
+.dark{
+    background-color: $dark;
+}
+
+.logo{
+    color: $primary-color;
+    font-size: $title;
+    font-weight: $strong;
+}
+
+.title{
+    strong{
+        font-weight: $strong;
+    }
+}
+
+.link a{
+    font-size: 1rem;
+
+    &:active{
+    color: $primary-color;
+    font-weight: 500;
+}
+}
+
+.btnBlue{
+    background-color: $primary-color;
+    font-weight: $strong;
+}
+
+.btnRose {
+    background-color: $second-color;  
+}
+
+.btnGray{
+    background-color: $third-color;
+    color: $primary-font-color;
+    font-weight: $strong;
+}
