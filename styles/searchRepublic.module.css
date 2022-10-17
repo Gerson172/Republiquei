@@ -1,7 +1,0 @@
-.main {
-    display: flex;
-    flex-flow: row wrap;
-    padding: 1rem 3rem;
-    gap: 1rem;
-    justify-content: center;
-}
