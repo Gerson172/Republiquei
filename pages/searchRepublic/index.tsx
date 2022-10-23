@@ -8,76 +8,152 @@ import { ImSearch } from "react-icons/im";
 
 export const AnnounceRepublicData = [
     {
-        image: "/republic-ex.jpeg",
+        id: 1,
+        images: [
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/5c61abbc-59f3-4d8a-8ebf-cced1fac4526.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/e97b5669-1185-4793-bf43-0c74150ce3d3.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/3cfe95fb-65bc-4dec-a44d-38eadc5b6e9f.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/077748cf-4bfd-417f-b225-1bee62d6b782.jpeg?im_w=720",
+        ],
+        acessibility: "Imagem de Republica",
+        title: "República com 4 dormitórios próximo a USP",
+        location: "São Paulo - SP",
+        price: 1700,
+        sex: "Male"
+    },
+    {
+        id: 2,
+        images: [
+            "https://a0.muscache.com/im/pictures/miso/Hosting-51733314/original/f41a9db0-f9d6-4403-ae0d-3d9e0b30e76b.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-51733314/original/00e7527c-030b-4e74-833a-911fa0f9965b.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-51733314/original/47641c2d-e524-489c-a484-d949ea69e28a.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-51733314/original/5acaca53-402c-4654-a107-9966eb9d38db.jpeg?im_w=720"
+        ],
+        acessibility: "Imagem de Republica",
+        title: "República com 2 dormitórios próximo a UFRJ",
+        location: "Barra da Tijuca - RJ",
+        price: 1200,
+        sex: "Male"
+    },
+    {
+        id: 3,
+        images: [
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/5c61abbc-59f3-4d8a-8ebf-cced1fac4526.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/e97b5669-1185-4793-bf43-0c74150ce3d3.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/3cfe95fb-65bc-4dec-a44d-38eadc5b6e9f.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/077748cf-4bfd-417f-b225-1bee62d6b782.jpeg?im_w=720",
+        ],
         acessibility: "Imagem de Republica",
         title: "República com 4 dormitórios próximo a UFS",
         location: "Salvador - Bahia",
+        price: 700,
+        sex: "Male"
+    },
+    {
+        id: 4,
+        images: [
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/5c61abbc-59f3-4d8a-8ebf-cced1fac4526.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/e97b5669-1185-4793-bf43-0c74150ce3d3.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/3cfe95fb-65bc-4dec-a44d-38eadc5b6e9f.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/077748cf-4bfd-417f-b225-1bee62d6b782.jpeg?im_w=720",
+        ],
+        acessibility: "Imagem de Republica",
+        title: "República com 4 dormitórios próximo a UFS",
+        location: "Salvador - BA",
+        price: 700,
+        sex: "Male"
+    },
+    {
+        id: 5,
+        images: [
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/5c61abbc-59f3-4d8a-8ebf-cced1fac4526.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/e97b5669-1185-4793-bf43-0c74150ce3d3.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/3cfe95fb-65bc-4dec-a44d-38eadc5b6e9f.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/077748cf-4bfd-417f-b225-1bee62d6b782.jpeg?im_w=720",
+        ],
+        acessibility: "Imagem de Republica",
+        title: "República com 4 dormitórios próximo a UFS",
+        location: "Salvador - BA",
+        price: 500,
+        sex: "Male"
+    },
+    {
+        id: 6,
+        images: [
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/5c61abbc-59f3-4d8a-8ebf-cced1fac4526.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/e97b5669-1185-4793-bf43-0c74150ce3d3.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/3cfe95fb-65bc-4dec-a44d-38eadc5b6e9f.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/077748cf-4bfd-417f-b225-1bee62d6b782.jpeg?im_w=720",
+        ],
+        acessibility: "Imagem de Republica",
+        title: "República com 4 dormitórios próximo a UFS",
+        location: "Salvador - BA",
         price: 1000,
         sex: "Male"
     },
     {
-        image: "/republic-ex.jpeg",
+        id: 7,
+        images: [
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/5c61abbc-59f3-4d8a-8ebf-cced1fac4526.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/e97b5669-1185-4793-bf43-0c74150ce3d3.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/3cfe95fb-65bc-4dec-a44d-38eadc5b6e9f.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/077748cf-4bfd-417f-b225-1bee62d6b782.jpeg?im_w=720",
+        ],
         acessibility: "Imagem de Republica",
         title: "República com 4 dormitórios próximo a UFS",
-        location: "Salvador - Bahia",
-        price: 1000,
-        sex: "Male"
-    },    
-    {
-        image: "/republic-ex.jpeg",
-        acessibility: "Imagem de Republica",
-        title: "República com 4 dormitórios próximo a UFS",
-        location: "Salvador - Bahia",
-        price: 1000,
-        sex: "Male"
-    },
-    {
-        image: "/republic-ex.jpeg",
-        acessibility: "Imagem de Republica",
-        title: "República com 4 dormitórios próximo a UFS",
-        location: "Aracaju - SE",
-        price: 1000,
-        sex: "Female"
-    },
-    {
-        image: "/republic-ex.jpeg",
-        acessibility: "Imagem de Republica",
-        title: "República com 4 dormitórios próximo a UFS",
-        location: "Aracaju - SE",
+        location: "Salvador - BA",
         price: 1000,
         sex: "Male"
     },
     {
-        image: "/republic-ex.jpeg",
+        id: 8,
+        images: [
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/5c61abbc-59f3-4d8a-8ebf-cced1fac4526.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/e97b5669-1185-4793-bf43-0c74150ce3d3.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/3cfe95fb-65bc-4dec-a44d-38eadc5b6e9f.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/077748cf-4bfd-417f-b225-1bee62d6b782.jpeg?im_w=720",
+        ],
         acessibility: "Imagem de Republica",
         title: "República com 4 dormitórios próximo a UFS",
-        location: "Aracaju - SE",
+        location: "Salvador - BA",
         price: 1000,
         sex: "Male"
     },
     {
-        image: "/republic-ex.jpeg",
+        id: 9,
+        images: [
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/5c61abbc-59f3-4d8a-8ebf-cced1fac4526.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/e97b5669-1185-4793-bf43-0c74150ce3d3.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/3cfe95fb-65bc-4dec-a44d-38eadc5b6e9f.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/077748cf-4bfd-417f-b225-1bee62d6b782.jpeg?im_w=720",
+        ],
         acessibility: "Imagem de Republica",
         title: "República com 4 dormitórios próximo a UFS",
-        location: "Aracaju - SE",
+        location: "Salvador - BA",
         price: 1000,
-        sex: "Female"
+        sex: "Male"
     },
     {
-        image: "/republic-ex.jpeg",
+        id: 10,
+        images: [
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/5c61abbc-59f3-4d8a-8ebf-cced1fac4526.jpeg?im_w=1200",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/e97b5669-1185-4793-bf43-0c74150ce3d3.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/3cfe95fb-65bc-4dec-a44d-38eadc5b6e9f.jpeg?im_w=720",
+            "https://a0.muscache.com/im/pictures/miso/Hosting-53007186/original/077748cf-4bfd-417f-b225-1bee62d6b782.jpeg?im_w=720",
+        ],
         acessibility: "Imagem de Republica",
         title: "República com 4 dormitórios próximo a UFS",
-        location: "Aracaju - SE",
+        location: "Salvador - BA",
         price: 1000,
-        sex: "Female"
-    }
+        sex: "Male"
+    },
 ]
 
 
 export const SearchLocation = () => {
     const [search, setSearch] = useState('');
 
-    const filterAnnounceRepublicData = AnnounceRepublicData.filter(republica => republica.location.startsWith(search))
+    const filterAnnounceRepublicData = AnnounceRepublicData.filter(republica => republica.location.startsWith(search.charAt(0).toUpperCase() + search.slice(1)))
 
 
     return (
@@ -91,14 +167,29 @@ export const SearchLocation = () => {
             </div>
             <div className="w-full flex flex-wrap items-center justify-between px-32">
                 <h2 className="first-letter:font-bold">{filterAnnounceRepublicData.length} repúblicas para morar em Praia Grande - SP</h2>
-                <div className="flex flex-row gap-2 items-center bg-gray-200 px-4 py-2 rounded border-2 border-gray-500">
-                    <IoFilterOutline className="text-gray-800 text-lg" />
-                    <h2 className="font-bold">Filtrar</h2>
+                <div>
+                    <button id="dropdownDefault" data-dropdown-toggle="dropdown" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 gap-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Filter<IoFilterOutline className="text-white text-lg" /></button>
+                    <div id="dropdownDivider" className="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                        <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDividerButton">
+                            <li>
+                                <a href="#" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+                            </li>
+                            <li>
+                                <a href="#" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+                            </li>
+                            <li>
+                                <a href="#" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
+                            </li>
+                        </ul>
+                        <div className="py-1">
+                            <a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Separated link</a>
+                        </div>
+                    </div>
                 </div>
             </div>
             <main className="flex flex-row flex-wrap justify-center gap-4 mt-8 mb-14">
-                {filterAnnounceRepublicData.map((data, id) =>
-                    <AnnounceRepublic key={id} image={data.image}
+                {filterAnnounceRepublicData.map((data) =>
+                    <AnnounceRepublic id={data.id} images={data.images}
                         accessibility={data.acessibility}
                         title={data.title}
                         location={data.location}
