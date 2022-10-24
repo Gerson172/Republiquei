@@ -188,8 +188,8 @@ export const SearchLocation = () => {
                 </div>
             </div>
             <main className="flex flex-row flex-wrap justify-center gap-4 mt-8 mb-14">
-                {filterAnnounceRepublicData.map((data) =>
-                    <AnnounceRepublic id={data.id} images={data.images}
+                {filterAnnounceRepublicData.map((data, id) =>
+                    <AnnounceRepublic key={id} id={data.id} images={data.images}
                         accessibility={data.acessibility}
                         title={data.title}
                         location={data.location}
