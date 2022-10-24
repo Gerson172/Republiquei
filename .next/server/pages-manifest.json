@@ -1,0 +1,15 @@
+{
+  "/_app": "pages/_app.js",
+  "/about": "pages/about.html",
+  "/announce": "pages/announce.html",
+  "/help": "pages/help.html",
+  "/": "pages/index.html",
+  "/login": "pages/login.html",
+  "/register": "pages/register.html",
+  "/republic/[id]": "pages/republic/[id].html",
+  "/searchRepublic": "pages/searchRepublic.html",
+  "/owner": "pages/owner.html",
+  "/_error": "pages/_error.js",
+  "/_document": "pages/_document.js",
+  "/404": "pages/404.html"
+}
