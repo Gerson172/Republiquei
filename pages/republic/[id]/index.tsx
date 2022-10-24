@@ -4,10 +4,6 @@ import { RadioGroup } from '@headlessui/react'
 import NavBar from '../../../components/NavBar'
 import { AnnounceRepublicData } from '../../searchRepublic'
 import { type } from 'os'
-<<<<<<< HEAD
-=======
-import { useRouter } from 'next/router'
->>>>>>> 0939047 (fix: correcao de build)
 
 
 type AnnounceRepublicDataProps = {
@@ -83,10 +79,6 @@ export default function Republic() {
             <h2 className="sr-only">Product information</h2>
             <p className="text-3xl tracking-tight text-gray-900">{AnnounceRepublicData[0].price.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</p>
 
-<<<<<<< HEAD
-            {/* Reviews */}
-=======
->>>>>>> 0939047 (fix: correcao de build)
             <div className="mt-6">
               <h3 className="sr-only">Reviews</h3>
               <div className="flex items-center">
