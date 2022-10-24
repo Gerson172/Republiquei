@@ -16,6 +16,7 @@ module.exports = {
   experimental: {
     images: {
       unoptimized: true,
+      loader: 'static',
     },
   }
 };
