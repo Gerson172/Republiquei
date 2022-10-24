@@ -20,9 +20,6 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
-const url = location.href
-url.lastIndexOf
-
 export default function Republic() {
 
     const reviews = { href: '#', average: 4, totalCount: 117 }
