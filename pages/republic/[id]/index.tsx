@@ -4,6 +4,7 @@ import { RadioGroup } from '@headlessui/react'
 import NavBar from '../../../components/NavBar'
 import { AnnounceRepublicData } from '../../searchRepublic'
 import { type } from 'os'
+import Image from 'next/image'
 
 
 type AnnounceRepublicDataProps = {
@@ -39,7 +40,7 @@ export default function Republic() {
       <div>
         <div className="mx-auto mt-6 max-w-xl sm:px-6 lg:grid lg:max-w-4xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
           <div className="aspect-w-4 aspect-auto aspect-h-4 hidden overflow-hidden rounded-lg lg:block">
-            <img
+            <Image
               src={AnnounceRepublicData[0].images[0]}
               alt={AnnounceRepublicData[0].acessibility}
               className="h-full w-full object-cover object-center"
@@ -47,14 +48,14 @@ export default function Republic() {
           </div>
           <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
             <div className="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg">
-              <img
+              <Image
                 src={AnnounceRepublicData[0].images[1]}
                 alt={AnnounceRepublicData[0].acessibility}
                 className="h-full w-full object-cover object-center"
               />
             </div>
             <div className="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg">
-              <img
+              <Image
                 src={AnnounceRepublicData[0].images[2]}
                 alt={AnnounceRepublicData[0].acessibility}
                 className="h-full w-full object-cover object-center"
@@ -62,7 +63,7 @@ export default function Republic() {
             </div>
           </div>
           <div className="aspect-w-4 aspect-h-5 sm:overflow-hidden sm:rounded-lg lg:aspect-w-3 lg:aspect-h-4">
-            <img
+            <Image
               src={AnnounceRepublicData[0].images[2]}
               alt={AnnounceRepublicData[0].acessibility}
               className="h-full w-full object-cover object-center"

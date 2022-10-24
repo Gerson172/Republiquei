@@ -20,15 +20,14 @@ function NavBar() {
                     <div className="flex items-center justify-between py-3 md:py-5 md:block">
                         <Link href="/">
                             <a className="flex flex-row items-center gap-x-2" href="javascript:void(0)">
-                                <Image src="/favicon.png" width={50} height={50} />
+                                <Image alt="logo" src="/favicon.png" width={50} height={50} />
                                 <h2 className="text-2xl text-sky-500 font-bold dark:text-white uppercase">Republiquei</h2>
                             </a>
                         </Link>
                         <div className="md:hidden">
                             <button
                                 className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
-                                onClick={() => setNavbar(!navbar)}
-                            >
+                                onClick={() => setNavbar(!navbar)}>
                                 {navbar ? (
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"

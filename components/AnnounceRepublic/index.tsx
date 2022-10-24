@@ -15,9 +15,6 @@ type AnnounceRepublicProps = {
     sex: string;
 }
 
-
-
-
 function AnnounceRepublic({id, images, accessibility, title, location, price, sex }: AnnounceRepublicProps) {
 
     return (
@@ -26,16 +23,16 @@ function AnnounceRepublic({id, images, accessibility, title, location, price, se
             <div className="transition ease-in-out delay-200 w-full max-w-sm bg-white border-2 mb-8 rounded-lg drop-shadow-md dark:bg-gray-800 dark:border-gray-700 hover:scale-105">
                 <div className="carousel pb-4 rounded-t-lg">
                     <div className="carousel-item w-full h-64 rounded-t-lg">
-                        <img className="object-cover object-center" width={400} height={200} src={images[0]} alt={accessibility} />
+                        <Image className="object-cover object-center" width={400} height={200} src={images[0]} alt={accessibility} />
                     </div>
                     <div className="carousel-item w-full h-64">
-                        <img className="object-cover object-center" width={400} height={200}src={images[1]} alt={accessibility} />
+                        <Image className="object-cover object-center" width={400} height={200}src={images[1]} alt={accessibility} />
                     </div>
                     <div className="carousel-item w-full h-64">
-                        <img className="object-cover object-center" width={400} height={200} src={images[2]} alt={accessibility} />
+                        <Image className="object-cover object-center" width={400} height={200} src={images[2]} alt={accessibility} />
                     </div>
                     <div className="carousel-item w-full h-64">
-                        <img className="object-cover object-center" width={400} height={200} src={images[3]} alt={accessibility} />
+                        <Image className="object-cover object-center" width={400} height={200} src={images[3]} alt={accessibility} />
                     </div>
                 </div>
                 <div className="px-7 pb-5 text-center">
