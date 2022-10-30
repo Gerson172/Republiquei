@@ -34,6 +34,11 @@ export default function Republic() {
     'HDTV de 50" com Netflix',
     'Elevador']
 
+    const customLoader = ({ src }:any) => {
+      return src
+    }
+  
+
   return (
     <>
     <NavBar/>
@@ -41,32 +46,52 @@ export default function Republic() {
         <div className="mx-auto mt-6 max-w-xl sm:px-6 lg:grid lg:max-w-4xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
           <div className="aspect-w-4 aspect-auto aspect-h-4 hidden overflow-hidden rounded-lg lg:block">
             <Image
+              loader={customLoader}
               src={AnnounceRepublicData[0].images[0]}
               alt={AnnounceRepublicData[0].acessibility}
-              className="h-full w-full object-cover object-center"
+              layout="responsive"
+              width="100%"
+              height="215%"
+              objectFit="cover"
+              className="object-center"
             />
           </div>
           <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
             <div className="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg">
               <Image
+                loader={customLoader}
                 src={AnnounceRepublicData[0].images[1]}
                 alt={AnnounceRepublicData[0].acessibility}
-                className="h-full w-full object-cover object-center"
+                layout="responsive"
+                width="100%"
+                height="100%"
+                objectFit="cover"
+                className="object-center"
               />
             </div>
             <div className="aspect-w-3 aspect-h-2 overflow-hidden rounded-lg">
               <Image
+                loader={customLoader}
                 src={AnnounceRepublicData[0].images[2]}
                 alt={AnnounceRepublicData[0].acessibility}
-                className="h-full w-full object-cover object-center"
+                layout="responsive"
+                width="100%"
+                height="100%"
+                objectFit="cover"
+                className="object-center"
               />
             </div>
           </div>
           <div className="aspect-w-4 aspect-h-5 sm:overflow-hidden sm:rounded-lg lg:aspect-w-3 lg:aspect-h-4">
             <Image
+              loader={customLoader}
               src={AnnounceRepublicData[0].images[2]}
               alt={AnnounceRepublicData[0].acessibility}
-              className="h-full w-full object-cover object-center"
+              layout="responsive"
+              width="100%"
+              height="215%"
+              objectFit="cover"
+              className="object-center"
             />
           </div>
         </div>

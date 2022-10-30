@@ -11,16 +11,23 @@ function getStaticProps() {
     return router.pathname == "/searchRepublic";
 }
 
+
 function NavBar() {
     const [navbar, setNavbar] = useState(false);
+
+    const customLoader = ({ src }:any) => {
+        return src
+      }
+    
+
     return (
-        <nav className="w-full bg-white mb-10 dark:bg-gray-800 drop-shadow">
+        <nav className="w-full bg-white dark:bg-gray-800 drop-shadow">
             <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
                 <div>
                     <div className="flex items-center justify-between py-3 md:py-5 md:block">
                         <Link href="/">
                             <a className="flex flex-row items-center gap-x-2" href="javascript:void(0)">
-                                <Image alt="logo" src="/favicon.png" width={50} height={50} />
+                                <Image loader={customLoader} alt="logo" src="/favicon.png" width={50} height={50} />
                                 <h2 className="text-2xl text-sky-500 font-bold dark:text-white uppercase">Republiquei</h2>
                             </a>
                         </Link>
@@ -66,11 +73,13 @@ function NavBar() {
                 </div>
 
                 <div className="hidden space-x-2 md:inline-block">
+                    <Link href="/announce">
                     <a
                         className="px-6 py-4 font-bold text-gray-800 bg-white rounded-md drop-shadow transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
                     >
                         Anunciar
                     </a>
+                    </Link>
                     <Link href="/login">
                         <a
                             className="transition ease-in-out delay-200 hover:scale-105 px-6 py-4 font-bold text-white bg-sky-500 rounded-md shadow"

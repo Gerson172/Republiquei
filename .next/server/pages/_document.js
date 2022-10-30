@@ -18,10 +18,12 @@ exports["default"] = void 0;
 var _react = _interopRequireWildcard(__webpack_require__(6689));
 var _constants = __webpack_require__(6724);
 var _getPageFiles = __webpack_require__(4140);
+var _utils = __webpack_require__(6368);
 var _htmlescape = __webpack_require__(9716);
+var _script = _interopRequireDefault(__webpack_require__(699));
 var _isError = _interopRequireDefault(__webpack_require__(676));
 var _htmlContext = __webpack_require__(8743);
-class Document extends _react.default.Component {
+class Document extends _react.Component {
     /**
    * `getInitialProps` hook returns the context object with the addition of `renderPage`.
    * `renderPage` callback executes `React` rendering logic synchronously to support server-rendering wrappers
@@ -79,7 +81,7 @@ function _interopRequireWildcard(obj) {
 }
 function getDocumentFiles(buildManifest, pathname, inAmpMode) {
     const sharedFiles = (0, _getPageFiles).getPageFiles(buildManifest, "/_app");
-    const pageFiles =  true && inAmpMode ? [] : (0, _getPageFiles).getPageFiles(buildManifest, pathname);
+    const pageFiles = inAmpMode ? [] : (0, _getPageFiles).getPageFiles(buildManifest, pathname);
     return {
         sharedFiles,
         pageFiles,
@@ -107,64 +109,45 @@ function getPolyfillScripts(context, props) {
 function hasComponentProps(child) {
     return !!child && !!child.props;
 }
-function AmpStyles({ styles  }) {
-    if (!styles) return null;
-    // try to parse styles from fragment for backwards compat
-    const curStyles = Array.isArray(styles) ? styles : [];
-    if (styles.props && // @ts-ignore Property 'props' does not exist on type ReactElement
-    Array.isArray(styles.props.children)) {
-        const hasStyles = (el)=>{
-            var ref, ref1;
-            return el == null ? void 0 : (ref = el.props) == null ? void 0 : (ref1 = ref.dangerouslySetInnerHTML) == null ? void 0 : ref1.__html;
-        };
-        // @ts-ignore Property 'props' does not exist on type ReactElement
-        styles.props.children.forEach((child)=>{
-            if (Array.isArray(child)) {
-                child.forEach((el)=>hasStyles(el) && curStyles.push(el));
-            } else if (hasStyles(child)) {
-                curStyles.push(child);
+function handleDocumentScriptLoaderItems(scriptLoader, __NEXT_DATA__, props) {
+    var ref, ref1, ref2, ref3;
+    if (!props.children) return;
+    const scriptLoaderItems = [];
+    const children = Array.isArray(props.children) ? props.children : [
+        props.children
+    ];
+    const headChildren = (ref = children.find((child)=>child.type === Head)) == null ? void 0 : (ref1 = ref.props) == null ? void 0 : ref1.children;
+    const bodyChildren = (ref2 = children.find((child)=>child.type === "body")) == null ? void 0 : (ref3 = ref2.props) == null ? void 0 : ref3.children;
+    // Scripts with beforeInteractive can be placed inside Head or <body> so children of both needs to be traversed
+    const combinedChildren = [
+        ...Array.isArray(headChildren) ? headChildren : [
+            headChildren
+        ],
+        ...Array.isArray(bodyChildren) ? bodyChildren : [
+            bodyChildren
+        ], 
+    ];
+    _react.default.Children.forEach(combinedChildren, (child)=>{
+        if (!child) return;
+        if (child.type === _script.default) {
+            if (child.props.strategy === "beforeInteractive") {
+                scriptLoader.beforeInteractive = (scriptLoader.beforeInteractive || []).concat([
+                    {
+                        ...child.props
+                    }, 
+                ]);
+                return;
+            } else if ([
+                "lazyOnload",
+                "afterInteractive",
+                "worker"
+            ].includes(child.props.strategy)) {
+                scriptLoaderItems.push(child.props);
+                return;
             }
-        });
-    }
-    /* Add custom styles before AMP styles to prevent accidental overrides */ return /*#__PURE__*/ _react.default.createElement("style", {
-        "amp-custom": "",
-        dangerouslySetInnerHTML: {
-            __html: curStyles.map((style)=>style.props.dangerouslySetInnerHTML.__html).join("").replace(/\/\*# sourceMappingURL=.*\*\//g, "").replace(/\/\*@ sourceURL=.*?\*\//g, "")
         }
     });
-}
-function getDynamicChunks(context, props, files) {
-    const { dynamicImports , assetPrefix , isDevelopment , devOnlyCacheBusterQueryString , disableOptimizedLoading , crossOrigin ,  } = context;
-    return dynamicImports.map((file)=>{
-        if (!file.endsWith(".js") || files.allFiles.includes(file)) return null;
-        return /*#__PURE__*/ _react.default.createElement("script", {
-            async: !isDevelopment && disableOptimizedLoading,
-            defer: !disableOptimizedLoading,
-            key: file,
-            src: `${assetPrefix}/_next/${encodeURI(file)}${devOnlyCacheBusterQueryString}`,
-            nonce: props.nonce,
-            crossOrigin: props.crossOrigin || crossOrigin
-        });
-    });
-}
-function getScripts(context, props, files) {
-    var ref;
-    const { assetPrefix , buildManifest , isDevelopment , devOnlyCacheBusterQueryString , disableOptimizedLoading , crossOrigin ,  } = context;
-    const normalScripts = files.allFiles.filter((file)=>file.endsWith(".js"));
-    const lowPriorityScripts = (ref = buildManifest.lowPriorityFiles) == null ? void 0 : ref.filter((file)=>file.endsWith(".js"));
-    return [
-        ...normalScripts,
-        ...lowPriorityScripts
-    ].map((file)=>{
-        return /*#__PURE__*/ _react.default.createElement("script", {
-            key: file,
-            src: `${assetPrefix}/_next/${encodeURI(file)}${devOnlyCacheBusterQueryString}`,
-            nonce: props.nonce,
-            async: !isDevelopment && disableOptimizedLoading,
-            defer: !disableOptimizedLoading,
-            crossOrigin: props.crossOrigin || crossOrigin
-        });
-    });
+    __NEXT_DATA__.scriptLoader = scriptLoaderItems;
 }
 function getPreNextWorkerScripts(context, props) {
     const { assetPrefix , scriptLoader , crossOrigin , nextScriptWorkers  } = context;
@@ -177,8 +160,8 @@ function getPreNextWorkerScripts(context, props) {
         ];
         // Check to see if the user has defined their own Partytown configuration
         const userDefinedConfig = children.find((child)=>{
-            var ref, ref2;
-            return hasComponentProps(child) && (child == null ? void 0 : (ref = child.props) == null ? void 0 : (ref2 = ref.dangerouslySetInnerHTML) == null ? void 0 : ref2.__html.length) && "data-partytown-config" in child.props;
+            var ref, ref4;
+            return hasComponentProps(child) && (child == null ? void 0 : (ref = child.props) == null ? void 0 : (ref4 = ref.dangerouslySetInnerHTML) == null ? void 0 : ref4.__html.length) && "data-partytown-config" in child.props;
         });
         return /*#__PURE__*/ _react.default.createElement(_react.default.Fragment, null, !userDefinedConfig && /*#__PURE__*/ _react.default.createElement("script", {
             "data-partytown-config": "",
@@ -244,16 +227,81 @@ function getPreNextScripts(context, props) {
     });
     return /*#__PURE__*/ _react.default.createElement(_react.default.Fragment, null, webWorkerScripts, beforeInteractiveScripts);
 }
-function getHeadHTMLProps(props) {
-    const { crossOrigin , nonce , ...restProps } = props;
-    // This assignment is necessary for additional type checking to avoid unsupported attributes in <head>
-    const headProps = restProps;
-    return headProps;
+function getDynamicChunks(context, props, files) {
+    const { dynamicImports , assetPrefix , isDevelopment , devOnlyCacheBusterQueryString , disableOptimizedLoading , crossOrigin ,  } = context;
+    return dynamicImports.map((file)=>{
+        if (!file.endsWith(".js") || files.allFiles.includes(file)) return null;
+        return /*#__PURE__*/ _react.default.createElement("script", {
+            async: !isDevelopment && disableOptimizedLoading,
+            defer: !disableOptimizedLoading,
+            key: file,
+            src: `${assetPrefix}/_next/${encodeURI(file)}${devOnlyCacheBusterQueryString}`,
+            nonce: props.nonce,
+            crossOrigin: props.crossOrigin || crossOrigin
+        });
+    });
 }
-function getAmpPath(ampPath, asPath) {
-    return ampPath || `${asPath}${asPath.includes("?") ? "&" : "?"}amp=1`;
+function getScripts(context, props, files) {
+    var ref;
+    const { assetPrefix , buildManifest , isDevelopment , devOnlyCacheBusterQueryString , disableOptimizedLoading , crossOrigin ,  } = context;
+    const normalScripts = files.allFiles.filter((file)=>file.endsWith(".js"));
+    const lowPriorityScripts = (ref = buildManifest.lowPriorityFiles) == null ? void 0 : ref.filter((file)=>file.endsWith(".js"));
+    return [
+        ...normalScripts,
+        ...lowPriorityScripts
+    ].map((file)=>{
+        return /*#__PURE__*/ _react.default.createElement("script", {
+            key: file,
+            src: `${assetPrefix}/_next/${encodeURI(file)}${devOnlyCacheBusterQueryString}`,
+            nonce: props.nonce,
+            async: !isDevelopment && disableOptimizedLoading,
+            defer: !disableOptimizedLoading,
+            crossOrigin: props.crossOrigin || crossOrigin
+        });
+    });
 }
-class Head extends _react.default.Component {
+// Add a special property to the built-in `Document` component so later we can
+// identify if a user customized `Document` is used or not.
+const InternalFunctionDocument = function InternalFunctionDocument() {
+    return /*#__PURE__*/ _react.default.createElement(Html, null, /*#__PURE__*/ _react.default.createElement(Head, null), /*#__PURE__*/ _react.default.createElement("body", null, /*#__PURE__*/ _react.default.createElement(Main, null), /*#__PURE__*/ _react.default.createElement(NextScript, null)));
+};
+Document[_constants.NEXT_BUILTIN_DOCUMENT] = InternalFunctionDocument;
+function Html(props) {
+    const { inAmpMode , docComponentsRendered , locale , scriptLoader , __NEXT_DATA__ ,  } = (0, _react).useContext(_htmlContext.HtmlContext);
+    docComponentsRendered.Html = true;
+    handleDocumentScriptLoaderItems(scriptLoader, __NEXT_DATA__, props);
+    return /*#__PURE__*/ _react.default.createElement("html", Object.assign({}, props, {
+        lang: props.lang || locale || undefined,
+        amp: inAmpMode ? "" : undefined,
+        "data-ampdevmode": inAmpMode && "production" !== "production" ? 0 : undefined
+    }));
+}
+function AmpStyles({ styles  }) {
+    if (!styles) return null;
+    // try to parse styles from fragment for backwards compat
+    const curStyles = Array.isArray(styles) ? styles : [];
+    if (styles.props && Array.isArray(styles.props.children)) {
+        const hasStyles = (el)=>{
+            var ref, ref5;
+            return el == null ? void 0 : (ref = el.props) == null ? void 0 : (ref5 = ref.dangerouslySetInnerHTML) == null ? void 0 : ref5.__html;
+        };
+        // @ts-ignore Property 'props' does not exist on type ReactElement
+        styles.props.children.forEach((child)=>{
+            if (Array.isArray(child)) {
+                child.forEach((el)=>hasStyles(el) && curStyles.push(el));
+            } else if (hasStyles(child)) {
+                curStyles.push(child);
+            }
+        });
+    }
+    /* Add custom styles before AMP styles to prevent accidental overrides */ return /*#__PURE__*/ _react.default.createElement("style", {
+        "amp-custom": "",
+        dangerouslySetInnerHTML: {
+            __html: curStyles.map((style)=>style.props.dangerouslySetInnerHTML.__html).join("").replace(/\/\*# sourceMappingURL=.*\*\//g, "").replace(/\/\*@ sourceURL=.*?\*\//g, "")
+        }
+    });
+}
+class Head extends _react.Component {
     static contextType = _htmlContext.HtmlContext;
     getCssLinks(files) {
         const { assetPrefix , devOnlyCacheBusterQueryString , dynamicImports , crossOrigin , optimizeCss , optimizeFonts ,  } = this.context;
@@ -375,10 +423,10 @@ class Head extends _react.default.Component {
     }
     makeStylesheetInert(node) {
         return _react.default.Children.map(node, (c)=>{
-            var ref5, ref3;
-            if ((c == null ? void 0 : c.type) === "link" && (c == null ? void 0 : (ref5 = c.props) == null ? void 0 : ref5.href) && _constants.OPTIMIZED_FONT_PROVIDERS.some(({ url  })=>{
-                var ref, ref4;
-                return c == null ? void 0 : (ref = c.props) == null ? void 0 : (ref4 = ref.href) == null ? void 0 : ref4.startsWith(url);
+            var ref8, ref6;
+            if ((c == null ? void 0 : c.type) === "link" && (c == null ? void 0 : (ref8 = c.props) == null ? void 0 : ref8.href) && _constants.OPTIMIZED_FONT_PROVIDERS.some(({ url  })=>{
+                var ref, ref7;
+                return c == null ? void 0 : (ref = c.props) == null ? void 0 : (ref7 = ref.href) == null ? void 0 : ref7.startsWith(url);
             })) {
                 const newProps = {
                     ...c.props || {},
@@ -386,7 +434,7 @@ class Head extends _react.default.Component {
                     href: undefined
                 };
                 return /*#__PURE__*/ _react.default.cloneElement(c, newProps);
-            } else if (c == null ? void 0 : (ref3 = c.props) == null ? void 0 : ref3.children) {
+            } else if (c == null ? void 0 : (ref6 = c.props) == null ? void 0 : ref6.children) {
                 const newProps1 = {
                     ...c.props || {},
                     children: this.makeStylesheetInert(c.props.children)
@@ -417,7 +465,7 @@ class Head extends _react.default.Component {
         let children = _react.default.Children.toArray(this.props.children).filter(Boolean);
         // show a warning if Head contains <title> (only in development)
         if (false) {}
-        if ( true && optimizeFonts && !( true && inAmpMode)) {
+        if ( true && optimizeFonts && !inAmpMode) {
             children = this.makeStylesheetInert(children);
         }
         let hasAmphtmlRel = false;
@@ -426,7 +474,7 @@ class Head extends _react.default.Component {
         head = _react.default.Children.map(head || [], (child)=>{
             if (!child) return child;
             const { type , props  } = child;
-            if ( true && inAmpMode) {
+            if (inAmpMode) {
                 let badProp = "";
                 if (type === "meta" && props.name === "viewport") {
                     badProp = 'name="viewport"';
@@ -457,17 +505,17 @@ class Head extends _react.default.Component {
             }
             return child;
         });
-        const files = getDocumentFiles(this.context.buildManifest, this.context.__NEXT_DATA__.page,  true && inAmpMode);
+        const files = getDocumentFiles(this.context.buildManifest, this.context.__NEXT_DATA__.page, inAmpMode);
         var _nonce, _nonce1;
         return /*#__PURE__*/ _react.default.createElement("head", Object.assign({}, getHeadHTMLProps(this.props)), this.context.isDevelopment && /*#__PURE__*/ _react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/ _react.default.createElement("style", {
             "data-next-hide-fouc": true,
-            "data-ampdevmode":  true && inAmpMode ? "true" : undefined,
+            "data-ampdevmode": inAmpMode ? "true" : undefined,
             dangerouslySetInnerHTML: {
                 __html: `body{display:none}`
             }
         }), /*#__PURE__*/ _react.default.createElement("noscript", {
             "data-next-hide-fouc": true,
-            "data-ampdevmode":  true && inAmpMode ? "true" : undefined
+            "data-ampdevmode": inAmpMode ? "true" : undefined
         }, /*#__PURE__*/ _react.default.createElement("style", {
             dangerouslySetInnerHTML: {
                 __html: `body{display:block}`
@@ -477,12 +525,12 @@ class Head extends _react.default.Component {
             content: _react.default.Children.count(head || []).toString()
         }), children, optimizeFonts && /*#__PURE__*/ _react.default.createElement("meta", {
             name: "next-font-preconnect"
-        }),  true && inAmpMode && /*#__PURE__*/ _react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/ _react.default.createElement("meta", {
+        }), inAmpMode && /*#__PURE__*/ _react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/ _react.default.createElement("meta", {
             name: "viewport",
             content: "width=device-width,minimum-scale=1,initial-scale=1"
         }), !hasCanonicalRel && /*#__PURE__*/ _react.default.createElement("link", {
             rel: "canonical",
-            href: canonicalBase + (__webpack_require__(6368).cleanAmpPath)(dangerousAsPath)
+            href: canonicalBase + (0, _utils).cleanAmpPath(dangerousAsPath)
         }), /*#__PURE__*/ _react.default.createElement("link", {
             rel: "preload",
             as: "script",
@@ -502,15 +550,14 @@ class Head extends _react.default.Component {
         })), /*#__PURE__*/ _react.default.createElement("script", {
             async: true,
             src: "https://cdn.ampproject.org/v0.js"
-        })), !( true && inAmpMode) && /*#__PURE__*/ _react.default.createElement(_react.default.Fragment, null, !hasAmphtmlRel && hybridAmp && /*#__PURE__*/ _react.default.createElement("link", {
+        })), !inAmpMode && /*#__PURE__*/ _react.default.createElement(_react.default.Fragment, null, !hasAmphtmlRel && hybridAmp && /*#__PURE__*/ _react.default.createElement("link", {
             rel: "amphtml",
             href: canonicalBase + getAmpPath(ampPath, dangerousAsPath)
         }), this.getBeforeInteractiveInlineScripts(), !optimizeCss && this.getCssLinks(files), !optimizeCss && /*#__PURE__*/ _react.default.createElement("noscript", {
             "data-n-css": (_nonce = this.props.nonce) != null ? _nonce : ""
         }), !disableRuntimeJS && !disableJsPreload && this.getPreloadDynamicChunks(), !disableRuntimeJS && !disableJsPreload && this.getPreloadMainLinks(files), !disableOptimizedLoading && !disableRuntimeJS && this.getPolyfillScripts(), !disableOptimizedLoading && !disableRuntimeJS && this.getPreNextScripts(), !disableOptimizedLoading && !disableRuntimeJS && this.getDynamicChunks(files), !disableOptimizedLoading && !disableRuntimeJS && this.getScripts(files), optimizeCss && this.getCssLinks(files), optimizeCss && /*#__PURE__*/ _react.default.createElement("noscript", {
             "data-n-css": (_nonce1 = this.props.nonce) != null ? _nonce1 : ""
-        }), this.context.isDevelopment && // this element is used to mount development styles so the
-        // ordering matches production
+        }), this.context.isDevelopment && // ordering matches production
         // (by default, style-loader injects at the bottom of <head />)
         /*#__PURE__*/ _react.default.createElement("noscript", {
             id: "__next_css__DO_NOT_USE__"
@@ -518,49 +565,13 @@ class Head extends _react.default.Component {
     }
 }
 exports.Head = Head;
-function handleDocumentScriptLoaderItems(scriptLoader, __NEXT_DATA__, props) {
-    var ref10, ref7, ref8, ref9;
-    if (!props.children) return;
-    const scriptLoaderItems = [];
-    const children = Array.isArray(props.children) ? props.children : [
-        props.children
-    ];
-    const headChildren = (ref10 = children.find((child)=>child.type === Head)) == null ? void 0 : (ref7 = ref10.props) == null ? void 0 : ref7.children;
-    const bodyChildren = (ref8 = children.find((child)=>child.type === "body")) == null ? void 0 : (ref9 = ref8.props) == null ? void 0 : ref9.children;
-    // Scripts with beforeInteractive can be placed inside Head or <body> so children of both needs to be traversed
-    const combinedChildren = [
-        ...Array.isArray(headChildren) ? headChildren : [
-            headChildren
-        ],
-        ...Array.isArray(bodyChildren) ? bodyChildren : [
-            bodyChildren
-        ], 
-    ];
-    _react.default.Children.forEach(combinedChildren, (child)=>{
-        var ref;
-        if (!child) return;
-        // When using the `next/script` component, register it in script loader.
-        if ((ref = child.type) == null ? void 0 : ref.__nextScript) {
-            if (child.props.strategy === "beforeInteractive") {
-                scriptLoader.beforeInteractive = (scriptLoader.beforeInteractive || []).concat([
-                    {
-                        ...child.props
-                    }, 
-                ]);
-                return;
-            } else if ([
-                "lazyOnload",
-                "afterInteractive",
-                "worker"
-            ].includes(child.props.strategy)) {
-                scriptLoaderItems.push(child.props);
-                return;
-            }
-        }
-    });
-    __NEXT_DATA__.scriptLoader = scriptLoaderItems;
+function Main() {
+    const { docComponentsRendered  } = (0, _react).useContext(_htmlContext.HtmlContext);
+    docComponentsRendered.Main = true;
+    // @ts-ignore
+    return /*#__PURE__*/ _react.default.createElement("next-js-internal-body-render-target", null);
 }
-class NextScript extends _react.default.Component {
+class NextScript extends _react.Component {
     static contextType = _htmlContext.HtmlContext;
     getDynamicChunks(files) {
         return getDynamicChunks(this.context, this.props, files);
@@ -578,10 +589,10 @@ class NextScript extends _react.default.Component {
         const { __NEXT_DATA__ , largePageDataBytes  } = context;
         try {
             const data = JSON.stringify(__NEXT_DATA__);
-            const bytes =  false ? 0 : Buffer.from(data).byteLength;
+            const bytes = Buffer.from(data).byteLength;
             const prettyBytes = (__webpack_require__(5955)/* ["default"] */ .Z);
             if (largePageDataBytes && bytes > largePageDataBytes) {
-                console.warn(`Warning: data for page "${__NEXT_DATA__.page}"${__NEXT_DATA__.page === context.dangerousAsPath ? "" : ` (path "${context.dangerousAsPath}")`} is ${prettyBytes(bytes)} which exceeds the threshold of ${prettyBytes(largePageDataBytes)}, this amount of data can reduce performance.\nSee more info here: https://nextjs.org/docs/messages/large-page-data`);
+                console.warn(`Warning: data for page "${__NEXT_DATA__.page}" is ${prettyBytes(bytes)} which exceeds the threshold of ${prettyBytes(largePageDataBytes)}, this amount of data can reduce performance.\nSee more info here: https://nextjs.org/docs/messages/large-page-data`);
             }
             return (0, _htmlescape).htmlEscapeJsonString(data);
         } catch (err) {
@@ -595,7 +606,7 @@ class NextScript extends _react.default.Component {
         const { assetPrefix , inAmpMode , buildManifest , unstable_runtimeJS , docComponentsRendered , devOnlyCacheBusterQueryString , disableOptimizedLoading , crossOrigin ,  } = this.context;
         const disableRuntimeJS = unstable_runtimeJS === false;
         docComponentsRendered.NextScript = true;
-        if ( true && inAmpMode) {
+        if (inAmpMode) {
             if (true) {
                 return null;
             }
@@ -622,7 +633,7 @@ class NextScript extends _react.default.Component {
                 })));
         }
         if (false) {}
-        const files = getDocumentFiles(this.context.buildManifest, this.context.__NEXT_DATA__.page,  true && inAmpMode);
+        const files = getDocumentFiles(this.context.buildManifest, this.context.__NEXT_DATA__.page, inAmpMode);
         return /*#__PURE__*/ _react.default.createElement(_react.default.Fragment, null, !disableRuntimeJS && buildManifest.devFiles ? buildManifest.devFiles.map((file)=>/*#__PURE__*/ _react.default.createElement("script", {
                 key: file,
                 src: `${assetPrefix}/_next/${encodeURI(file)}${devOnlyCacheBusterQueryString}`,
@@ -640,28 +651,15 @@ class NextScript extends _react.default.Component {
     }
 }
 exports.NextScript = NextScript;
-function Html(props) {
-    const { inAmpMode , docComponentsRendered , locale , scriptLoader , __NEXT_DATA__ ,  } = (0, _react).useContext(_htmlContext.HtmlContext);
-    docComponentsRendered.Html = true;
-    handleDocumentScriptLoaderItems(scriptLoader, __NEXT_DATA__, props);
-    return /*#__PURE__*/ _react.default.createElement("html", Object.assign({}, props, {
-        lang: props.lang || locale || undefined,
-        amp:  true && inAmpMode ? "" : undefined,
-        "data-ampdevmode":  true && inAmpMode && "production" !== "production" ? 0 : undefined
-    }));
+function getAmpPath(ampPath, asPath) {
+    return ampPath || `${asPath}${asPath.includes("?") ? "&" : "?"}amp=1`;
 }
-function Main() {
-    const { docComponentsRendered  } = (0, _react).useContext(_htmlContext.HtmlContext);
-    docComponentsRendered.Main = true;
-    // @ts-ignore
-    return /*#__PURE__*/ _react.default.createElement("next-js-internal-body-render-target", null);
-}
-// Add a special property to the built-in `Document` component so later we can
-// identify if a user customized `Document` is used or not.
-const InternalFunctionDocument = function InternalFunctionDocument() {
-    return /*#__PURE__*/ _react.default.createElement(Html, null, /*#__PURE__*/ _react.default.createElement(Head, null), /*#__PURE__*/ _react.default.createElement("body", null, /*#__PURE__*/ _react.default.createElement(Main, null), /*#__PURE__*/ _react.default.createElement(NextScript, null)));
-};
-Document[_constants.NEXT_BUILTIN_DOCUMENT] = InternalFunctionDocument; //# sourceMappingURL=_document.js.map
+function getHeadHTMLProps(props) {
+    const { crossOrigin , nonce , ...restProps } = props;
+    // This assignment is necessary for additional type checking to avoid unsupported attributes in <head>
+    const headProps = restProps;
+    return headProps;
+} //# sourceMappingURL=_document.js.map
 
 
 /***/ }),
@@ -766,6 +764,13 @@ module.exports = require("next/dist/shared/lib/constants.js");
 
 /***/ }),
 
+/***/ 2796:
+/***/ ((module) => {
+
+module.exports = require("next/dist/shared/lib/head-manager-context.js");
+
+/***/ }),
+
 /***/ 8743:
 /***/ ((module) => {
 
@@ -794,7 +799,7 @@ module.exports = require("react");
 var __webpack_require__ = require("../webpack-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = __webpack_require__.X(0, [676], () => (__webpack_exec__(3105)));
+var __webpack_exports__ = __webpack_require__.X(0, [952], () => (__webpack_exec__(3105)));
 module.exports = __webpack_exports__;
 
 })();

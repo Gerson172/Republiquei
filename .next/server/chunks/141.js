@@ -56,16 +56,22 @@ function NavBarBuilder({ navbar  }) {
                     }),
                     /*#__PURE__*/ jsx_runtime_.jsx("li", {
                         className: "dark:text-white hover:text-sky-500",
-                        children: /*#__PURE__*/ jsx_runtime_.jsx("a", {
-                            href: "javascript:void(0)",
-                            children: "Sobre n\xf3s"
+                        children: /*#__PURE__*/ jsx_runtime_.jsx((link_default()), {
+                            href: "/about",
+                            children: /*#__PURE__*/ jsx_runtime_.jsx("a", {
+                                href: "javascript:void(0)",
+                                children: "Sobre n\xf3s"
+                            })
                         })
                     }),
                     /*#__PURE__*/ jsx_runtime_.jsx("li", {
                         className: "dark:text-white hover:text-sky-500",
-                        children: /*#__PURE__*/ jsx_runtime_.jsx("a", {
-                            href: "javascript:void(0)",
-                            children: "Ajuda"
+                        children: /*#__PURE__*/ jsx_runtime_.jsx((link_default()), {
+                            href: "/help",
+                            children: /*#__PURE__*/ jsx_runtime_.jsx("a", {
+                                href: "javascript:void(0)",
+                                children: "Ajuda"
+                            })
                         })
                     })
                 ]
@@ -108,8 +114,11 @@ function getStaticProps() {
 }
 function NavBar() {
     const { 0: navbar , 1: setNavbar  } = (0,external_react_.useState)(false);
+    const customLoader = ({ src  })=>{
+        return src;
+    };
     return /*#__PURE__*/ jsx_runtime_.jsx("nav", {
-        className: "w-full bg-white mb-10 dark:bg-gray-800 drop-shadow",
+        className: "w-full bg-white dark:bg-gray-800 drop-shadow",
         children: /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
             className: "justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8",
             children: [
@@ -124,6 +133,7 @@ function NavBar() {
                                     href: "javascript:void(0)",
                                     children: [
                                         /*#__PURE__*/ jsx_runtime_.jsx((image_default()), {
+                                            loader: customLoader,
                                             alt: "logo",
                                             src: "/favicon.png",
                                             width: 50,
@@ -177,9 +187,12 @@ function NavBar() {
                 /*#__PURE__*/ (0,jsx_runtime_.jsxs)("div", {
                     className: "hidden space-x-2 md:inline-block",
                     children: [
-                        /*#__PURE__*/ jsx_runtime_.jsx("a", {
-                            className: "px-6 py-4 font-bold text-gray-800 bg-white rounded-md drop-shadow transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300",
-                            children: "Anunciar"
+                        /*#__PURE__*/ jsx_runtime_.jsx((link_default()), {
+                            href: "/announce",
+                            children: /*#__PURE__*/ jsx_runtime_.jsx("a", {
+                                className: "px-6 py-4 font-bold text-gray-800 bg-white rounded-md drop-shadow transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300",
+                                children: "Anunciar"
+                            })
                         }),
                         /*#__PURE__*/ jsx_runtime_.jsx((link_default()), {
                             href: "/login",

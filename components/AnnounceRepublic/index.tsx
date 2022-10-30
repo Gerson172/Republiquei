@@ -4,6 +4,8 @@ import { type } from "os";
 import { MapPinIcon } from "@heroicons/react/24/solid";
 import { FaMale, FaFemale, FaBed} from "react-icons/fa";
 import { IoMaleFemale } from "react-icons/io5";
+import { AnnounceRepublicData } from "../../pages/searchRepublic";
+
 
 type AnnounceRepublicProps = {
     id: number,
@@ -17,22 +19,26 @@ type AnnounceRepublicProps = {
 
 function AnnounceRepublic({id, images, accessibility, title, location, price, sex }: AnnounceRepublicProps) {
 
+const customLoader = ({ src }:any) => {
+    return src
+  }
+
     return (
         <>
             <Link href={'republic/'+id}>
             <div className="transition ease-in-out delay-200 w-full max-w-sm bg-white border-2 mb-8 rounded-lg drop-shadow-md dark:bg-gray-800 dark:border-gray-700 hover:scale-105">
                 <div className="carousel pb-4 rounded-t-lg">
                     <div className="carousel-item w-full h-64 rounded-t-lg">
-                        <Image className="object-cover object-center" width={400} height={200} src={images[0]} alt={accessibility} />
+                        <Image className="object-cover object-center" loader={customLoader} width={400} src={AnnounceRepublicData[0].images[0]}  height={400} alt={accessibility} />
                     </div>
                     <div className="carousel-item w-full h-64">
-                        <Image className="object-cover object-center" width={400} height={200}src={images[1]} alt={accessibility} />
+                        <Image className="object-cover object-center" loader={customLoader} width={400} height={400} src={AnnounceRepublicData[0].images[1]}  alt={accessibility} />
                     </div>
                     <div className="carousel-item w-full h-64">
-                        <Image className="object-cover object-center" width={400} height={200} src={images[2]} alt={accessibility} />
+                        <Image className="object-cover object-center" loader={customLoader} width={400} height={400} src={AnnounceRepublicData[0].images[2]} alt={accessibility} />
                     </div>
                     <div className="carousel-item w-full h-64">
-                        <Image className="object-cover object-center" width={400} height={200} src={images[3]} alt={accessibility} />
+                        <Image className="object-cover object-center" loader={customLoader} width={400} height={400} src={AnnounceRepublicData[0].images[3]} alt={accessibility} />
                     </div>
                 </div>
                 <div className="px-7 pb-5 text-center">

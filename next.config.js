@@ -1,25 +1,24 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true
+  swcMinify: true,
+  images: {
+    domains: ['images.unsplash.com', 'a0.muscache.com', 'i.pinimg.com', 'github.com','play-lh.googleusercontent.com'],
+    unoptimized: true,
+    loader: 'akamai',
+    path: '',
+  }
+
 }
 
 const path = require('path')
 
 module.exports = {
   distDir: 'build',
-  sassOptions: {
-    includePaths: [path.join(__dirname, 'styles')]
-  },
   images: {
-    domains: ["images.unsplash.com"],
+    unoptimized: true,
+    loader: 'imgix',
   },
-  experimental: {
-    images: {
-      unoptimized: true,
-      loader: 'static',
-    },
-  }
 };
 
 module.exports = nextConfig

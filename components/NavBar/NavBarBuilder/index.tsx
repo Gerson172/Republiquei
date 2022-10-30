@@ -20,10 +20,10 @@ function NavBarBuilder({ navbar }: NavBarBuilderProps) {
                     <Link href="/owner"><a href="javascript:void(0)">Para Proprietarios</a></Link>
                 </li>
                 <li className="dark:text-white hover:text-sky-500">
-                    <a href="javascript:void(0)">Sobre nós</a>
+                    <Link href="/about"><a href="javascript:void(0)">Sobre nós</a></Link>
                 </li>
                 <li className="dark:text-white hover:text-sky-500">
-                    <a href="javascript:void(0)">Ajuda</a>
+                    <Link href="/help"><a href="javascript:void(0)">Ajuda</a></Link> 
                 </li>
             </ul>
 
