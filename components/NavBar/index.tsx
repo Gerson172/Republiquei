@@ -21,14 +21,14 @@ function NavBar() {
     
 
     return (
-        <nav className="w-full bg-white dark:bg-gray-800 drop-shadow">
+        <nav className="w-full bg-white drop-shadow">
             <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
                 <div>
                     <div className="flex items-center justify-between py-3 md:py-5 md:block">
                         <Link href="/">
                             <a className="flex flex-row items-center gap-x-2" href="javascript:void(0)">
                                 <Image loader={customLoader} alt="logo" src="/favicon.png" width={50} height={50} />
-                                <h2 className="text-2xl text-sky-500 font-bold dark:text-white uppercase">Republiquei</h2>
+                                <h2 className="text-2xl text-sky-500 font-bold">Republiquei</h2>
                             </a>
                         </Link>
                         <div className="md:hidden">
@@ -38,7 +38,7 @@ function NavBar() {
                                 {navbar ? (
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
-                                        className="w-6 h-6 dark:text-white"
+                                        className="w-6 h-6"
                                         viewBox="0 0 20 20"
                                         fill="currentColor"
                                     >
@@ -51,7 +51,7 @@ function NavBar() {
                                 ) : (
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
-                                        className="w-6 h-6 dark:text-white"
+                                        className="w-6 h-6"
                                         fill="none"
                                         viewBox="0 0 24 24"
                                         stroke="currentColor"

@@ -13,16 +13,16 @@ function NavBarBuilder({ navbar }: NavBarBuilderProps) {
                 }`}
         >
             <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-                <li className="dark:text-white hover:text-sky-500">
+                <li className="hover:text-sky-500">
                     <Link href="/searchRepublic" ><a href="javascript:void(0)">Buscar Republica</a></Link>
                 </li>
-                <li className="dark:text-white hover:text-sky-500">
+                <li className="hover:text-sky-500">
                     <Link href="/owner"><a href="javascript:void(0)">Para Proprietarios</a></Link>
                 </li>
-                <li className="dark:text-white hover:text-sky-500">
+                <li className="hover:text-sky-500">
                     <Link href="/about"><a href="javascript:void(0)">Sobre nós</a></Link>
                 </li>
-                <li className="dark:text-white hover:text-sky-500">
+                <li className="hover:text-sky-500">
                     <Link href="/help"><a href="javascript:void(0)">Ajuda</a></Link> 
                 </li>
             </ul>

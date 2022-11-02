@@ -2,9 +2,9 @@ import AnnounceRepublic from "../../components/AnnounceRepublic";
 import Footer from "../../components/Footer";
 import NavBar from "../../components/NavBar";
 import Pagination from "../../components/Pagination";
-import { IoFilterOutline } from "react-icons/io5";
 import { useState } from "react";
 import { ImSearch } from "react-icons/im";
+import Filter from "../../components/Filter";
 
 export const AnnounceRepublicData = [
     {
@@ -158,7 +158,7 @@ export const SearchLocation = () => {
 
     return (
         <>
-            <div className="absolute top-5">
+            <div className="relative bottom-16">
                 <div className="absolute top-5 right-6">
                     <ImSearch />
                 </div>
@@ -167,25 +167,7 @@ export const SearchLocation = () => {
             </div>
             <div className="w-full flex flex-wrap items-center justify-between px-32">
                 <h2 className="first-letter:font-bold">{filterAnnounceRepublicData.length} repúblicas para morar em Praia Grande - SP</h2>
-                <div>
-                    <button id="dropdownDefault" data-dropdown-toggle="dropdown" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 gap-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Filter<IoFilterOutline className="text-white text-lg" /></button>
-                    <div id="dropdownDivider" className="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                        <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDividerButton">
-                            <li>
-                                <a href="#" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-                            </li>
-                            <li>
-                                <a href="#" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-                            </li>
-                            <li>
-                                <a href="#" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-                            </li>
-                        </ul>
-                        <div className="py-1">
-                            <a href="#" className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Separated link</a>
-                        </div>
-                    </div>
-                </div>
+                <Filter/>
             </div>
             <main className="flex flex-row flex-wrap justify-center gap-4 mt-8 mb-14">
                 {filterAnnounceRepublicData.map((data, id) =>
@@ -207,10 +189,10 @@ const SearchRepublic = () => {
     return (
         <>
             <NavBar />
-            <main className="flex flex-row flex-wrap justify-center gap-4 mt-8 mb-14">
+            <section className="flex flex-row flex-wrap justify-center gap-4 bg-white">
                 <SearchLocation />
                 <Pagination />
-            </main>
+            </section>
             <Footer />
         </>
     )

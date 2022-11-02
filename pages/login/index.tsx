@@ -21,7 +21,7 @@ function Login() {
 
                     <a className="flex flex-row items-center gap-x-2" href="javascript:void(0)">
                         <Image loader={customLoader} src="/favicon.png" width={70} height={70} alt="logo"/>
-                        <h2 className="text-4xl font-bold text-sky-500 dark:text-white uppercase">Republiquei</h2>
+                        <h2 className="text-4xl font-bold text-sky-500 uppercase">Republiquei</h2>
                     </a>
 
                     <h1 className="text-xl md:text-2xl font-bold leading-tight mt-12">Faça login na sua conta</h1>

@@ -42,8 +42,8 @@ export default function Republic() {
   return (
     <>
     <NavBar/>
-      <div>
-        <div className="mx-auto mt-6 max-w-xl sm:px-6 lg:grid lg:max-w-4xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+      <div className='bg-white h-screen md:h-full'>
+        <div className="mx-auto pt-8 max-w-xl sm:px-6 lg:grid lg:max-w-4xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
           <div className="aspect-w-4 aspect-auto aspect-h-4 hidden overflow-hidden rounded-lg lg:block">
             <Image
               loader={customLoader}
