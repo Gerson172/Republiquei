@@ -15,7 +15,7 @@ function About() {
                         <div className="flex flex-wrap items-center pb-12">
                             <div className="md:w-1/2 lg:w-2/3 w-full xl:pr-20 md:pr-6">
                                 <div className="py-2 text-color">
-                                    <h1 className="text-2xl lg:text-6xl md:leading-snug tracking-tighter f-f-l font-black">A república estudantil com a cara do universtirário</h1>
+                                    <h1 className="text-2xl lg:text-6xl md:leading-snug tracking-tighter f-f-l font-black">A república estudantil com a cara do universitário</h1>
                                     <h2 className="text-lg lg:text-3xl lg:leading-7 md:leading-10 f-f-r py-4 md:py-8">A ideia de morar sozinho pode ser assustadora, mas com a preparação certa, você pode encontrar um lugar acessível e seguro para morar. É importante que o estudante encontre a casa certa para ele e não qualquer casa disponível. Você precisa pensar no que quer em sua casa, quanto de aluguel está disposto a pagar e que tipo de acomodação prefere.</h2>
                                     <div className="flex items-center cursor-pointer pb-4 md:pb-0">
                                     <button type="button" className="text-white bg-rose-500 hover:bg-rose-600 focus:ring-4 focus:outline-none focus:ring-rose-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2">
