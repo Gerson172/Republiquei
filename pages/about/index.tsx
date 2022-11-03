@@ -15,8 +15,8 @@ function About() {
                         <div className="flex flex-wrap items-center pb-12">
                             <div className="md:w-1/2 lg:w-2/3 w-full xl:pr-20 md:pr-6">
                                 <div className="py-2 text-color">
-                                    <h1 className="text-2xl lg:text-6xl md:leading-snug tracking-tighter f-f-l font-black">Boost adoption of product and services</h1>
-                                    <h2 className="text-lg lg:text-3xl lg:leading-7 md:leading-10 f-f-r py-4 md:py-8">Here at Globex we take special care of what your organization needs instead of selling you a mass market tool that takes a one size fits all approach. I personally review each and every client business and oversee the team that tailores a solution</h2>
+                                    <h1 className="text-2xl lg:text-6xl md:leading-snug tracking-tighter f-f-l font-black">A república estudantil com a cara do universtirário</h1>
+                                    <h2 className="text-lg lg:text-3xl lg:leading-7 md:leading-10 f-f-r py-4 md:py-8">A ideia de morar sozinho pode ser assustadora, mas com a preparação certa, você pode encontrar um lugar acessível e seguro para morar. É importante que o estudante encontre a casa certa para ele e não qualquer casa disponível. Você precisa pensar no que quer em sua casa, quanto de aluguel está disposto a pagar e que tipo de acomodação prefere.</h2>
                                     <div className="flex items-center cursor-pointer pb-4 md:pb-0">
                                     <button type="button" className="text-white bg-rose-500 hover:bg-rose-600 focus:ring-4 focus:outline-none focus:ring-rose-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2">
                                         <span>Entre como universitario</span>
@@ -62,8 +62,8 @@ function About() {
                         <div className="flex flex-wrap flex-row-reverse items-center">
                             <div className="md:w-1/2 lg:w-2/3 w-full lg:pl-20 md:pl-10 sm:pl-0 pl-0">
                                 <div className="py-2 text-color">
-                                    <h1 className="text-2xl lg:text-6xl tracking-tighter md:leading-snug f-f-l font-black">Easily manage sales through our invoicing system</h1>
-                                    <h2 className="text-lg lg:text-3xl leading-7 md:leading-10 f-f-r py-8">Here at Globex we take special care of what your organization needs instead of selling you a mass market tool that takes a one size fits all approach. I personally review each and every client business and oversee the team that tailores a solution</h2>
+                                    <h1 className="text-2xl lg:text-6xl tracking-tighter md:leading-snug f-f-l font-black">Somos o porta-voz da pessoa que deseja anunciar um imóvel</h1>
+                                    <h2 className="text-lg lg:text-3xl leading-7 md:leading-10 f-f-r py-8">Fornecemos as informações mais importantes sobre sua propriedade e garantimos que seja fácil encontrá-la. Estamos aqui para ajudá-lo a criar um anúncio que fará com que as pessoas se interessem pelo seu imóvel.</h2>
                                     <div className="flex items-center cursor-pointer pb-4 md:pb-0">
                                     <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                         <span className="">Entre como Proprietario</span>
