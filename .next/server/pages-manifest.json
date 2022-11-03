@@ -1,15 +1,9 @@
 {
   "/_app": "pages/_app.js",
-  "/about": "pages/about.html",
-  "/help": "pages/help.html",
-  "/announce": "pages/announce.html",
-  "/register": "pages/register.html",
-  "/login": "pages/login.html",
-  "/": "pages/index.html",
-  "/owner": "pages/owner.html",
-  "/_error": "pages/_error.js",
-  "/republic/[id]": "pages/republic/[id].html",
-  "/searchRepublic": "pages/searchRepublic.html",
   "/_document": "pages/_document.js",
-  "/404": "pages/404.html"
+  "/_error": "pages/_error.js",
+  "/searchRepublic": "pages/searchRepublic.js",
+  "/about": "pages/about.js",
+  "/": "pages/index.js",
+  "/owner": "pages/owner.js"
 }

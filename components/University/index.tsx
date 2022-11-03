@@ -25,11 +25,11 @@ export const AnnounceUniversityData = [
 export const University = () => {
     return (
         <>
-      <section className="flex flex-row w-full flex-wrap bg-sky-700 justify-center gap-4 text-center">
+      <section className="flex flex-row w-full flex-wrap bg-slate-700 justify-center gap-4 text-center">
         <div className="py-16">
-          <h2 className="text-white p-4 text-5xl md:text-6xl font-bold">
+        <h2 className="p-4 text-5xl md:text-6xl font-bold text-white">
               Universidades mais
-          <span className="text-5xl md:text-6xl text-rose-600 font-bold">
+          <span className="p-4 text-5xl md:text-6xl text-red-600">
               procuradas
           </span>
           </h2>
