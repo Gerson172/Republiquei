@@ -4,8 +4,8 @@ export default function MapaMundi(){
                 <div className="bg-white">
             <div className="xl:px-20 px-6 py-20 xl:mx-auto xl:container">
                 <h1 className="xl:text-5xl md:text-4xl text-2xl font-semibold leading-tight text-center text-gray-800 sm:mb-0 mb-12">
-                    More Than 10 Years We Provide Service <br className="md:block hidden" />
-                    in Real State Industry
+                    Somos o parceiro do proprietário <br className="md:block hidden" />
+                    e do estudante
                 </h1>
                 <div className="md:mt-14 mt-4 relative sm:flex items-center justify-center">
                     <img src="https://i.imgur.com/LgCdVqK.jpeg" alt="world map image" className="w-full xl:h-full h-96 object-cover object-fill sm:block hidden" />
@@ -19,8 +19,8 @@ export default function MapaMundi(){
                         <p className="text-base leading-4 xl:mt-4 mt-2 text-sky-600">Estudantes Ativos</p>
                     </div>
                     <div className="shadow-lg xl:p-6 p-4 sm:w-auto w-full bg-white sm:absolute relative z-20 md:mt-0 sm:-mt-5 mt-4 right-0 xl:mr-56 sm:mr-24">
-                        <p className="text-3xl font-semibold text-sky-800">15K+</p>
-                        <p className="text-base leading-4 xl:mt-4 mt-2 text-sky-600">Contratos fechados</p>
+                        <p className="text-3xl font-semibold text-sky-800">900K+</p>
+                        <p className="text-base leading-4 xl:mt-4 mt-2 text-sky-600">Acessos mensais</p>
                     </div>
                 </div>
             </div>
