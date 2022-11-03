@@ -7,27 +7,27 @@ export const Feedback = () => {
 			<div className="grid items-center gap-4 xl:grid-cols-5">
 				<div className="max-w-2xl mx-auto my-8 space-y-4 text-center xl:col-span-2 xl:text-left">
 					<h2 className="text-4xl font-bold text-sky-500">Estudantes que conseguiram moradia com a Republiquei</h2>
-					<p>Pri ex magna scaevola moderatius. Nullam accommodare no vix, est ei diceret alienum, et sit cetero malorum. Et sea iudico consequat, est sanctus adipisci ex.</p>
+					<p>Diversos universitários passam pela nossa plataforma diariamente e nos recomendam para encontrar a sua república ideal.</p>
 				</div>
 				<div className="p-6 xl:col-span-3">
 					<div className="grid gap-4 md:grid-cols-2">
 						<div className="grid content-center gap-4">
 							<div className="p-6 rounded shadow-md">
-								<p>An audire commodo habemus cum. Ne sed corrumpit repudiandae. Tota aliquip democritum pro in, nec democritum intellegam ne. Propriae volutpat dissentiet ea sit, nec at lorem inani tritani, an ius populo perfecto vituperatoribus. Eu cum case modus salutandi, ut eum vocent sensibus reprehendunt.</p>
+								<p>A Republiquei me ajudou a encontrar a república que mais combinava comigo. Com ela consegui encontrar um local onde só tem meninas.</p>
 								<div className="flex items-center mt-4 space-x-4">
 									<img className="w-12 h-12 bg-center bg-cover rounded-full" src="https://source.unsplash.com/50x50/?portrait?1" alt="img" />
 									<div>
-										<p className="text-lg font-semibold">Leroy Jenkins</p>
+										<p className="text-lg font-semibold">Nathaly Silva</p>
 										<p className="text-sm">Estudante de Ciencia da Computação</p>
 									</div>
 								</div>
 							</div>
 							<div className="p-6 rounded shadow-md">
-								<p>Sit wisi sapientem ut, pri civibus temporibus voluptatibus et, ius cu hinc fabulas. Nam meliore minimum et, regione convenire cum id. Ex pro eros mucius consectetuer, pro magna nulla nonumy ne, eam putent iudicabit consulatu cu.</p>
+								<p>Com a Republiquei pude encontrar a minha república sem precisar ir até a cidade, dessa forma, quando me mudei já tinha o local me esperando.</p>
 								<div className="flex items-center mt-4 space-x-4">
 									<img className="w-12 h-12 bg-center bg-cover rounded-full" src="https://source.unsplash.com/50x50/?portrait?2" alt="img" />
 									<div>
-										<p className="text-lg font-semibold">Leroy Jenkins</p>
+										<p className="text-lg font-semibold">Bruno Arantes</p>
 										<p className="text-sm">Estudante de Direito.</p>
 									</div>
 								</div>
@@ -35,21 +35,21 @@ export const Feedback = () => {
 						</div>
 						<div className="grid content-center gap-4">
 							<div className="p-6 rounded shadow-md">
-								<p>Putant omnium elaboraret per ut. Id dicta tritani nominavi quo, mea id justo errem elaboraret. Agam mollis scripserit ea his, ut nec postea verear persecuti. Ea noster senserit eam, ferri omittantur ei nec. Id mel solet libris efficiantur, commune explicari et eos. Case movet ad est, sed tota vocent appetere ea.</p>
+								<p>A Republiquei facilitou a encontrar repúblicas mais próximas a minha universidade, além disso pude escolher uma república de acordo com o meu gosto.</p>
 								<div className="flex items-center mt-4 space-x-4">
 									<img className="w-12 h-12 bg-center bg-cover rounded-full" src="https://source.unsplash.com/50x50/?portrait?3" alt="img" />
 									<div>
-										<p className="text-lg font-semibold">Leroy Jenkins</p>
+										<p className="text-lg font-semibold">Gabrielly Spindola</p>
 										<p className="text-sm">Estudante de Medicina.</p>
 									</div>
 								</div>
 							</div>
 							<div className="p-6 rounded shadow-md">
-								<p>Te omnes virtute volutpat sed. Ei esse eros interesset vel, ei populo denique ocurreret vix, eu cum pertinax mandamus vituperatoribus. Solum nihil luptatum per ex, ei amet viderer eos. Ea illum labitur mnesarchum pro. Eius meis salutandi ei nam, alterum expetenda et nec. Expetenda intellegat at eum, per mazim sanctus honestatis ad. Ei noluisse invenire vix. Te ancillae patrioque qui, probo bonorum vivendum ex vim.</p>
+								<p>A Republiquei facilitou o meu contato com o proprietário da casa, não precisei ir até a cidade para ver república por república. Com poucos cliques pude encontrar uma república sensacional e próxima a minha universidade.</p>
 								<div className="flex items-center mt-4 space-x-4">
 									<img className="w-12 h-12 bg-center bg-cover rounded-full" src="https://source.unsplash.com/50x50/?portrait?4" alt="" />
 									<div>
-										<p className="text-lg font-semibold">Leroy Jenkins</p>
+										<p className="text-lg font-semibold">Renato Hilbert</p>
 										<p className="text-sm">Estudante de Engenharia Civil</p>
 									</div>
 								</div>
