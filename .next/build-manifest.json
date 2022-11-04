@@ -30,25 +30,10 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/about": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/about.js"
-    ],
     "/help": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/help.js"
-    ],
-    "/owner": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/owner.js"
-    ],
-    "/searchRepublic": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/searchRepublic.js"
     ]
   },
   "ampFirstPages": []

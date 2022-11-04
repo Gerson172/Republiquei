@@ -15,7 +15,9 @@ Tudo o que um sonho precisa para ser realizado é alguém que acredite que ele p
                 Buscar Republicas
             </button>
             </Link>
-            <p className="mt-3 text-sm text-gray-400 ">O que é uma república, e porque eu precisaria de uma?</p>
+            <Link href="/help">
+            <p className="mt-3 text-sm text-gray-400 hover:cursor-pointer hover:underline underline-offset-2">O que é uma república, e porque eu precisaria de uma?</p>
+            </Link>
         </div>
 
         <div className="flex justify-center mt-10">
