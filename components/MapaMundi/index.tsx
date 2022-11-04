@@ -3,7 +3,7 @@ export default function MapaMundi(){
         <>
                 <div className="bg-white">
             <div className="xl:px-20 px-6 py-20 xl:mx-auto xl:container">
-                <h1 className="xl:text-5xl md:text-4xl text-2xl font-semibold leading-tight text-center text-gray-800 sm:mb-0 mb-12">
+                <h1 className="text-2xl lg:text-6xl md:leading-snug text-center tracking-tighter f-f-l font-black">
                     Somos o parceiro do proprietário <br className="md:block hidden" />
                     e do estudante
                 </h1>
