@@ -32,6 +32,7 @@ const OwnerLP = () => {
                                 <div className="md:w-1/2 lg:w-2/3 w-full xl:pr-20 md:pr-6">
                                     <div className="py-2 text-color">
                                         <h1 className="text-2xl lg:text-6xl md:leading-snug tracking-tighter f-f-l font-black">Alugue seu imóvel sem burocracias</h1>
+                                        <h2 className="text-lg lg:text-3xl leading-7 md:leading-10 f-f-r py-8">Republiquei resolve as principais dores de cabeça de possuir uma propriedade: anunciar o imóvel e encontrar inquilinos. Entregamos um produto que vai transformar a experiência de alugar seu imóvel.</h2>
                                         <div className="flex items-center cursor-pointer pb-4 md:pb-0 mt-8">
                                             <button type="button" className="text-white bg-rose-500 hover:bg-rose-600 focus:ring-4 focus:outline-none focus:ring-rose-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2">
                                                 <span>Clique e saiba mais</span>
