@@ -10,7 +10,7 @@ const OwnerLP = () => {
         <>
             <section className="bg-white">
                 <div className="md:mx-auto md:container px-4">
-                    <div className="pb-32 pt-16">
+                    <div className="pb-25 pt-16">
                         <div className="mx-auto">
                             <div className="flex flex-wrap flex-row-reverse items-center">
                                 <div className="md:w-1/2 lg:w-2/3 w-full lg:pl-20 md:pl-10 sm:pl-0 pl-0">
