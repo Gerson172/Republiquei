@@ -14,10 +14,10 @@ function NavBarBuilder({ navbar }: NavBarBuilderProps) {
         >
             <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
                 <li className="hover:text-sky-500">
-                    <Link href="/searchRepublic" ><a href="javascript:void(0)">Buscar Repúblicas</a></Link>
+                    <Link href="/searchRepublic" ><a href="javascript:void(0)">Buscar Republica</a></Link>
                 </li>
                 <li className="hover:text-sky-500">
-                    <Link href="/owner"><a href="javascript:void(0)">Para Proprietários</a></Link>
+                    <Link href="/owner"><a href="javascript:void(0)">Para Proprietarios</a></Link>
                 </li>
                 <li className="hover:text-sky-500">
                     <Link href="/about"><a href="javascript:void(0)">Sobre nós</a></Link>
