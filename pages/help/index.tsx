@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Footer from "../../components/Footer";
 import NavBar from "../../components/NavBar";
-import Accordion from "../../components/Accordion/Accordion";
+
 
 function Help() {
     return (
@@ -15,8 +15,6 @@ function Help() {
             </div>
             </div>
             </section>
-            <Accordion title={"Pergunta 1"} children={""} Id={undefined} Index={undefined} setIndex={undefined}  />
-            <Accordion title={"Pergunta 2"} children={""} Id={undefined} Index={undefined} setIndex={undefined}  />
             <div className="flex justify-center mb-12">
               <img className="object-cover w-full h-96 rounded-xl lg:w-4/5" src="https://img.freepik.com/fotos-gratis/alegres-amigos-multietnicas-tomando-selfie-engracado-grupo_1262-21109.jpg?w=1380&t=st=1667522273~exp=1667522873~hmac=dd069b1781a0bcb7e31cbecf8fc0673719341f61302703525fe2b4230083e8a8" />
             </div>
