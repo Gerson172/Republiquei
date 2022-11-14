@@ -1,8 +1,8 @@
-import Footer from "../../components/Footer";
+import Footer from "../Footer";
 import { BsGraphUp } from "react-icons/bs";
 import { RiPercentFill } from "react-icons/ri";
-import NavBar from "../../components/NavBar";
-import MapaMundi from "../../components/MapaMundi";
+import NavBar from "../NavBar";
+import MapaMundi from "../MapaMundi";
 
 
 const OwnerLP = () => {

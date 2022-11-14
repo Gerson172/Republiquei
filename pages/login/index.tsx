@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 
 function Login() {
     const customLoader = ({ src }: any) => {
@@ -9,13 +10,16 @@ function Login() {
 
     const acess = {
         username: 'hugo@admin',
-        password:  'admin'
+        password: 'admin'
     }
 
-    const [password, setPassword] = useState('');
-    const [username, setUsername] = useState('');
+
+    const { register, handleSubmit } = useForm();
 
 
+    function handleSignIn(data: any) {
+        console.log(data)
+    }
 
     return (
         <section className="flex flex-col md:flex-row h-screen items-center">
@@ -36,31 +40,41 @@ function Login() {
 
                     <h1 className="text-xl md:text-2xl font-bold leading-tight mt-12">Faça login na sua conta</h1>
 
-                    <form className="mt-6" action="#" method="POST">
+                    <form className="mt-6" onSubmit={handleSubmit(handleSignIn)}>
                         <div>
                             <label className="block text-gray-700">Email</label>
-                            <input type="email" name="" id="" placeholder="Insira o email" value={username} onChange={e => setUsername(e.target.value)}      
-                            className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none" autoFocus required />
+                            <input {...register('email')} 
+                            type="email" 
+                            id="email"
+                            name="email" 
+                            placeholder="Insira o email"
+                            className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none" 
+                            autoFocus 
+                            autoComplete="email"
+                            required />
                         </div>
 
                         <div className="mt-4">
                             <label className="block text-gray-700">Senha</label>
-                            <input type="password" name="" id="" placeholder="Insira a senha" value={password} onChange={e => setPassword(e.target.value)}
-                            className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
-              focus:bg-white focus:outline-none" required />
+                            <input 
+                            {...register('password')} 
+                            type="password" 
+                            name="password" 
+                            id="password"
+                            autoComplete="current-password" 
+                            placeholder="Insira a senha"
+                            className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none" 
+                            required />
                         </div>
 
                         <div className="text-right mt-2">
                             <a href="#" className="text-sm font-semibold text-gray-700 hover:text-blue-700 focus:text-blue-700">Esqueceu a senha?</a>
                         </div>
-
-                        { username == acess.username && password == acess.password ? 
-                        <Link href="/dashboard">
+                            <Link href="/dashboard/cadastrarRepublica">
                             <button type="submit" className="w-full block bg-sky-500 hover:bg-sky-600 focus:bg-sky-600 text-white font-semibold rounded-lg
                             px-4 py-3 mt-6">Entrar</button>
-                        </Link> : <button type="submit" className="w-full block bg-sky-500 hover:bg-sky-600 focus:bg-sky-600 text-white font-semibold rounded-lg
-                            px-4 py-3 mt-6">Entrar</button>}
-                        
+                            </Link>
+
                     </form>
 
                     <hr className="my-6 border-gray-300 w-full" />

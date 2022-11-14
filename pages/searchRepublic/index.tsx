@@ -158,14 +158,14 @@ export const SearchLocation = () => {
 
     return (
         <>
-            <div className="relative bottom-16">
+            <div className="relative my-8 md:my-0 md:bottom-16">
                 <div className="absolute top-5 right-6">
                     <ImSearch />
                 </div>
                 <input value={search} type="text" onChange={(e) => setSearch(e.target.value)}
                     className="h-14 w-96 pl-10 pr-20 rounded-lg z-0 focus:shadow focus:outline-none" placeholder="Digite a localização" />
             </div>
-            <div className="w-full flex flex-wrap items-center justify-between px-32">
+            <div className="w-4/5 flex flex-wrap items-center gap-8 justify-between">
                 <h2 className="first-letter:font-bold">{filterAnnounceRepublicData.length} repúblicas para morar em Praia Grande - SP</h2>
                 <Filter/>
             </div>
