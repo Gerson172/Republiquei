@@ -59,7 +59,6 @@ function Register() {
     const [proprietario, setProprietario] = useState();
 
     async function obterUsuario(cep: string) {
-
         if (cep?.length !== 8) {
             return;
         }
@@ -318,3 +317,4 @@ function Register() {
 }
 
 export default Register;
+
