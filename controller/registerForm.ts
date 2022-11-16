@@ -1,18 +1,5 @@
 import * as yup from 'yup';
 
-
-<<<<<<< HEAD
-const registerForm = yup.object().shape({
-    email: yup.string().email().required(),
-    nome: yup.string().required(),
-    telefone: yup.number().required().positive().integer(),
-    celular: yup.number().required().positive().integer(),
-    cpf: yup.string().required(),
-    dataNascimento: yup.date()
-})
-
-
-=======
 let registerForm = yup.object().shape({
     nome: yup.string().max(20).required('O campo nome é obrigatório'),
     sobrenome: yup.string().max(30).required('O campo sobrenome é obrigatório'),
@@ -34,5 +21,4 @@ let registerForm = yup.object().shape({
     proprietario: yup.bool().notRequired()
 })
 
->>>>>>> 78e920b (registro do usuario)
 export default registerForm;
