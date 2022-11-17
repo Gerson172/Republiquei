@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Footer from "../../components/Footer";
+import Perguntas from "../../components/Perguntas";
 import NavBar from "../../components/NavBar";
 
 
@@ -13,6 +14,7 @@ function Help() {
             <div className="max-w-lg mx-auto mt-10 mb-8">
             <h1 className="text-3xl font-bold text-gray-800 lg:text-4xl">Dúvidas frequentes:</h1>
             </div>
+            <Perguntas />
             </div>
             </section>
             <div className="flex justify-center mb-12">
