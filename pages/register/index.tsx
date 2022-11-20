@@ -1,310 +1,129 @@
 import NavBar from "../../components/NavBar";
+import { useForm } from "react-hook-form";
 
-import { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import registerForm from '../../controller/registerForm'
+import { yupResolver } from "@hookform/resolvers/yup"
+import viacep, { ViaCep } from "../../services/viacep";
+import Input from "../../components/Input";
 
-import viacep from "../../services/viacep";
-import { type } from "os";
+import { User } from "../../controller/User";
+import Select from "../../components/Select";
 
+import {estadoCivil, sexo, genero, religiao, orientacaoSexual} from "../../data/options";
+import api from "../../services/api";
 
-type Address = {
-    cep: string,
-    logradouro: string,
-    numeroCasa: number,
-    bairro: string,
-    localidade: string
-    uf: string
-}
-
-type User = {
-    nome: string,
-    sobrenome: string,
-    cpf: string,
-    sexo: string,
-    estadoCivil: string,
-    genero: string,
-    dataNascimento: Date,
-    endereco: Address
-}
-
-type Contact = {
-    email: string,
-    telefone: number,
-    celular: number
-}
-
-type Register = {
-    
-
-}
 
 function Register() {
-
-    const [endereco, setEndereco] = useState<Address>();
-    const [cep, setCep] = useState<string>();
-    const [numeroCasa, setNumeroCasa] = useState<Address>();
-
-    const [email, setEmail] = useState<Contact>();
-    const [telefone, setTelefone] = useState<Contact>();
-    const [celular, setCelular] = useState<Contact>();
-
-    const [nome, setNome] = useState<User>()
-    const [sobrenome, setSobrenome] = useState<User>()
-    const [cpf, setCpf] = useState<User>();
-    const [sexo, setSexo] = useState<User>();
-    const [estadoCivil, setEstadoCivil] = useState<User>();
-    const [genero, setGenero] = useState<User>();
-    const [dataNascimento, setDataNascimento] = useState<User>();
-
-    const [proprietario, setProprietario] = useState();
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm<User>({
+        resolver: yupResolver(registerForm)
+    });
 
     async function obterUsuario(cep: string) {
-        if (cep?.length !== 8) {
+        const cepApenasNumero = cep.replace(/[^0-9]/g, "")
+
+        if (cepApenasNumero.length !== 8) {
             return;
         }
-        const response = await viacep.get(`${cep}/json/`)
 
-        setEndereco(response.data)
-        setCep(cep)
+        const { data } = await viacep.get<ViaCep>(`${cepApenasNumero}/json/`)
+
+        setValue("logradouro", data.logradouro)
+        setValue("uf", data.uf)
+        setValue("bairro", data.bairro)
+        setValue("localidade", data.localidade)
     }
 
-    const { register, handleSubmit, control } = useForm();
-    const onSubmit = (data: Register) => console.log(data)
 
+    const onSubmit = (data: User) => {
+        
+        const criarUsuario = {
+            nome: data.nome,
+            sobrenome: data.sobrenome,
+            senha: data.senha,
+            cpf: data.cpf.replace(/[^0-9]/g, ""),
+            estadoCivil: data.estadoCivil,
+            dataNascimento: data.dataNascimento,
+            checkProprietario: data.proprietario,
+            contato: {
+                email: data.email,
+                telefone: data.telefone.replace(/[^0-9]/g, ""),
+                celular: data.celular.replace(/[^0-9]/g, "")
+            },
+            enderecoUsuario: {
+                cep: data.cep.replace(/[^0-9]/g, ""),
+                estado: data.uf,
+                cidade: data.localidade,
+                bairro: data.bairro,
+                logradouro: data.logradouro,
+                numero: data.numeroCasa,
+                complemento: data.complemento
+            },
+            caracteristicaUsuario :{
+                religiao: data.religiao,
+                genero: data.genero,
+                sexo: data.sexo,
+                orientacaoSexual: data.orientacaoSexual,
+                areaInteresse: data.areaInteresse
+              }
+            }
+
+
+        api.post('/Usuario/CadastrarUsuario', criarUsuario )
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+    }
 
     return (
         <>
-            <NavBar />
-            <section className=" flex flex-col md:flex-row h-full md:h-screen items-center bg-white">
-                <div className="md:max-w-md lg:max-w-full md:mx-auto h-full px-6 lg:px-16 xl:px-16 flex items-center justify-center" >
+            <NavBar/>
+            <section className="md:flex-row h-full items-center bg-white">
+                <div className="md:max-w-md lg:max-w-full md:mx-auto h-full px-6 lg:px-16 xl:px-16" >
                     <div className="w-full h-full mb-8 py-3">
-                        <form onSubmit={handleSubmit(onSubmit)}>
-                            <h2 className="mt-6 mb-3 text-xl md:text-2xl font-bold text-center text-gray-900">Dados pessoais</h2>
+                        <form onSubmit={handleSubmit(onSubmit, (e) => console.log(e))}>
+                            <h2 className="mt-6 mb-10 text-xl md:text-2xl font-bold text-gray-900">Dados pessoais</h2>
                             <div className="grid md:grid-cols-4 md:gap-6">
-                                <div className="relative z-0 mb-6 w-full group">
-                                    <label htmlFor="nome" className="block mb-2 text-sm font-medium text-gray-900">Nome</label>
-                                    <Controller
-                                        {...register('nome', { required: true, maxLength: 20 })}
-                                        name="nome"
-                                        control={control}
-                                        render={({ field }) => <input
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                            {...field} />} />
-                                </div>
-                                <div className="relative z-0 mb-6 w-full group">
-                                    <label htmlFor="sobrenome" className="block mb-2 text-sm font-medium text-gray-900">Sobrenome</label>
-                                    <Controller
-                                        {...register('sobrenome', { required: true, maxLength: 30 })}
-                                        control={control}
-                                        name="sobrenome"
-                                        render={({ field }) => <input
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                            {...field} />}
-                                    />
-                                </div>
-                                <div className="relative z-0 mb-6 w-full group">
-                                    <label htmlFor="cpf" className="block mb-2 text-sm font-medium text-gray-900">CPF</label>
-                                    <Controller
-                                        {...register('cpf', { required: true, maxLength: 14 })}
-                                        name="cpf"
-                                        control={control}
-                                        render={({ field }) => <input
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                            {...field} />}
-                                    />
-                                </div>
-                                <div className="relative z-0 mb-6 w-full group">
-                                    <label htmlFor="dataNascimento" className="block mb-2 text-sm font-medium text-gray-900">Data de Nascimento</label>
-                                    <Controller
-                                        {...register('dataNascimento', { required: true })}
-                                        name="dataNascimento"
-                                        control={control}
-                                        render={({ field }) => <input
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                            {...field} />}
-                                    />
-                                </div>
+                                <Input name="nome" placeholder="Digite o seu nome" type="text" id="nome" mensagemDeErro={errors} inputMask={false} mask={""} onChange={undefined} title="Nome" register={register} />
+                                <Input title="Sobrenome" name="sobrenome" placeholder="Digite o seu sobrenome" type="text" id="sobrenome" mensagemDeErro={errors} inputMask={false} mask={""} onChange={undefined} register={register} />
+                                <Input title="CPF" name="cpf" inputMask={true} placeholder="Digite o seu cpf" mask="999.999.999-99" mensagemDeErro={errors} id="cpf" type="text" onChange={undefined} register={register} />
+                                <Input title="Data Nascimento" name="dataNascimento" inputMask={false} mensagemDeErro={errors} id="dataNascimento" type="date" placeholder={""} mask={""} onChange={undefined} register={register} />
                             </div>
                             <div className="grid md:grid-cols-4 md:gap-6">
-                                <div className="relative z-0 mb-6 w-full group">
-                                    <label htmlFor="estado-civil" className="block mb-2 text-sm font-medium text-gray-900">Estado Civil</label>
-                                    <Controller
-                                        {...register('estado-civil', { required: true })}
-                                        name="estado-civil"
-                                        control={control}
-                                        render={({ field }) => <select {...field}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                                            <option>Solteiro</option>
-                                            <option>Casado</option>
-                                            <option>Viuvo(a)</option>
-                                        </select>}
-                                    />
-                                </div>
-                                <div className="relative z-0 mb-6 w-full group">
-                                    <label htmlFor="sexo" className="block mb-2 text-sm font-medium text-gray-900">Sexo</label>
-                                    <Controller
-                                        {...register('sexo', { required: true })}
-                                        name="sexo"
-                                        control={control}
-                                        render={({ ...field }) => <select
-                                            {...field}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                                            <option>Masculino</option>
-                                            <option>Femino</option>
-                                        </select>} />
-                                </div>
-                                <div className="relative z-0 mb-6 w-full group">
-                                    <label htmlFor="genero" className="block mb-2 text-sm font-medium text-gray-900">Genero</label>
-                                    <Controller
-                                        {...register('genero', { required: true })}
-                                        name="genero"
-                                        control={control}
-                                        render={({ ...field }) => <select
-                                            {...field}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                                            <option>Homem ou Mulher CIS</option>
-                                            <option>Homem ou Mulher Trans</option>
-                                            <option>LGBTQI+</option>
-                                            <option>Outro/Prefiro não dizer</option>
-                                        </select>} />
-                                </div>
+                                <Select id="estadoCivil" name="estadoCivil" title="Estado Civil" options={estadoCivil} mensagemDeErro={errors} register={register} onChange={undefined} />
+                                <Select id="sexo" name="sexo" title="Sexo" options={sexo} mensagemDeErro={errors} register={register} onChange={undefined}/>
+                                <Select  name="genero" title="Genero" id="genero" options={genero} mensagemDeErro={errors} register={register} onChange={undefined}/>
+                                <Select  name="orientacaoSexual" title="Orientação Sexual" id="orientacaoSexual" options={orientacaoSexual} mensagemDeErro={errors} register={register} onChange={undefined}/>
+                                <Select id="religiao" name="religiao" title="Religiao" options={religiao} mensagemDeErro={errors} register={register} onChange={undefined} />
+                                <Input id="areaInteresse" name="areaInteresse" title="Area Interesse" placeholder="Digite sua area de interesse" onChange={undefined} inputMask={false} mask={""} mensagemDeErro={errors} register={register} type="text"/>
+                                <Input type="checkbox" name="proprietario" title="Proprietario" placeholder={""} onChange={undefined} id="proprietario" mensagemDeErro={errors} inputMask={false} mask={""} register={register} />
                             </div>
-                            <h2 className="mt-2 mb-2 text-xl md:text-2xl font-bold text-center text-gray-900">Contatos</h2>
-                            <div className="grid md:grid-cols-3 md:gap-6">
-                                <div className="relative z-0 mb-6 w-full group">
-                                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">E-mail</label>
-                                    <Controller
-                                        {...register('email', { required: true, maxLength: 50 })}
-                                        name="email"
-                                        control={control}
-                                        render={({ field }) => <input
-                                            {...field}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />} />
-                                </div>
-                                <div className="relative z-0 mb-6 w-full group">
-                                    <label htmlFor="telefone" className="block mb-2 text-sm font-medium text-gray-900">Telefone</label>
-                                    <Controller
-                                        {...register('telefone', { required: true })}
-                                        name="telefone"
-                                        control={control}
-                                        render={({ field }) => <input
-                                            {...field}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />} />
-                                </div>
-                                <div className="relative z-0 mb-6 w-full group">
-                                    <label htmlFor="celular" className="block mb-2 text-sm font-medium text-gray-900">Celular</label>
-                                    <Controller
-                                        {...register('celular', { required: true })}
-                                        name="celular"
-                                        control={control}
-                                        render={({ field }) => <input
-                                            {...field}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />} />
-                                </div>
+                                <h2 className="mt-2 mb-10 text-xl md:text-2xl font-bold text-gray-900">Contatos</h2>
+                                <div className="grid md:grid-cols-2 md:gap-6"> 
+                                <Input type="tel" name="telefone" title="Telefone" placeholder="Digite o seu telefone" id="telefone" mensagemDeErro={errors} inputMask={true} mask="(99) 99999-9999" onChange={undefined} register={register} />
+                                <Input type="tel" name="celular" title="Celular" placeholder="Digite o seu celular" id="celular" mensagemDeErro={errors} inputMask={true} mask="(99) 99999-9999" onChange={undefined} register={register} />
                             </div>
-                            <h2 className="mt-2 mb-2 text-xl md:text-2xl font-bold text-center text-gray-900">Endereço</h2>
+                            <h2 className="mt-2 mb-10 text-xl md:text-2xl font-bold text-gray-900">Endereço</h2>
                             <div className="grid md:grid-cols-3 md:gap-6">
-                                <div className="relative z-0 mb-6 w-full group">
-                                    <label htmlFor="cep" className="block mb-2 text-sm font-medium text-gray-900">CEP</label>
-                                    <Controller
-                                        {...register('cep', { required: true, maxLength: 8 })}
-                                        name="cep"
-                                        control={control}
-                                        defaultValue={obterUsuario}
-                                        render={({ ...field }) => <input
-                                            {...field}
-                                            value={cep}
-                                            onChange={e => obterUsuario(e.target.value)}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                        />}
-                                    />
-                                </div>
-                                <div className="relative z-0 mb-6 w-full group">
-                                    <label htmlFor="endereco" className="block mb-2 text-sm font-medium text-gray-900">Endereço</label>
-                                    <Controller
-                                        {...register('endereco', { required: true, maxLength: 50 })}
-                                        name="endereco"
-                                        control={control}
-                                        defaultValue={endereco?.logradouro}
-                                        render={({ ...field }) => <input
-                                            {...field}
-                                            value={endereco?.logradouro}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />}
-                                    />
-                                </div>
-                                <div className="relative z-0 mb-6 w-full group">
-                                    <label htmlFor="numero-casa" className="block mb-2 text-sm font-medium text-gray-900">Número</label>
-                                    <Controller
-                                        {...register('numero-casa', { required: true, maxLength: 11 })}
-                                        name="numero-casa"
-                                        control={control}
-                                        render={({ ...field }) => <input
-                                            {...field}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />}
-                                    />
-                                </div>
+                                <Input type="cep" name="cep" title="CEP" placeholder="Digite o seu CEP" id="cep" mensagemDeErro={errors} inputMask={true} mask="99999-999" onChange={obterUsuario} register={register} />
+                                <Input type="text" name="logradouro" title="Endereço" placeholder="Digite o seu endereço" onChange={undefined} id="logradouro" mensagemDeErro={errors} inputMask={false} mask={""} register={register} />
+                                <Input type="number" name="numeroCasa" title="Número" placeholder={"Digite o número da sua residência"} onChange={undefined} id="numeroCasa" mensagemDeErro={errors} inputMask={false} mask={""} register={register} /> 
+                            </div>                            
+                            <div className="grid md:grid-cols-3 md:gap-6">
+                                <Input name="bairro" type="text" id="bairro" title="Bairro" placeholder="Digite o seu bairro" onChange={undefined} mensagemDeErro={errors} inputMask={false} mask={""} register={register} />
+                                <Input type="text" name="localidade" title="Cidade" placeholder={"Digite o nome da sua cidade"} onChange={undefined} id="localidade" mensagemDeErro={errors} inputMask={false} mask={""} register={register} /> 
+                                <Input type="uf" name="uf" title="Estado" placeholder="Digite o nome do seu estado" onChange={undefined} id="uf" mensagemDeErro={errors} inputMask={false} mask={""} register={register} />
+                                <Input type="complemento" name="complemento" title="Complemento" placeholder="" onChange={undefined} id="complemento" mensagemDeErro={errors} inputMask={false} mask={""} register={register} />
                             </div>
-                            <div className="grid md:grid-cols-3 md:gap-6">
-                                <div className="relative z-0 mb-6 w-full group">
-                                    <label htmlFor="bairro" className="block mb-2 text-sm font-medium text-gray-900">Bairro</label>
-                                    <Controller
-                                        {...register('bairro', { required: true, maxLength: 11 })}
-                                        defaultValue={endereco?.bairro}
-                                        name="bairro"
-                                        control={control}
-                                        render={({ ...field }) => <input
-                                            {...field}
-                                            value={endereco?.bairro}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                        />}
-                                    />
 
-                                </div>
-                                <div className="relative z-0 mb-6 w-full group">
-                                    <label htmlFor="cidade" className="block mb-2 text-sm font-medium text-gray-900">Cidade </label>
-                                    <Controller
-                                        {...register('cidade', { required: true, maxLength: 11 })}
-                                        defaultValue={endereco?.localidade}
-                                        name="cidade"
-                                        control={control}
-                                        render={({ ...field }) => <input
-                                            {...field}
-                                            value={endereco?.localidade}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                        />}
-                                    />
-                                </div>
-                                <div className="relative z-0 mb-6 w-full group">
-                                    <label htmlFor="estado" className="block mb-2 text-sm font-medium text-gray-900">Estado</label>
-                                    <Controller
-                                        {...register('estado', { required: true })}
-                                        defaultValue={endereco?.uf}
-                                        name="estado"
-                                        control={control}
-                                        render={({ ...field }) => <input
-                                            {...field}
-                                            
-                                            value={endereco?.uf}
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                        />}
-                                    />
-                                </div>
+                            <div className="grid md:grid-cols-2 md:gap-6">
                             </div>
                             <div className="grid md:grid-cols-2 md:gap-6">
-                                <div className="flex items-center mb-4">
-                                    <Controller
-                                        {...register('tipo-usuario', { required: true })}
-                                        name="tipo-usuario"
-                                        control={control}
-                                        render={({ ...field }) => <input
-                                            {...field}
-                                            type="checkbox"
-                                            value={proprietario}
-                                            className="w-4 h-4 text-blue-600 bg-black-100 rounded border-black-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-black-800 focus:ring-2 dark:bg-black-700 dark:border-black-600"
-                                        />}
-                                    />
-                                    <label htmlFor="default-checkbox" className="ml-2 text-sm font-medium text-black-900 dark:text-black-300">Sou proprietário</label>
-                                </div>
+                                <Input type="email" name="email" title="Email" placeholder="Digite o seu email" id="email" mensagemDeErro={errors} inputMask={false} mask={""} onChange={undefined} register={register}/>
+                                <Input type="password" name="senha" title="Senha" placeholder="Digite sua senha" id="senha" mensagemDeErro={errors} inputMask={false} mask={""} onChange={undefined} register={register}/>
                                 <button type="submit" className="w-30 block bg-indigo-500 hover:bg-indigo-400 focus:bg-indigo-400 text-white font-semibold rounded-lg px-4 py-3 mt-6">Finalizar</button>
                             </div>
                         </form>
