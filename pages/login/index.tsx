@@ -2,39 +2,43 @@ import Image from "next/image";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Login } from "../../controller/User";
+import { Login } from "../../types/User";
 import api from "../../services/api";
 import * as yup from 'yup'
+import { useState } from "react";
 
 function Login() {
 
     const LoginTypes = yup.object().shape({
         email: yup.string().email().required('O campo email é obrigatório'),
         senha: yup.string().required('O campo password é obrigatório').min(4, "A senha deve conter mais de 4 caracteres"),
-    
+
     })
 
-    const { register, handleSubmit, formState: { errors }, setValue } = useForm<Login>({
+    const { register, handleSubmit, formState: { errors } } = useForm<Login>({
         resolver: yupResolver(LoginTypes)
     });
-        
 
 
+    const [email, setEmail] = useState();
+    const [senha, setSenha] = useState();
 
-    api.get(`/Usuario/ObterUsuarioPorId?IdUsuario=10`)
-        .then(function (response) {
-            console.log(response.data.valor);
-            console.log(response.data.valor.senha)
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+    const [isValid, setIsValid] = useState(false);
 
-        const handleSignIn = (data: Login) => {
-            console.log(data)
-        }
+    const handleSignIn = (data: Login) => {
+        api.get(`/Usuario/ObterUsuarioPorId?IdUsuario=20`)
+            .then(function (response) {
+                setEmail(response.data.valor.contato.email);
+                setSenha(response.data.valor.senha)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
 
+        email ==! data.email && senha ==! data.senha ? setIsValid(false) : setIsValid(true)
+    }
 
+    console.log(isValid)
 
 
 
@@ -60,24 +64,26 @@ function Login() {
                     <form className="mt-6" onSubmit={handleSubmit(handleSignIn)}>
                         <div>
                             <label className="block text-gray-700">Email</label>
-                            <input 
-                            {...register('email')} 
-                            type="email" 
-                            id="email"
-                            placeholder="Insira o email"
-                            className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none" 
-                             />
-                             {errors.email == <span className="text-red-500 text-sm">{errors.email?.message}</span>}
+                            <input
+                                {...register('email')}
+                                type="text"
+                                id="email"
+                                autoComplete="current-email"
+                                placeholder="Insira o email"
+                                className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+                            />
+                            {errors.email == <span className="text-red-500 text-sm">{errors.email?.message}</span>}
                         </div>
 
                         <div className="mt-4">
                             <label className="block text-gray-700">Senha</label>
-                            <input 
-                            {...register('senha')} 
-                            type="password" 
-                            id="senha"
-                            placeholder="Insira a senha"
-                            className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none" 
+                            <input
+                                {...register('senha')}
+                                type="password"
+                                id="senha"
+                                autoComplete="current-password" 
+                                placeholder="Insira a senha"
+                                className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
                             />
                             {errors.senha == <span className="text-red-500 text-sm">{errors.senha?.message}</span>}
                         </div>
@@ -85,8 +91,15 @@ function Login() {
                         <div className="text-right mt-2">
                             <a href="#" className="text-sm font-semibold text-gray-700 hover:text-blue-700 focus:text-blue-700">Esqueceu a senha?</a>
                         </div>
-                            <button type="submit" className="w-full block bg-sky-500 hover:bg-sky-600 focus:bg-sky-600 text-white font-semibold rounded-lg
+                        {isValid == true ?
+                            <Link href="/dashboard/cadastrarRepublica">
+                                <button type="submit" className="w-full block bg-sky-500 hover:bg-sky-600 focus:bg-sky-600 text-white font-semibold rounded-lg
                             px-4 py-3 mt-6">Entrar</button>
+                            </Link>
+                        : <button type="submit" className="w-full block bg-sky-500 hover:bg-sky-600 focus:bg-sky-600 text-white font-semibold rounded-lg
+                        px-4 py-3 mt-6">Entrar</button>
+                    }
+
                     </form>
 
                     <hr className="my-6 border-gray-300 w-full" />

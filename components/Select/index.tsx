@@ -1,4 +1,4 @@
-import { Select } from "../../controller/Form"
+import { Select } from "../../types/Form"
 import { FormEvent } from 'react'
 
 function Select({id, title, name, mensagemDeErro, options, onChange, register}:Select) {

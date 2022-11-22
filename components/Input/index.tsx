@@ -1,5 +1,5 @@
 import InputMask from "react-input-mask"
-import { Input } from "../../controller/Form"
+import { Input } from "../../types/Form"
 import { FormEvent } from 'react'
 
 

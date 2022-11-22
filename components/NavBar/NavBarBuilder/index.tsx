@@ -28,11 +28,11 @@ function NavBarBuilder({ navbar }: NavBarBuilderProps) {
             </ul>
 
             <div className="mt-3 space-y-2 lg:hidden md:inline-block">
-                <Link href="#">
+                <Link href="/register">
                     <a
                         className="inline-block w-full px-6 py-4 font-bold text-gray-800 bg-white rounded-md drop-shadow"
                     >
-                        Anunciar
+                        Cadastre-se
                     </a>
                 </Link>
                 <Link href='/login'>
