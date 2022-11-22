@@ -27,6 +27,7 @@ export type Imovel = {
     cep: 0,
     localidade: string,
     bairro: string,
+    uf: string
     logradouro: string,
     numero: string,
     complemento: string    

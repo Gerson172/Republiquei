@@ -1,6 +1,16 @@
 {
   "/_app": "pages/_app.js",
+  "/about": "pages/about.html",
+  "/dashboard/cadastrarRepublica": "pages/dashboard/cadastrarRepublica.html",
+  "/dashboard/visualizarRepublica": "pages/dashboard/visualizarRepublica.html",
+  "/": "pages/index.html",
+  "/help": "pages/help.html",
+  "/owner": "pages/owner.html",
+  "/login": "pages/login.html",
+  "/register": "pages/register.html",
+  "/republic/[id]": "pages/republic/[id].html",
+  "/searchRepublic": "pages/searchRepublic.html",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/dashboard/visualizarRepublica": "pages/dashboard/visualizarRepublica.js"
+  "/404": "pages/404.html"
 }

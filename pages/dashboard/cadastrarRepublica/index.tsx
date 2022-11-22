@@ -21,8 +21,8 @@ export default function CadastrarRepublica() {
 
         const { data } = await viacep.get<ViaCep>(`${cepApenasNumero}/json/`)
 
-        setValue("logradouro", data.logradouro)
-        setValue("uf", data.uf)
+        setValue("logradouro", data.logradouro);
+        setValue("uf", data.uf);
         setValue("bairro", data.bairro)
         setValue("localidade", data.localidade)
     }
@@ -59,8 +59,8 @@ export default function CadastrarRepublica() {
                                 <label htmlFor="valor">Preço: </label>
                                 <CurrencyInput
                                     {...register('valor')}
-                                    placeholder="R$0.00"
-                                    type="text" />
+                                    maskOptions={"R$0.00"}
+                                    />
                             </div>
                             <div>
                                 <label htmlFor="tipoImovel">Tipo do Imovel</label>
