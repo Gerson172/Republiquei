@@ -1,4 +1,3 @@
-import { AnnounceRepublicData } from "../../pages/searchRepublic"
 import AnnounceRepublic from "../AnnounceRepublic"
 
 export function FeaturedRepublic() {
@@ -13,13 +12,6 @@ export function FeaturedRepublic() {
           </h2>
         </div>
         <div className="my-8 flex flex-row flex-wrap gap-4 justify-center">
-          {AnnounceRepublicData.slice(0,3).map((data, id) => <AnnounceRepublic key={id} id={id} images={data.images}
-            accessibility={data.acessibility}
-            title={data.title}
-            location={data.location}
-            price={data.price}
-            sex={data.sex} />
-          )}
         </div>
         </main>
     )

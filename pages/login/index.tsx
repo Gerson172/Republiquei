@@ -5,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Login } from "../../types/User";
 import api from "../../services/api";
 import * as yup from 'yup'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Login() {
 
@@ -19,26 +19,27 @@ function Login() {
         resolver: yupResolver(LoginTypes)
     });
 
-
-    const [email, setEmail] = useState();
-    const [senha, setSenha] = useState();
+    const [ email, setEmail ] = useState<any>();
+    const [ senha, setSenha ] = useState<any>();
+    const [user, setUser] = useState<any>();
 
     const [isValid, setIsValid] = useState(false);
+    
+    api.get('/Usuario/ObterUsuarioContato').then((res) => {
+            setUser(res.data.valor)
+    })
+
 
     const handleSignIn = (data: Login) => {
-        api.get(`/Usuario/ObterUsuarioPorId?IdUsuario=20`)
-            .then(function (response) {
-                setEmail(response.data.valor.contato.email);
-                setSenha(response.data.valor.senha)
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+            setEmail(user.filter((valor: any) => { return (valor.email == data.email) && valor.senha == data.senha}))
+            
+            email?.length > 0 ? setIsValid(true) : setIsValid(false)
 
-        email ==! data.email && senha ==! data.senha ? setIsValid(false) : setIsValid(true)
+            
+            console.log(email)
+            console.log(senha)
     }
 
-    console.log(isValid)
 
 
 
@@ -92,7 +93,7 @@ function Login() {
                             <a href="#" className="text-sm font-semibold text-gray-700 hover:text-blue-700 focus:text-blue-700">Esqueceu a senha?</a>
                         </div>
                         {isValid == true ?
-                            <Link href="/dashboard/cadastrarRepublica">
+                            <Link href={`/dashboard/cadastrarRepublica`}>
                                 <button type="submit" className="w-full block bg-sky-500 hover:bg-sky-600 focus:bg-sky-600 text-white font-semibold rounded-lg
                             px-4 py-3 mt-6">Entrar</button>
                             </Link>

@@ -1,7 +1,6 @@
 
 export type Input = {
     type: string,
-    name: string,
     title: string,
     placeholder: string,
     onChange: any,
@@ -13,7 +12,6 @@ export type Input = {
 }
 
 export type Select = {
-    name: string,
     title: string,
     id: string,
     options: any,

@@ -1,6 +1,7 @@
+import { string } from "yup"
 
 export type Imovel = {
-    titulo: string,
+    idImovel: number,
     midia: string,
     quantidadeComodo: number,
     capacidadePessoas: number,
@@ -14,7 +15,10 @@ export type Imovel = {
     possuiPiscina: boolean,
     quantidadeBanheiros: number,
     quantidadeQuartos: number,
-    myProperty: number,
+    nomeImovel: string,
+    email: string,
+    telefone: number,
+    celular: number,
     fumante: boolean,
     animal: boolean,
     alcool: boolean,
@@ -24,11 +28,12 @@ export type Imovel = {
     tipoImovel: string,
     tipoQuarto: string,
     tipoSexo: string,
-    cep: 0,
+    cep: number,
     localidade: string,
     bairro: string,
     uf: string
     logradouro: string,
     numero: string,
-    complemento: string    
+    complemento: string,
+    idUsuario: number
 }

@@ -42,8 +42,13 @@ const orientacaoSexual = [
     { value: 'Heterossexual', label: 'Heterossexual'},
     { value: 'Panssexual', label: 'Panssexual'} ,
     { value: 'Outro/Prefiro não dizer', label: 'Outro/Prefiro não dizer'}
-
-    
 ]
 
-export { estadoCivil, sexo, genero, religiao, orientacaoSexual}
+const tipoSexoImovel = [
+    { value: 'Selecione o tipo de sexo do quarto' , label: 'Selecione o tipo de sexo do quarto'},
+    { value: 'Masculino', label: 'Masculino'},
+    { value: 'Feminino', label: 'Feminino'},
+    { value: 'Misto', label: 'Misto'}
+]
+
+export { estadoCivil, sexo, genero, religiao, orientacaoSexual, tipoSexoImovel}
