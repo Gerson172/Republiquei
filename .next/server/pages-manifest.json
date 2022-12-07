@@ -2,7 +2,7 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
+  "/": "pages/index.js",
   "/republic/[id]": "pages/republic/[id].js",
-  "/searchRepublic": "pages/searchRepublic.js",
-  "/": "pages/index.js"
+  "/searchRepublic": "pages/searchRepublic.js"
 }

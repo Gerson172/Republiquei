@@ -3,9 +3,9 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Login } from "../../types/User";
-import api from "../../services/api";
 import * as yup from 'yup'
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useFetch } from "../../hooks/useFetch";
 
 function Login() {
 
@@ -19,29 +19,19 @@ function Login() {
         resolver: yupResolver(LoginTypes)
     });
 
-    const [ email, setEmail ] = useState<any>();
-    const [ senha, setSenha ] = useState<any>();
-    const [user, setUser] = useState<any>();
+    const [ user, setUser ] = useState<any>();
+    const [ email, setEmail ] = useState<Login>()
 
     const [isValid, setIsValid] = useState(false);
     
-    api.get('/Usuario/ObterUsuarioContato').then((res) => {
-            setUser(res.data.valor)
-    })
+    const { data } = useFetch<Login[]>('/Usuario/ObterUsuarioContato')
 
 
-    const handleSignIn = (data: Login) => {
-            setEmail(user.filter((valor: any) => { return (valor.email == data.email) && valor.senha == data.senha}))
-            
-            email?.length > 0 ? setIsValid(true) : setIsValid(false)
-
-            
-            console.log(email)
-            console.log(senha)
+    function handleSignIn(e: Login) {
+        setUser(data?.filter((valor: any) => { return (valor.email == e.email) && valor.senha == e.senha; }));
+        user?.length > 0 ? setIsValid(true) : setIsValid(false);
+        console.log(user);
     }
-
-
-
 
     return (
         <section className="flex flex-col md:flex-row h-screen items-center">
@@ -69,6 +59,7 @@ function Login() {
                                 {...register('email')}
                                 type="text"
                                 id="email"
+                                onChange={(e: any) => setEmail(e.target.value)}
                                 autoComplete="current-email"
                                 placeholder="Insira o email"
                                 className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
@@ -93,7 +84,7 @@ function Login() {
                             <a href="#" className="text-sm font-semibold text-gray-700 hover:text-blue-700 focus:text-blue-700">Esqueceu a senha?</a>
                         </div>
                         {isValid == true ?
-                            <Link href={`/dashboard/cadastrarRepublica`}>
+                            <Link href={`/dashboard/cadastrarRepublica/?id=`+email}>
                                 <button type="submit" className="w-full block bg-sky-500 hover:bg-sky-600 focus:bg-sky-600 text-white font-semibold rounded-lg
                             px-4 py-3 mt-6">Entrar</button>
                             </Link>

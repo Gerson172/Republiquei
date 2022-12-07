@@ -24,6 +24,9 @@ export interface User {
 }
 
 export interface Login {
+    id: number, 
+    nome: string,
+    sobrenome: string,
     email: string,
     senha: string
 }

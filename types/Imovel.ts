@@ -29,9 +29,9 @@ export type Imovel = {
     tipoQuarto: string,
     tipoSexo: string,
     cep: number,
-    localidade: string,
+    cidade: string,
     bairro: string,
-    uf: string
+    estado: string
     logradouro: string,
     numero: string,
     complemento: string,

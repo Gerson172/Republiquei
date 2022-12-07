@@ -1,31 +1,55 @@
 import AnnounceRepublic from "../../components/AnnounceRepublic";
 import Footer from "../../components/Footer";
 import NavBar from "../../components/NavBar";
-import Pagination from "../../components/Pagination";
-import { useEffect, useState } from "react";
-import { ImSearch } from "react-icons/im";
-import Filter from "../../components/Filter";
-import api from "../../services/api";
+import { Imovel } from "../../types/Imovel";
+import { useFetch } from "../../hooks/useFetch";
 
 
 function SearchRepublic(){
-    const [search, setSearch] = useState('');
-    const [imovel, setImovel] = useState('');
-    
-    useEffect(() => {
-        api.get('/Imovel/ObterImovel')
-        .then(res => {
-            setImovel(res.data.valor)
-            console.log(imovel)
-        })
-        
-    }, [])
 
+    const { data: imovel } = useFetch<Imovel[]>('/Imovel/ObterImovel')
     return (
         <>
             <NavBar />
-            <section className="flex flex-row flex-wrap justify-center gap-4 bg-white">
-                <Pagination />
+            <section className="inline-flex flex-row mx-28 my-16 flex-wrap gap-4 bg-white">
+                {imovel?.map((props: Imovel) => {
+                    return <AnnounceRepublic 
+                        midia={props.midia}
+                        quantidadeComodo={props.quantidadeComodo}
+                        capacidadePessoas={props.capacidadePessoas}
+                        valor={props.valor}
+                        descricao={props.descricao}
+                        possuiAcessibilidade={props.possuiAcessibilidade}
+                        possuiGaragem={props.possuiGaragem}
+                        possuiAcademia={props.possuiAcademia}
+                        possuiMobilia={props.possuiMobilia}
+                        possuiAreaLazer={props.possuiAreaLazer}
+                        possuiPiscina={props.possuiPiscina}
+                        quantidadeBanheiros={props.quantidadeBanheiros}
+                        quantidadeQuartos={props.quantidadeQuartos}
+                        nomeImovel={props.nomeImovel}
+                        email={props.email}
+                        telefone={props.telefone}
+                        celular={props.celular}
+                        fumante={props.fumante}
+                        animal={props.animal}
+                        alcool={props.alcool}
+                        visitas={props.visitas}
+                        crianca={props.crianca}
+                        drogas={props.drogas}
+                        tipoImovel={props.tipoImovel}
+                        tipoQuarto={props.tipoQuarto}
+                        tipoSexo={props.tipoSexo}
+                        cep={props.cep}
+                        cidade={props.cidade}
+                        bairro={props.bairro}
+                        estado={props.estado}
+                        logradouro={props.logradouro}
+                        numero={props.numero}
+                        complemento={props.complemento}
+                        idUsuario={props.idUsuario} 
+                        idImovel={props.idImovel} />
+                })}
             </section>
             <Footer />
         </>
