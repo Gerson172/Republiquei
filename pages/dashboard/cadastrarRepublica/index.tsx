@@ -25,9 +25,9 @@ export default function CadastrarRepublica() {
         const { data } = await viacep.get<ViaCep>(`${cepApenasNumero}/json/`)
 
         setValue("logradouro", data.logradouro);
-        setValue("uf", data.uf);
+        setValue("estado", data.uf);
         setValue("bairro", data.bairro)
-        setValue("localidade", data.localidade)
+        setValue("cidade", data.cidade)
     }
 
     const { register, handleSubmit, formState: { errors }, setValue } = useForm<Imovel>({
@@ -67,12 +67,12 @@ export default function CadastrarRepublica() {
             },
             enderecoImovel: {
             cep: data.cep,
-            cidade: data.localidade,
+            cidade: data.cidade,
             bairro: data.bairro,
             logradouro: data.logradouro,
             numero: data.numero,
             complemento: data.complemento,
-            estado: data.uf
+            estado: data.estado
             },
             idUsuario: data.idUsuario
         }
@@ -110,7 +110,6 @@ return (
                             <label htmlFor="valor">Preço: </label>
                             <CurrencyInput
                                 {...register('valor')}
-                                placeholder={"R$"}
                                 maskOptions={"R$0.00"}
                             />
                             {errors.valor && <span className="text-red-500 text-sm">{errors.valor.message}</span>}
@@ -183,7 +182,7 @@ return (
                                 placeholder="Digite o tipo do quarto" 
                                 onChange={undefined}                            />
                         </div>
-                            <Select title={"Sexo"} id={"sexo"} options={tipoSexoImovel} onChange={undefined} mensagemDeErro={errors} register={register}/>
+                            <Select title={"Sexo"} id={"sexo"} options={tipoSexoImovel} onChange={undefined} mensagemDeErro={errors} register={register} name={""}/>
                     </div>
                     <div>
                         <div>

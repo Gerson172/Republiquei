@@ -13,6 +13,7 @@ export type Input = {
 
 export type Select = {
     title: string,
+    name: string,
     id: string,
     options: any,
     onChange: any,

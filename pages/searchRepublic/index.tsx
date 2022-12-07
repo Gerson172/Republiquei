@@ -7,10 +7,11 @@ import { useFetch } from "../../hooks/useFetch";
 
 function SearchRepublic(){
 
-    const { data: imovel } = useFetch<Imovel[]>('/Imovel/ObterImovel')
+    const { data: imovel, isFetching } = useFetch<Imovel[]>('/Imovel/ObterImovel')
     return (
         <>
             <NavBar />
+            { isFetching && <p>Carregando....</p>}
             <section className="inline-flex flex-row mx-28 my-16 flex-wrap gap-4 bg-white">
                 {imovel?.map((props: Imovel) => {
                     return <AnnounceRepublic 

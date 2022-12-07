@@ -32,7 +32,7 @@ function Register() {
         setValue("logradouro", data.logradouro)
         setValue("uf", data.uf)
         setValue("bairro", data.bairro)
-        setValue("localidade", data.localidade)
+        setValue("localidade", data.cidade)
     }
 
     const onSubmit = (data: User) => {
@@ -96,11 +96,11 @@ function Register() {
                                 <Input title="Data Nascimento" inputMask={false} mensagemDeErro={errors} id="dataNascimento" type="date" placeholder={""} mask={""} onChange={undefined} register={register} />
                             </div>
                             <div className="grid md:grid-cols-4 md:gap-6">
-                                <Select id="estadoCivil" title="Estado Civil" options={estadoCivil} mensagemDeErro={errors} register={register} onChange={undefined} />
-                                <Select id="sexo"  title="Sexo" options={sexo} mensagemDeErro={errors} register={register} onChange={undefined} />
-                                <Select  title="Genero" id="genero" options={genero} mensagemDeErro={errors} register={register} onChange={undefined} />
-                                <Select  title="Orientação Sexual" id="orientacaoSexual" options={orientacaoSexual} mensagemDeErro={errors} register={register} onChange={undefined} />
-                                <Select id="religiao" title="Religiao" options={religiao} mensagemDeErro={errors} register={register} onChange={undefined} />
+                                <Select id="estadoCivil" title="Estado Civil" options={estadoCivil} mensagemDeErro={errors} register={register} onChange={undefined} name={""} />
+                                <Select id="sexo" title="Sexo" options={sexo} mensagemDeErro={errors} register={register} onChange={undefined} name={""} />
+                                <Select  title="Genero" id="genero" options={genero} mensagemDeErro={errors} register={register} onChange={undefined} name={""} />
+                                <Select  title="Orientação Sexual" id="orientacaoSexual" options={orientacaoSexual} mensagemDeErro={errors} register={register} onChange={undefined} name={""} />
+                                <Select id="religiao" title="Religiao" options={religiao} mensagemDeErro={errors} register={register} onChange={undefined} name={""} />
                                 <Input id="areaInteresse"  title="Area Interesse" placeholder="Digite sua area de interesse" onChange={undefined} inputMask={false} mask={""} mensagemDeErro={errors} register={register} type="text" />
                                 <Input type="checkbox" title="Proprietario" placeholder={""} onChange={undefined} id="proprietario" mensagemDeErro={errors} inputMask={false} mask={""} register={register} />
                             </div>
