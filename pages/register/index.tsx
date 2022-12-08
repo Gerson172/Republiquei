@@ -12,12 +12,13 @@ import { estadoCivil, sexo, genero, religiao, orientacaoSexual } from "../../dat
 import api from "../../services/api";
 import Link from "next/link";
 import { User } from "../../types/User";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 
 function Register() {
-    const { register, handleSubmit, formState: { errors }, setValue } = useForm<User>({
-        resolver: yupResolver(registerForm)
-    });
+    const { register, handleSubmit, formState: { errors }, setValue } = useForm<User>({});
+    let router = useRouter()
 
     async function obterEndereco(cep: string) {
         const cepApenasNumero = cep.replace(/[^0-9]/g, "")
@@ -69,6 +70,12 @@ function Register() {
             }
         }
 
+        setTimeout(() => {
+            alert('Usuario cadastrado com sucesso!')
+            router.push({pathname: '/login'})
+            
+    }, 3000)
+
 
         api.post('/Usuario/CadastrarUsuario', criarUsuario)
             .then(function (response) {
@@ -117,15 +124,15 @@ function Register() {
                             <div className="grid md:grid-cols-3 md:gap-6">
                                 <Input type="text" id="bairro" title="Bairro" placeholder="Digite o seu bairro" onChange={undefined} mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={20} />
                                 <Input type="text" title="Cidade" placeholder={"Digite o nome da sua cidade"} onChange={undefined} id="localidade" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={20} />
-                                <Input type="uf" title="Estado" placeholder="Digite o nome do seu estado" onChange={undefined} id="uf" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={20} />
+                                <Input type="uf" title="UF" placeholder="Digite o nome do seu estado" onChange={undefined} id="uf" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={2} />
                                 <Input type="complemento" title="Complemento" placeholder="" onChange={undefined} id="complemento" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={20} />
                             </div>
                             <div className="grid md:grid-cols-2 md:gap-6">
-                                <Input type="email" title="Email" placeholder="Digite o seu email" id="email" mensagemDeErro={errors} inputMask={false} mask={""} onChange={undefined} register={register} min={0} max={0} />
-                                <Input type="password" title="Senha" placeholder="Digite sua senha" id="senha" mensagemDeErro={errors} inputMask={false} mask={""} onChange={undefined} register={register} min={0} max={0} />
-                                <Link href="/login">
-                                    <button type="submit" className="w-30 block bg-sky-500 hover:bg-sky-400 focus:bg-sky-400 text-white font-semibold rounded-lg px-4 py-3 mt-6">Finalizar</button>
-                                </Link>
+                                <Input type="email" title="Email" placeholder="Digite o seu email" id="email" mensagemDeErro={errors} inputMask={false} mask={""} onChange={undefined} register={register} min={0} max={100} />
+                                <Input type="password" title="Senha" placeholder="Digite sua senha" id="senha" mensagemDeErro={errors} inputMask={false} mask={""} onChange={undefined} register={register} min={0} max={10} />
+                                
+                                <button type="submit" className="w-30 block bg-sky-500 hover:bg-sky-400 focus:bg-sky-400 text-white font-semibold rounded-lg px-4 py-3 mt-6">Finalizar</button>
+                            
                             </div>
                         </form>
                     </div>

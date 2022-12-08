@@ -57,7 +57,7 @@ function Login() {
 
                     <h1 className="text-xl md:text-2xl font-bold leading-tight mt-12">Faça login na sua conta</h1>
 
-                    <form className="mt-6" onSubmit={handleSubmit(handleSignIn)}>
+                    <form className="mt-6" onSubmitCapture={handleSubmit(handleSignIn)}>
                         <div>
                             <label className="block text-gray-700">Email</label>
                             <input

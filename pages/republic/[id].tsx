@@ -4,6 +4,7 @@ import api from '../../services/api';
 import { useQuery } from 'react-query'
 import { useRouter } from 'next/router';
 import {IoClose, IoCheckmarkDoneSharp} from 'react-icons/io5'
+import { User } from '../../types/User';
 
 export default function Republic() {
   const { id } = useRouter().query
@@ -11,8 +12,11 @@ export default function Republic() {
   const { data: imovel, isFetching } = useQuery<Imovel>(['imovel', id], async () => {
     const response = await api.get('/Imovel/ObterImovelPorId?IdImovel=' + id)
     return response.data.valor;
-  }, {
-    staleTime: 1000 + 60, // 1 minuto
+  })
+
+  const { data: contato} = useQuery<User>(['contato', id], async () => {
+    const response = await api.get(`/Usuario/ObterUsuarioPorId?IdUsuario=${imovel?.idUsuario}`)
+    return response.data.valor
   })
 
   console.log(imovel)
@@ -75,19 +79,19 @@ export default function Republic() {
                 <b>Modelo de quarto:</b> {imovel?.tipoQuarto}
               </p>
 
-              <div className="text-gray-700 font-bold text-xl mb-2 text-center mt-3 mb-3"><b>Contatos do Proprietário</b></div>
+              <div className="text-gray-700 font-bold text-xl text-center mt-3 mb-3"><b>Contatos do Proprietário</b></div>
 
               <p className="text-gray-700 text-sm">
-                <b>Email:</b> {imovel?.email}
+                <b>Email:</b> {contato?.email}
               </p>
               <p className="text-gray-700 text-sm">
-                <b>Telefone:</b> {imovel?.telefone}
+                <b>Telefone:</b> {contato?.telefone}
               </p>
               <p className="text-gray-700 text-sm">
-                <b>Celular com Whatsapp:</b> {imovel?.celular}
+                <b>Celular com Whatsapp:</b> {contato?.celular}
               </p>
 
-              <div className="text-gray-700 font-bold text-xl mb-2 text-center mt-3 mb-3"><b>Restrições do imóvel</b></div>
+              <div className="text-gray-700 font-bold text-xl text-center mt-3 mb-3"><b>Restrições do imóvel</b></div>
 
               <p className="text-gray-700 text-sm">
                 <b>Permite o uso de tabaco no local:</b> {imovel?.fumante ? <IoCheckmarkDoneSharp className="text-xl text-green-600"/> : <IoClose className='text-xl text-red-600'/> }
@@ -106,7 +110,7 @@ export default function Republic() {
               </p>
 
 
-              <div className="text-gray-700 font-bold text-xl mb-2 text-center mt-3 mb-3"><b>Endereço do imóvel</b></div>
+              <div className="text-gray-700 font-bold text-xl text-center mt-3 mb-3"><b>Endereço do imóvel</b></div>
 
               <p className="text-gray-700 text-sm">
                 <b>CEP:</b> {imovel?.cep}

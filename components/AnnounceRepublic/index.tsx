@@ -1,7 +1,6 @@
 import { MapPinIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { Imovel } from "../../types/Imovel";
 
 
@@ -40,7 +39,7 @@ function AnnounceRepublic(props: Imovel) {
                     <MapPinIcon className="h-6 w-6 text-blue-500" />
                     <h2 className="text-blue-500">{props.localidade}-{props.uf}</h2>
                 </div>
-                    <span className="text-2xl font-bold text-gray-900">{props.valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</span>
+                    <span className="text-2xl font-bold text-gray-900">{props.valor}</span>
                 </div>
         </div>
         </div>

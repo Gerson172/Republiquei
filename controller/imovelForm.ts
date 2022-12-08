@@ -1,9 +1,9 @@
 import * as yup from 'yup'
 
 const imovelForm = yup.object().shape({
-    nomeImovel: yup.string(),
-    midia: yup.string(),
-    quantidadeComodo: yup.number(),
+    nomeImovel: yup.string().required(),
+    midia: yup.string().required(),
+    quantidadeComodo: yup.number().required(),
     capacidadePessoas: yup.number(),
     valor: yup.number(),
     descricao: yup.string(),

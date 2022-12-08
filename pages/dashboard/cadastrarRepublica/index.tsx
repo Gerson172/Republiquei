@@ -8,7 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import registerForm from "../../../controller/registerForm";
 
 //Next.js
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
 import Head from "next/head";
 
 //Components
@@ -28,7 +28,6 @@ import { Imovel } from "../../../types/Imovel";
 //Dados
 import { tipoSexoImovel } from "../../../data/options";
 
-
 export default function CadastrarRepublica() {
 
     async function obterEndereco(cep: string) {
@@ -47,61 +46,69 @@ export default function CadastrarRepublica() {
     }
 
     const { register, handleSubmit, formState: { errors }, setValue } = useForm<Imovel>({
-        resolver: yupResolver(registerForm)
     });
 
     const { id } = useRouter().query
 
-    const onSubmit = (data: Imovel) => {
+    let router = useRouter()
+
+    const postSubmit = (data: Imovel) => {
+
         const criarImovel = {
-            midia: data.midia,
-            quantidadeComodo: data.quantidadeComodo,
-            capacidadePessoas: data.capacidadePessoas,
-            valor: data.valor,
-            descricao: data.descricao,
-            possuiAcessibilidade: data.possuiAcessibilidade,
-            possuiGaragem: data.possuiGaragem,
-            possuiAcademia: data.possuiAcademia,
-            possuiMobilia: data.possuiMobilia,
-            possuiAreaLazer: data.possuiAreaLazer,
-            possuiPiscina: data.possuiPiscina,
-            quantidadeBanheiros: data.quantidadeBanheiros,
-            quantidadeQuartos: data.quantidadeQuartos,
-            nomeImovel: data.nomeImovel,
-            regraImovel: {
-                fumante: data.fumante,
-                animal: data.animal,
-                alcool: data.alcool,
-                visitas: data.visitas,
-                crianca: data.crianca,
-                drogas: data.drogas,
-            },
-            caracteristicaImovel: {
-                tipoImovel: data.tipoImovel,
-                tipoQuarto: data.tipoQuarto,
-                tipoSexo: data.tipoSexo
-            },
-            enderecoImovel: {
-                cep: data.cep,
-                localidade: data.localidade,
-                bairro: data.bairro,
-                logradouro: data.logradouro,
-                numero: data.numero,
-                complemento: data.complemento,
-                uf: data.uf
-            },
-            idUsuario: id
+                midia: data.midia,
+                quantidadeComodo: data.quantidadeComodo,
+                capacidadePessoas: data.capacidadePessoas,
+                valor: 1000,
+                descricao: data.descricao,
+                possuiAcessibilidade: data.possuiAcessibilidade,
+                possuiGaragem: data.possuiGaragem,
+                possuiAcademia: data.possuiAcademia,
+                possuiMobilia: data.possuiMobilia,
+                possuiAreaLazer: data.possuiAreaLazer,
+                possuiPiscina: data.possuiPiscina,
+                quantidadeBanheiros: data.quantidadeBanheiros,
+                quantidadeQuartos: data.quantidadeQuartos,
+                nomeImovel: data.nomeImovel,
+                regraImovel: {
+                  fumante: data.fumante,
+                  animal: data.animal,
+                  alcool: data.alcool,
+                  visitas: data.visitas,
+                  crianca: data.crianca,
+                  drogas: data.drogas
+                },
+                caracteristicaImovel: {
+                  tipoImovel: data.tipoImovel,
+                  tipoQuarto: data.tipoQuarto,
+                  tipoSexo: data.tipoSexo
+                },
+                enderecoImovel: {
+                  cep: data.cep.replace(/[^0-9]/g, ""),
+                  localidade: data.localidade,
+                  bairro: data.bairro,
+                  logradouro: data.logradouro,
+                  numero: data.numero,
+                  complemento: data.complemento,
+                  uf: data.uf
+                },
+                idUsuario: id
         }
 
         console.log(criarImovel)
 
+        setTimeout(() => {
+            alert('Imovel cadastrado com sucesso!')
+                router.push({pathname: '/'})
+                
+        }, 3000)
+
         api.post('/Imovel/InserirImovel', criarImovel)
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
 
     }
 
@@ -115,7 +122,7 @@ export default function CadastrarRepublica() {
             <section className="flex md:flex-row flex-col-reverse text-slate-900">
                 <Sidebar />
                 <div className="bg-white my-8 w-full flex justify-center">
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <form onSubmit={handleSubmit(postSubmit)}>
                         <Input
                             title={"Titulo: "}
                             mensagemDeErro={errors}
@@ -128,17 +135,21 @@ export default function CadastrarRepublica() {
                             onChange={undefined}
                             min={0} max={50} />
                         <div className='flex gap-2 items-center'>
-                            <div className="relative z-0 mb-6 w-full group">
-                                <label htmlFor="valor" className="block mb-2 text-sm font-medium text-gray-900">Preço: </label>
-                                <CurrencyInput
-                                    {...register('valor')}
-                                    maskOptions={"R$0.00"}
-                                />
-                                {errors.valor && <span className="text-red-500 text-sm">{errors.valor.message}</span>}
-                            </div>
+                            <Input 
+                                type={'number'} 
+                                title={'Preço: '} 
+                                placeholder={'Digite o preco'} 
+                                onChange={undefined} 
+                                id="valor"
+                                mensagemDeErro={errors} 
+                                inputMask={false} 
+                                mask={''} 
+                                min={0} 
+                                max={1000000} 
+                                register={register}/>            
                             <Input
-                                title={"Tipo Imovel:"}
-                                id={"tipoImovel"}
+                                title="Tipo Imovel:"
+                                id="tipoImovel"
                                 mensagemDeErro={errors}
                                 inputMask={false}
                                 mask={""}
@@ -148,8 +159,8 @@ export default function CadastrarRepublica() {
                                 onChange={undefined}
                                 min={0} max={30} />
                             <Input
-                                title={"Tipo do quarto"}
-                                id={"tipoQuarto"}
+                                title="Tipo do quarto"
+                                id="tipoQuarto"
                                 mensagemDeErro={errors}
                                 inputMask={false}
                                 mask={""}
@@ -159,10 +170,10 @@ export default function CadastrarRepublica() {
                                 onChange={undefined} min={0} max={30} />
                         </div>
                         <div className='flex gap-2'>
-                            <Select title={"Sexo"} id={"sexo"} options={tipoSexoImovel} onChange={undefined} mensagemDeErro={errors} register={register} name={""} />
+                            <Select title={"Sexo"} id={"tipoSexo"} options={tipoSexoImovel} onChange={undefined} mensagemDeErro={errors} register={register} name={""} />
                             <Input
-                                title={"Capacidade de pessoas: "}
-                                id={"capacidadePessoas"}
+                                title="Capacidade de pessoas: "
+                                id="capacidadePessoas"
                                 mensagemDeErro={errors}
                                 inputMask={false}
                                 mask={""}
@@ -172,36 +183,36 @@ export default function CadastrarRepublica() {
                                 min={0}
                                 max={10}
                                 onChange={undefined} />
-                            </div>
-                            <div className='flex gap-2'>
-                                <Input
-                                    placeholder="Quantidade maxima de comodos"
-                                    type="number"
-                                    title={"Quantidade de comodos"}
-                                    onChange={undefined}
-                                    id={"quantidadeComodo"}
-                                    mensagemDeErro={errors}
-                                    inputMask={false}
-                                    min={0}
-                                    max={10}
-                                    mask={""}
-                                    register={register} />
-                                <Input
-                                    placeholder="Quantidade de banheiros"
-                                    type="number"
-                                    title={"Quantidade de banheiros: "}
-                                    onChange={undefined}
-                                    id={"quantidadeBanheiro"}
-                                    mensagemDeErro={errors}
-                                    inputMask={false}
-                                    min={0}
-                                    max={10}
-                                    mask={""}
-                                    register={register} />
+                        </div>
+                        <div className='flex gap-2'>
+                            <Input
+                                placeholder="Quantidade maxima de comodos"
+                                type="number"
+                                title="Quantidade de comodos"
+                                onChange={undefined}
+                                id="quantidadeComodo"
+                                mensagemDeErro={errors}
+                                inputMask={false}
+                                min={0}
+                                max={10}
+                                mask={""}
+                                register={register} />
+                            <Input
+                                placeholder="Quantidade de banheiros"
+                                type="number"
+                                title="Quantidade de banheiros: "
+                                onChange={undefined}
+                                id="quantidadeBanheiros"
+                                mensagemDeErro={errors}
+                                inputMask={false}
+                                min={0}
+                                max={10}
+                                mask={""}
+                                register={register} />
 
                             <Input
-                                title={"Quantidade de quartos:"}
-                                id={"quantidadeQuartos"}
+                                title="Quantidade de quartos: "
+                                id="quantidadeQuartos"
                                 mensagemDeErro={errors}
                                 inputMask={false}
                                 mask={""}
@@ -211,20 +222,18 @@ export default function CadastrarRepublica() {
                                 min={0}
                                 max={10}
                                 onChange={undefined} />
-                                </div>
-     
-
+                        </div>
                         <div>
                             <h2 className="mt-2 mb-10 text-xl md:text-2xl font-bold text-gray-900">Endereço</h2>
                             <div className="grid md:grid-cols-3 md:gap-6">
                                 <Input type="cep" title="CEP" placeholder="Digite o seu CEP" id="cep" mensagemDeErro={errors} inputMask={true} mask="99999-999" onChange={obterEndereco} register={register} min={0} max={100} />
                                 <Input type="text" title="Endereço" placeholder="Digite o seu endereço" onChange={undefined} id="logradouro" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={100} />
-                                <Input type="number" title="Número" placeholder={"Digite o número da sua residência"} onChange={undefined} id="numeroCasa" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={10000} />
+                                <Input type="number" title="Número" placeholder={"Digite o número da sua residência"} onChange={undefined} id="numero" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={10000} />
                             </div>
                             <div className="grid md:grid-cols-3 md:gap-6">
                                 <Input type="text" id="bairro" title="Bairro" placeholder="Digite o seu bairro" onChange={undefined} mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={20} />
                                 <Input type="text" title="Cidade" placeholder={"Digite o nome da sua cidade"} onChange={undefined} id="localidade" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={20} />
-                                <Input type="uf" title="Estado" placeholder="Digite o nome do seu estado" onChange={undefined} id="uf" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={20} />
+                                <Input type="uf" title="UF" placeholder="Digite o nome do seu estado" onChange={undefined} id="uf" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={2} />
                                 <Input type="complemento" title="Complemento" placeholder="" onChange={undefined} id="complemento" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={20} />
                             </div>
                         </div>
@@ -232,19 +241,22 @@ export default function CadastrarRepublica() {
                             <label htmlFor="descricao">Descrição: </label>
                             <textarea
                                 {...register('descricao')}
+                                id="descricao"
                                 placeholder="Descrição do imovel"></textarea>
                         </div>
                         <div>
                             <Input
                                 id="midia"
                                 type="text"
-                                title={"Enviar Midia"}
+                                title="Enviar Midia"
                                 placeholder={"https://www.imagem.com"}
                                 onChange={undefined}
                                 mensagemDeErro={errors}
                                 inputMask={false}
                                 mask={""}
-                                register={register} min={0} max={10000} />
+                                register={register}
+                                min={0}
+                                max={10000} />
                         </div>
                         <section className='flex justify-evenly'>
                             <div className='flex flex-col gap-2'>

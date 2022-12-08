@@ -25,15 +25,15 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/dashboard/cadastrarRepublica": [
+    "/republic/[id]": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/dashboard/cadastrarRepublica.js"
+      "static/chunks/pages/republic/[id].js"
     ],
-    "/login": [
+    "/searchRepublic": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/login.js"
+      "static/chunks/pages/searchRepublic.js"
     ]
   },
   "ampFirstPages": []

@@ -11,8 +11,6 @@ function SearchRepublic(){
     const {data, isFetching} = useQuery<Imovel[]>('searchImoveis', async () => {
         const response = await api.get('/Imovel/ObterImovel')
         return response.data.valor;
-    },{
-        staleTime: 1000 + 60, // 1 minuto
     })
 
     console.log(data)
