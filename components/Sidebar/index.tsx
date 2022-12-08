@@ -29,6 +29,7 @@ function Sidebar() {
     
     return (
             <div className="flex md:relative md:min-h-screen md:w-1/5 w-full flex-row md:flex-col justify-between border-r bg-white">
+                        {isFetching && <p>Carregando...</p>}
                 <div className=" py-6 text-gray-700">
                     <nav aria-label="Main Nav" className="flex fixed items-center sm:items-stretch md:flex-col flex-row gap-10 sm:gap-2 sm:space-y-1">
                         <Link href="/">

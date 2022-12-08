@@ -48,7 +48,7 @@ function NavBar() {
                             <Link href="/">
                                 <a className="flex flex-row items-center gap-x-2" href="javascript:void(0)">
                                     <Image loader={customLoader} alt="logo" src="/favicon.png" width={50} height={50} />
-                                    <h2 className="text-2xl text-sky-500 font-bold">Republiquei</h2>
+                                    <h2 className="text-2xl text-sky-500 font-bold">REPUBLIQUEI</h2>
                                 </a>
                             </Link>
                             <div className="md:hidden">

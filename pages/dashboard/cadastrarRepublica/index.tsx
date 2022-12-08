@@ -58,7 +58,7 @@ export default function CadastrarRepublica() {
                 midia: data.midia,
                 quantidadeComodo: data.quantidadeComodo,
                 capacidadePessoas: data.capacidadePessoas,
-                valor: 1000,
+                valor: data.valor,
                 descricao: data.descricao,
                 possuiAcessibilidade: data.possuiAcessibilidade,
                 possuiGaragem: data.possuiGaragem,

@@ -19,7 +19,7 @@ export default function Republic() {
     return response.data.valor
   })
 
-  console.log(imovel)
+  console.log(contato)
   return (
     <>
       <NavBar />
@@ -93,19 +93,19 @@ export default function Republic() {
 
               <div className="text-gray-700 font-bold text-xl text-center mt-3 mb-3"><b>Restrições do imóvel</b></div>
 
-              <p className="text-gray-700 text-sm">
+              <p className="flex gap-2 text-gray-700 text-sm">
                 <b>Permite o uso de tabaco no local:</b> {imovel?.fumante ? <IoCheckmarkDoneSharp className="text-xl text-green-600"/> : <IoClose className='text-xl text-red-600'/> }
               </p>
-              <p className="text-gray-700 text-sm">
+              <p className="flex gap-2 text-gray-700 text-sm">
                 <b>Permite animais:</b> {imovel?.animal ?  <IoCheckmarkDoneSharp className="text-xl text-green-600"/> : <IoClose className='text-xl text-red-600'/>}
               </p>
-              <p className="text-gray-700 text-sm">
+              <p className="flex gap-2 text-gray-700 text-sm">
                 <b>Permite consumo de alcool no local:</b> {imovel?.alcool ?  <IoCheckmarkDoneSharp className="text-xl text-green-600"/> : <IoClose className='text-xl text-red-600'/>}
               </p>
-              <p className="text-gray-700 text-sm">
+              <p className="flex gap-2 text-gray-700 text-sm">
                 <b>Aceita visitas:</b> {imovel?.visitas ?  <IoCheckmarkDoneSharp className="text-xl text-green-600"/> : <IoClose className='text-xl text-red-600'/>}
               </p>
-              <p className="text-gray-700 text-sm">
+              <p className="flex gap-2 text-gray-700 text-sm">
                 <b>Aceita criancas no imóvel:</b> {imovel?.crianca ?  <IoCheckmarkDoneSharp className="text-xl text-green-600"/> : <IoClose className='text-xl text-red-600'/>}
               </p>
 

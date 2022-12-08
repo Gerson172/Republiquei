@@ -74,7 +74,7 @@ function Register() {
             alert('Usuario cadastrado com sucesso!')
             router.push({pathname: '/login'})
             
-    }, 3000)
+    }, 500)
 
 
         api.post('/Usuario/CadastrarUsuario', criarUsuario)
