@@ -5,7 +5,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Login } from "../../types/User";
 import * as yup from 'yup'
 import { useState } from "react";
-import { useFetch } from "../../hooks/useFetch";
+import { useQuery } from 'react-query'
+import api from "../../services/api";
 
 function Login() {
 
@@ -20,22 +21,26 @@ function Login() {
     });
 
     const [ user, setUser ] = useState<any>();
-    const [ email, setEmail ] = useState<Login>()
-
     const [isValid, setIsValid] = useState(false);
     
-    const { data } = useFetch<Login[]>('/Usuario/ObterUsuarioContato')
+
+    const {data, isFetching, isError} = useQuery<Login[]>('login', async () => {
+        const response = await api.get('/Usuario/ObterUsuarioContato')
+        return response.data.valor;
+    })
 
 
     function handleSignIn(e: Login) {
         setUser(data?.filter((valor: any) => { return (valor.email == e.email) && valor.senha == e.senha; }));
         user?.length > 0 ? setIsValid(true) : setIsValid(false);
-        console.log(user);
     }
+
+    const id = user?.map((valor:any) => valor.id)
+    console.log(id)
 
     return (
         <section className="flex flex-col md:flex-row h-screen items-center">
-
+            {isFetching && <p>Carregando....</p>}
             <div className="bg-indigo-600 hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">
                 <Image src="/login.jpeg" alt="" layout="responsive" width={800} height={684} objectFit="cover" />
             </div>
@@ -59,7 +64,6 @@ function Login() {
                                 {...register('email')}
                                 type="text"
                                 id="email"
-                                onChange={(e: any) => setEmail(e.target.value)}
                                 autoComplete="current-email"
                                 placeholder="Insira o email"
                                 className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
@@ -84,7 +88,7 @@ function Login() {
                             <a href="#" className="text-sm font-semibold text-gray-700 hover:text-blue-700 focus:text-blue-700">Esqueceu a senha?</a>
                         </div>
                         {isValid == true ?
-                            <Link href={`/dashboard/cadastrarRepublica/?id=`+email}>
+                            <Link href={`/dashboard/cadastrarRepublica?id=`+id}>
                                 <button type="submit" className="w-full block bg-sky-500 hover:bg-sky-600 focus:bg-sky-600 text-white font-semibold rounded-lg
                             px-4 py-3 mt-6">Entrar</button>
                             </Link>
@@ -108,3 +112,5 @@ function Login() {
 }
 
 export default Login;
+
+

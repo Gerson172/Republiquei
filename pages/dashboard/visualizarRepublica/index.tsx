@@ -1,17 +1,28 @@
 import AnnounceRepublic from "../../../components/AnnounceRepublic"
 import Sidebar from "../../../components/Sidebar"
-import { useFetch } from "../../../hooks/useFetch"
 import { Imovel } from "../../../types/Imovel";
-
+import { useQuery} from 'react-query'
+import api from "../../../services/api";
 
 
 function visualizarRepublica(){
-    const { data: imovel } = useFetch<Imovel[]>('/Imovel/ObterImovel')
+    
+    const {data, isFetching} = useQuery<Imovel[]>('visualizarImovel', async () => {
+        const response = await api.get('/Imovel/ObterImovel')
 
-    return (<section className="flex">
+        return response.data.valor;
+    }, {
+        staleTime: 1000 + 60, // 1 minuto
+    })
+
+    console.log(data)
+
+    return (
+    <section className="flex">
     <Sidebar/>
     <div className="flex flex-row ml-4 my-16 flex-wrap gap-4 bg-white">
-        {imovel?.map((props: Imovel) => {
+    { isFetching && <p>Carregando....</p>}
+        {data?.map((props: Imovel) => {
                     return <AnnounceRepublic 
                         midia={props.midia}
                         quantidadeComodo={props.quantidadeComodo}

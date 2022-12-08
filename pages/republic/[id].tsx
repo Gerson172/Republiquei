@@ -2,36 +2,44 @@ import NavBar from '../../components/NavBar'
 import Image from 'next/image'
 import { Imovel } from '../../types/Imovel'
 import AnnounceRepublic from '../../components/AnnounceRepublic'
-import { useEffect, useState } from 'react';
 import api from '../../services/api';
+import { useQuery} from 'react-query'
 import { useRouter } from 'next/router';
-import { useFetch } from '../../hooks/useFetch';
 
 export default function Republic() {
 
 
   const {id} = useRouter().query
 
-  const { data: imovel } = useFetch<Imovel>('/Imovel/ObterImovelPorId?IdImovel='+id)
+  const {data, isFetching} = useQuery<Imovel>(['imovel', id], async () => {
+    const response = await api.get('/Imovel/ObterImovelPorId?IdImovel='+id)
+    return response.data.valor;
+},{
+  staleTime: 1000 + 60, // 1 minuto
+})
+
+  console.log(data)
+
 
   return (
     <>
       <NavBar />
+      {isFetching && <p>Carregando...</p>}
       <div className='bg-white h-screen md:h-full'>
         <div>
           <div>
-            <img alt='' src={imovel?.midia} />
+            <img alt={data?.descricao} src={data?.midia} />
           </div>
         </div>
 
         <div className="mx-auto max-w-2xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pt-16 lg:pb-24">
           <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{imovel?.descricao}</h1>
+            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{data?.descricao}</h1>
           </div>
 
           <div className="mt-4 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
-            <p className="text-3xl tracking-tight text-gray-900">{imovel?.valor}</p>
+            <p className="text-3xl tracking-tight text-gray-900">{data?.valor}</p>
 
             <form className="mt-10">
               <button
@@ -49,7 +57,7 @@ export default function Republic() {
               <h3 className="sr-only">Description</h3>
 
               <div className="space-y-6">
-                <p className="text-base text-gray-900">{imovel?.descricao}</p>
+                <p className="text-base text-gray-900">{data?.descricao}</p>
               </div>
             </div>
 

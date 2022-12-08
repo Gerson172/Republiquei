@@ -1,17 +1,33 @@
-import Sidebar from "../../../components/Sidebar";
-import Head from "next/head";
-import Input from "../../../components/Input";
+//React
+import { useQuery } from 'react-query'
+import { useState } from "react";
+
+//React Hook Form
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import registerForm from "../../../controller/registerForm";
-import { Imovel } from "../../../types/Imovel";
-import { useForm } from "react-hook-form";
-import CurrencyInput from "../../../components/CurrencyInput";
-import viacep, { ViaCep } from "../../../services/viacep";
-import Link from "next/link";
-import api from "../../../services/api";
+
+//Next.js
 import { useRouter } from "next/router";
-import { tipoSexoImovel } from "../../../data/options";
+import Head from "next/head";
+
+//Components
+import CheckBox from "../../../components/Checkbox";
+import CurrencyInput from "../../../components/CurrencyInput";
+import Input from "../../../components/Input";
 import Select from "../../../components/Select";
+import Sidebar from "../../../components/Sidebar";
+
+//Api
+import api from "../../../services/api";
+import viacep, { ViaCep } from "../../../services/viacep";
+
+//Tipos
+import { Imovel } from "../../../types/Imovel";
+
+//Dados
+import { tipoSexoImovel } from "../../../data/options";
+
 
 export default function CadastrarRepublica() {
 
@@ -33,14 +49,24 @@ export default function CadastrarRepublica() {
     const { register, handleSubmit, formState: { errors }, setValue } = useForm<Imovel>({
         resolver: yupResolver(registerForm)
     });
-    
-    const { query } = useRouter();
+
+    const { id } = useRouter().query
+
+    const [imovel, setImovel] = useState({})
+
+
+    const { status, data, isFetching, isError } = useQuery('cadastrarImovel', async () => {
+        const response = await api.post('Imovel/InserirImovel', imovel)
+
+        return response.data
+    })
 
     const onSubmit = (data: Imovel) => {
-        const imovel = {
-            mida: "https://s2.glbimg.com/A9UbOT66bw7kqdr367utaTiPsGk=/620x413/smart/e.glbimg.com/og/ed/f/original/2020/12/21/5-coisas-que-vao-te-fazer-sonhar-com-esta-casa-de-praia-contemporanea-7.jpg",
-            quantidadeComodo: data.quantidadeComodo,
+        setImovel({
+            midia: data.midia,
+            nomeImovel: data.nomeImovel,
             capacidadePessoas: data.capacidadePessoas,
+            quantidadeComodo: data.quantidadeComodo,
             valor: data.valor,
             descricao: data.descricao,
             possuiAcessibilidade: data.possuiAcessibilidade,
@@ -51,114 +77,63 @@ export default function CadastrarRepublica() {
             possuiPiscina: data.possuiPiscina,
             quantidadeBanheiros: data.quantidadeBanheiros,
             quantidadeQuartos: data.quantidadeQuartos,
-            nomeImovel: data.nomeImovel,
             regraImovel: {
-            fumante: data.fumante,
-            animal: data.animal,
-            alcool: data.alcool,
-            visitas: data.visitas,
-            crianca: data.crianca,
-            drogas: data.drogas,
+                fumante: data.fumante,
+                animal: data.animal,
+                alcool: data.alcool,
+                visitas: data.visitas,
+                crianca: data.crianca,
+                drogas: data.drogas,
             },
             caracteristicaImovel: {
-            tipoImovel: data.tipoImovel,
-            tipoQuarto: data.tipoQuarto,
-            tipoSexo: data.tipoSexo
+                tipoImovel: data.tipoImovel,
+                tipoQuarto: data.tipoQuarto,
+                tipoSexo: data.tipoSexo
             },
             enderecoImovel: {
-            cep: data.cep,
-            cidade: data.cidade,
-            bairro: data.bairro,
-            logradouro: data.logradouro,
-            numero: data.numero,
-            complemento: data.complemento,
-            estado: data.estado
+                cep: data.cep,
+                cidade: data.cidade,
+                bairro: data.bairro,
+                logradouro: data.logradouro,
+                numero: data.numero,
+                complemento: data.complemento,
+                estado: data.estado
             },
-            idUsuario: data.idUsuario
-        }
+            idUsuario: id
+        })
+    }
 
-        api.post('Imovel/InserirImovel', imovel)
-        .then(res => {
-        console.log(res)
-    }).catch(error => {
-        console.log(error)
-    })
-}
+    return (
+        <>
+            <Head>
+                <title>Cadastrar Republica</title>
+                <link rel="icon" href="/favicon.png" />
+            </Head>
 
-return (
-    <>
-        <Head>
-            <title>Cadastrar Republica</title>
-            <link rel="icon" href="/favicon.png" />
-        </Head>
-        <section className="flex md:flex-row flex-col-reverse">
-            <Sidebar />
-            <div className="bg-white md:ml-0 w-full flex  flex-col">
-                <form onSubmit={handleSubmit(onSubmit)}>
+            <section className="flex md:flex-row flex-col-reverse text-slate-900">
+                <Sidebar />
+                <div className="bg-white my-8 w-full flex justify-center">
+                    <form onSubmit={handleSubmit(onSubmit)}>
                         <Input
-                        title={"Titulo: "}
-                        mensagemDeErro={errors}
-                        inputMask={false}
-                        mask={""}
-                        register={register}
-                        type="text"
-                        id="titulo"
-                        placeholder="Digite um titulo para que os universitarios possam ver" 
-                        onChange={undefined} />
-                    <div>
-                        <div>
-                            <label htmlFor="valor">Preço: </label>
-                            <CurrencyInput
-                                {...register('valor')}
-                                maskOptions={"R$0.00"}
-                            />
-                            {errors.valor && <span className="text-red-500 text-sm">{errors.valor.message}</span>}
-                        </div>
-                        <Input
-                            title={"Dono: "}
-                            id={"dono"}
+                            title={"Titulo: "}
                             mensagemDeErro={errors}
                             inputMask={false}
                             mask={""}
                             register={register}
                             type="text"
-                            placeholder="Digite o nome do dono" 
-                            onChange={undefined}                        />
-                        <Input
-                                title={"Email: "}
-                                id={"email"}
-                                mensagemDeErro={errors}
-                                inputMask={false}
-                                mask={""}
-                                register={register}
-                                type="email"
-                                placeholder="Digite o seu email" 
-                                onChange={undefined}                        />
-                    <div>
-                        <Input
-                                title={"Telefone: "}
-                                mensagemDeErro={errors}
-                                inputMask={true}
-                                mask={"(99) 99999-9999"}
-                                register={register}
-                                type="tel"
-                                id="telefone"
-                                placeholder="Digite o seu telefone" 
-                                onChange={undefined}                        />
-                    </div>
-                    <div>
-                        <Input
-                                title={"Celular"}
-                                mensagemDeErro={errors}
-                                inputMask={true}
-                                mask={"(99) 99999-9999"}
-                                register={register}
-                                type="tel"
-                                id="celular"
-                                placeholder="Digite o seu celular" 
-                                onChange={undefined}                        />
-                    </div>
-                        <div>
+                            id="nomeImovel"
+                            placeholder="Digite um titulo para que os universitarios possam ver"
+                            onChange={undefined}
+                            min={0} max={50} />
+                        <div className='flex gap-2 items-center'>
+                            <div className="relative z-0 mb-6 w-full group">
+                                <label htmlFor="valor" className="block mb-2 text-sm font-medium text-gray-900">Preço: </label>
+                                <CurrencyInput
+                                    {...register('valor')}
+                                    maskOptions={"R$0.00"}
+                                />
+                                {errors.valor && <span className="text-red-500 text-sm">{errors.valor.message}</span>}
+                            </div>
                             <Input
                                 title={"Tipo Imovel:"}
                                 id={"tipoImovel"}
@@ -167,10 +142,9 @@ return (
                                 mask={""}
                                 register={register}
                                 type="text"
-                                placeholder="Ex: Casa, Apartamento" 
-                                onChange={undefined} />
-                        </div>
-                        <div>
+                                placeholder="Ex: Casa, Apartamento"
+                                onChange={undefined}
+                                min={0} max={30} />
                             <Input
                                 title={"Tipo do quarto"}
                                 id={"tipoQuarto"}
@@ -179,13 +153,11 @@ return (
                                 mask={""}
                                 register={register}
                                 type="text"
-                                placeholder="Digite o tipo do quarto" 
-                                onChange={undefined}                            />
+                                placeholder="Digite o tipo do quarto"
+                                onChange={undefined} min={0} max={30} />
                         </div>
-                            <Select title={"Sexo"} id={"sexo"} options={tipoSexoImovel} onChange={undefined} mensagemDeErro={errors} register={register} name={""}/>
-                    </div>
-                    <div>
-                        <div>
+                        <div className='flex gap-2'>
+                            <Select title={"Sexo"} id={"sexo"} options={tipoSexoImovel} onChange={undefined} mensagemDeErro={errors} register={register} name={""} />
                             <Input
                                 title={"Capacidade de pessoas: "}
                                 id={"capacidadePessoas"}
@@ -194,34 +166,37 @@ return (
                                 mask={""}
                                 register={register}
                                 placeholder="Quantidade máxima de moradores"
-                                type="number" 
-                                onChange={undefined}                            />
-                        </div>
-                        <div>
-                            <Input
-                                placeholder="Quantidade maxima de comodos"
-                                type="number" 
-                                title={"Quantidade de comodos"} 
-                                onChange={undefined} 
-                                id={"quantidadeComodo"} 
-                                mensagemDeErro={errors} 
-                                inputMask={false} 
-                                mask={""} 
-                                register={register} />
-                        </div>
-                        <div>
-                            <Input
-                                placeholder="Quantidade de banheiros"
-                                type="number" 
-                                title={"Quantidade de banheiros: "} 
-                                onChange={undefined} 
-                                id={"quantidadeBanheiro"} 
-                                mensagemDeErro={errors} 
-                                inputMask={false} 
-                                mask={""} 
-                                register={register} />
-                        </div>
-                        <div>
+                                type="number"
+                                min={0}
+                                max={10}
+                                onChange={undefined} />
+                            </div>
+                            <div className='flex gap-2'>
+                                <Input
+                                    placeholder="Quantidade maxima de comodos"
+                                    type="number"
+                                    title={"Quantidade de comodos"}
+                                    onChange={undefined}
+                                    id={"quantidadeComodo"}
+                                    mensagemDeErro={errors}
+                                    inputMask={false}
+                                    min={0}
+                                    max={10}
+                                    mask={""}
+                                    register={register} />
+                                <Input
+                                    placeholder="Quantidade de banheiros"
+                                    type="number"
+                                    title={"Quantidade de banheiros: "}
+                                    onChange={undefined}
+                                    id={"quantidadeBanheiro"}
+                                    mensagemDeErro={errors}
+                                    inputMask={false}
+                                    min={0}
+                                    max={10}
+                                    mask={""}
+                                    register={register} />
+
                             <Input
                                 title={"Quantidade de quartos:"}
                                 id={"quantidadeQuartos"}
@@ -230,24 +205,28 @@ return (
                                 mask={""}
                                 register={register}
                                 placeholder="Quantidade de quartos"
-                                type="number" 
+                                type="number"
+                                min={0}
+                                max={10}
                                 onChange={undefined} />
-                        </div>
+                                </div>
+     
+
                         <div>
                             <h2 className="mt-2 mb-10 text-xl md:text-2xl font-bold text-gray-900">Endereço</h2>
                             <div className="grid md:grid-cols-3 md:gap-6">
-                                <Input type="cep" title="CEP" placeholder="Digite o seu CEP" id="cep" mensagemDeErro={errors} inputMask={true} mask="99999-999" onChange={obterEndereco} register={register} />
-                                <Input type="text" title="Endereço" placeholder="Digite o seu endereço" onChange={undefined} id="logradouro" mensagemDeErro={errors} inputMask={false} mask={""} register={register} />
-                                <Input type="number" title="Número" placeholder={"Digite o número da sua residência"} onChange={undefined} id="numeroCasa" mensagemDeErro={errors} inputMask={false} mask={""} register={register} />
+                                <Input type="cep" title="CEP" placeholder="Digite o seu CEP" id="cep" mensagemDeErro={errors} inputMask={true} mask="99999-999" onChange={obterEndereco} register={register} min={0} max={8} />
+                                <Input type="text" title="Endereço" placeholder="Digite o seu endereço" onChange={undefined} id="logradouro" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={100} />
+                                <Input type="number" title="Número" placeholder={"Digite o número da sua residência"} onChange={undefined} id="numeroCasa" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={10} />
                             </div>
                             <div className="grid md:grid-cols-3 md:gap-6">
-                                <Input type="text" id="bairro" title="Bairro" placeholder="Digite o seu bairro" onChange={undefined} mensagemDeErro={errors} inputMask={false} mask={""} register={register} />
-                                <Input type="text" title="Cidade" placeholder={"Digite o nome da sua cidade"} onChange={undefined} id="localidade" mensagemDeErro={errors} inputMask={false} mask={""} register={register} />
-                                <Input type="uf" title="Estado" placeholder="Digite o nome do seu estado" onChange={undefined} id="uf" mensagemDeErro={errors} inputMask={false} mask={""} register={register} />
-                                <Input type="complemento" title="Complemento" placeholder="" onChange={undefined} id="complemento" mensagemDeErro={errors} inputMask={false} mask={""} register={register} />
+                                <Input type="text" id="bairro" title="Bairro" placeholder="Digite o seu bairro" onChange={undefined} mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={20} />
+                                <Input type="text" title="Cidade" placeholder={"Digite o nome da sua cidade"} onChange={undefined} id="localidade" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={20} />
+                                <Input type="uf" title="Estado" placeholder="Digite o nome do seu estado" onChange={undefined} id="uf" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={20} />
+                                <Input type="complemento" title="Complemento" placeholder="" onChange={undefined} id="complemento" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={20} />
                             </div>
                         </div>
-                        <div>
+                        <div className='flex flex-col my-2'>
                             <label htmlFor="descricao">Descrição: </label>
                             <textarea
                                 {...register('descricao')}
@@ -256,132 +235,90 @@ return (
                         <div>
                             <Input
                                 id="midia"
-                                type="file" 
-                                title={"Enviar Midia"} 
-                                placeholder={""} 
-                                onChange={undefined} 
-                                mensagemDeErro={errors} 
-                                inputMask={false} 
-                                mask={""} 
-                                register={register} />
+                                type="file"
+                                title={"Enviar Midia"}
+                                placeholder={""}
+                                onChange={undefined}
+                                mensagemDeErro={errors}
+                                inputMask={false}
+                                mask={""}
+                                register={register} min={0} max={3} />
                         </div>
-                    </div>
-                    <div>
-                        <div>
-                            <h2>Sobre a republica</h2>
-                            <div>
-                                <input
-                                    {...register('possuiAcessibilidade')}
+                        <section className='flex justify-evenly'>
+                            <div className='flex flex-col gap-2'>
+                                <h2 className='text-xl'>Sobre a republica</h2>
+                                <CheckBox
                                     id="possuiAcessibilidade"
-                                    type="checkbox"
+                                    titulo="Possui Acessibilidade"
+                                    register={register}
                                 />
-                                <label htmlFor="possuiAcessibilidade">Possui Acessbilidade</label>
-                            </div>
-                            <div>
-                                <input
-                                    {...register('possuiGaragem')}
+                                <CheckBox
                                     id="possuiGaragem"
-                                    type="checkbox"
+                                    titulo='Possui Garagem'
+                                    register={register}
                                 />
-                                <label htmlFor="possuiGaragem">Possui Garagem</label>
-
-                            </div>
-                            <div>
-                                <input
-                                    {...register('possuiMobilia')}
+                                <CheckBox
                                     id="possuiMobilia"
-                                    type="checkbox"
+                                    titulo='Possui Mobilia'
+                                    register={register}
                                 />
-                                <label htmlFor="possuiMobilia">Possui Mobilia</label>
-
-                            </div>
-                            <div>
-                                <input
-                                    {...register('possuiAcademia')}
+                                <CheckBox
                                     id="possuiAcademia"
-                                    type="checkbox"
-                                />
-                                <label htmlFor="possuiAcademia">Possui Academia</label>
+                                    titulo='Possui Academia'
+                                    register={register}
 
-                            </div>
-                            <div>
-                                <input
-                                    {...register('possuiAreaLazer')}
+                                />
+                                <CheckBox
                                     id="possuiAreaLazer"
-                                    type="checkbox"
+                                    titulo='Possui Area de Lazer'
+                                    register={register}
                                 />
-                                <label htmlFor="possuiAreaLazer">Possui Area de Lazer</label>
-
-                            </div>
-                            <div>
-                                <input
-                                    {...register('possuiPiscina')}
+                                <CheckBox
                                     id="possuiPiscina"
-                                    type="checkbox"
+                                    titulo='Possui Piscina'
+                                    register={register}
                                 />
-                                <label htmlFor="possuiPiscina">Possui Piscina</label>
                             </div>
-                        </div>
-                        <div>
-                            <h2>Regra do imovel</h2>
-                            <div>
-                                <input
-                                    {...register('fumante')}
+                            <div className='flex flex-col gap-2'>
+                                <h2 className='text-xl'>Regra do imovel</h2>
+
+                                <CheckBox
                                     id="fumante"
-                                    type="checkbox"
-                                />
-                                <label htmlFor="fumante">Fumar</label>
-                            </div>
-                            <div>
-                                <input
-                                    {...register('animal')}
+                                    titulo="Fumante"
+                                    register={register} />
+                                <CheckBox
                                     id="animal"
-                                    type="checkbox"
+                                    titulo="Animal"
+                                    register={register}
                                 />
-                                <label htmlFor="animal">Animal</label>
-
-                            </div>
-                            <div>
-                                <input
-                                    {...register('alcool')}
+                                <CheckBox
                                     id="alcool"
-                                    type="checkbox"
+                                    titulo='Alcool'
+                                    register={register}
                                 />
-                                <label htmlFor="alcool">Alcool</label>
-
-                            </div>
-                            <div>
-                                <input
-                                    {...register('visitas')}
+                                <CheckBox
                                     id="visitas"
-                                    type="checkbox"
+                                    titulo='Visitas'
+                                    register={register}
                                 />
-                                <label htmlFor="visitas">Visitas</label>
-
-                            </div>
-                            <div>
-                                <input
-                                    {...register('crianca')}
+                                <CheckBox
                                     id="crianca"
-                                    type="checkbox"
+                                    titulo="Criança"
+                                    register={register}
                                 />
-                                <label htmlFor="crianca">Crianças</label>
-
-                            </div>
-                            <div>
-                                <input
-                                    {...register('drogas')}
+                                <CheckBox
                                     id="drogas"
-                                    type="checkbox"
+                                    titulo='Drogas'
+                                    register={register}
                                 />
-                                <label htmlFor="drogas">Drogas</label>
                             </div>
+                        </section>
+                        <div className='flex justify-end'>
+                            <button type="submit" className=" bg-sky-500 hover:bg-sky-400 focus:bg-sky-400 text-white font-semibold rounded-lg px-16 py-3 my-6">Finalizar</button>
                         </div>
-                    </div>
-                    <button type="submit" className="w-30 block bg-sky-500 hover:bg-sky-400 focus:bg-sky-400 text-white font-semibold rounded-lg px-4 py-3 mt-6">Finalizar</button>
-                </form>
-            </div>
-        </section>
-    </>
-)
+                    </form>
+                </div>
+            </section>
+        </>
+    )
 }

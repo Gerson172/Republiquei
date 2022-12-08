@@ -20,7 +20,7 @@ function AnnounceRepublic(props: Imovel) {
                 <a>
                     <h5 className="text-xl font-semibold tracking-tight text-gray-900">{props.nomeImovel}</h5>
                 </a>
-                <div className="flex justify-between items-center px-3 mt-2.5 mb-5">
+                <div className="flex justify-between gap-2 items-center mt-2.5 mb-5">
                     <div className="px-5 py-5 bg-gray-50 border-solid border rounded">   
                         {props.tipoImovel}  
                     </div>

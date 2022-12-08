@@ -90,10 +90,10 @@ function Register() {
                         <form onChange={handleSubmit(onSubmit)}>
                             <h2 className="mt-6 mb-10 text-xl md:text-2xl font-bold text-gray-900">Dados pessoais</h2>
                             <div className="grid md:grid-cols-4 md:gap-6">
-                                <Input  placeholder="Digite o seu nome" type="text" id="nome" mensagemDeErro={errors} inputMask={false} mask={""} onChange={undefined} title="Nome" register={register} />
-                                <Input title="Sobrenome" placeholder="Digite o seu sobrenome" type="text" id="sobrenome" mensagemDeErro={errors} inputMask={false} mask={""} onChange={undefined} register={register} />
-                                <Input title="CPF" inputMask={true} placeholder="Digite o seu cpf" mask="999.999.999-99" mensagemDeErro={errors} id="cpf" type="text" onChange={undefined} register={register} />
-                                <Input title="Data Nascimento" inputMask={false} mensagemDeErro={errors} id="dataNascimento" type="date" placeholder={""} mask={""} onChange={undefined} register={register} />
+                                <Input  placeholder="Digite o seu nome" type="text" id="nome" mensagemDeErro={errors} inputMask={false} mask={""} onChange={undefined} title="Nome" register={register} min={0} max={40} />
+                                <Input title="Sobrenome" placeholder="Digite o seu sobrenome" type="text" id="sobrenome" mensagemDeErro={errors} inputMask={false} mask={""} onChange={undefined} register={register} min={0} max={40} />
+                                <Input title="CPF" inputMask={true} placeholder="Digite o seu cpf" mask="999.999.999-99" mensagemDeErro={errors} id="cpf" type="text" onChange={undefined} register={register} min={0} max={20} />
+                                <Input title="Data Nascimento" inputMask={false} mensagemDeErro={errors} id="dataNascimento" type="date" placeholder={""} mask={""} onChange={undefined} register={register} min={0} max={20} />
                             </div>
                             <div className="grid md:grid-cols-4 md:gap-6">
                                 <Select id="estadoCivil" title="Estado Civil" options={estadoCivil} mensagemDeErro={errors} register={register} onChange={undefined} name={""} />
@@ -101,29 +101,29 @@ function Register() {
                                 <Select  title="Genero" id="genero" options={genero} mensagemDeErro={errors} register={register} onChange={undefined} name={""} />
                                 <Select  title="Orientação Sexual" id="orientacaoSexual" options={orientacaoSexual} mensagemDeErro={errors} register={register} onChange={undefined} name={""} />
                                 <Select id="religiao" title="Religiao" options={religiao} mensagemDeErro={errors} register={register} onChange={undefined} name={""} />
-                                <Input id="areaInteresse"  title="Area Interesse" placeholder="Digite sua area de interesse" onChange={undefined} inputMask={false} mask={""} mensagemDeErro={errors} register={register} type="text" />
-                                <Input type="checkbox" title="Proprietario" placeholder={""} onChange={undefined} id="proprietario" mensagemDeErro={errors} inputMask={false} mask={""} register={register} />
+                                <Input id="areaInteresse" title="Area Interesse" placeholder="Digite sua area de interesse" onChange={undefined} inputMask={false} mask={""} mensagemDeErro={errors} register={register} type="text" min={0} max={20} />
+                                <Input type="checkbox" title="Proprietario" placeholder={""} onChange={undefined} id="proprietario" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={20} />
                             </div>
                             <h2 className="mt-2 mb-10 text-xl md:text-2xl font-bold text-gray-900">Contatos</h2>
                             <div className="grid md:grid-cols-2 md:gap-6">
-                                <Input type="tel" title="Telefone" placeholder="Digite o seu telefone" id="telefone" mensagemDeErro={errors} inputMask={true} mask="(99) 99999-9999" onChange={undefined} register={register} />
-                                <Input type="tel" title="Celular" placeholder="Digite o seu celular" id="celular" mensagemDeErro={errors} inputMask={true} mask="(99) 99999-9999" onChange={undefined} register={register} />
+                                <Input type="tel" title="Telefone" placeholder="Digite o seu telefone" id="telefone" mensagemDeErro={errors} inputMask={true} mask="(99) 99999-9999" onChange={undefined} register={register} min={0} max={20} />
+                                <Input type="tel" title="Celular" placeholder="Digite o seu celular" id="celular" mensagemDeErro={errors} inputMask={true} mask="(99) 99999-9999" onChange={undefined} register={register} min={0} max={20} />
                             </div>
                             <h2 className="mt-2 mb-10 text-xl md:text-2xl font-bold text-gray-900">Endereço</h2>
                             <div className="grid md:grid-cols-3 md:gap-6">
-                                <Input type="cep" title="CEP" placeholder="Digite o seu CEP" id="cep" mensagemDeErro={errors} inputMask={true} mask="99999-999" onChange={obterEndereco} register={register} />
-                                <Input type="text" title="Endereço" placeholder="Digite o seu endereço" onChange={undefined} id="logradouro" mensagemDeErro={errors} inputMask={false} mask={""} register={register} />
-                                <Input type="number" title="Número" placeholder={"Digite o número da sua residência"} onChange={undefined} id="numeroCasa" mensagemDeErro={errors} inputMask={false} mask={""} register={register} />
+                                <Input type="cep" title="CEP" placeholder="Digite o seu CEP" id="cep" mensagemDeErro={errors} inputMask={true} mask="99999-999" onChange={obterEndereco} register={register} min={0} max={20} />
+                                <Input type="text" title="Endereço" placeholder="Digite o seu endereço" onChange={undefined} id="logradouro" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={20} />
+                                <Input type="number" title="Número" placeholder={"Digite o número da sua residência"} onChange={undefined} id="numeroCasa" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={20} />
                             </div>
                             <div className="grid md:grid-cols-3 md:gap-6">
-                                <Input type="text" id="bairro" title="Bairro" placeholder="Digite o seu bairro" onChange={undefined} mensagemDeErro={errors} inputMask={false} mask={""} register={register} />
-                                <Input type="text" title="Cidade" placeholder={"Digite o nome da sua cidade"} onChange={undefined} id="localidade" mensagemDeErro={errors} inputMask={false} mask={""} register={register} />
-                                <Input type="uf" title="Estado" placeholder="Digite o nome do seu estado" onChange={undefined} id="uf" mensagemDeErro={errors} inputMask={false} mask={""} register={register} />
-                                <Input type="complemento" title="Complemento" placeholder="" onChange={undefined} id="complemento" mensagemDeErro={errors} inputMask={false} mask={""} register={register} />
+                                <Input type="text" id="bairro" title="Bairro" placeholder="Digite o seu bairro" onChange={undefined} mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={20} />
+                                <Input type="text" title="Cidade" placeholder={"Digite o nome da sua cidade"} onChange={undefined} id="localidade" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={20} />
+                                <Input type="uf" title="Estado" placeholder="Digite o nome do seu estado" onChange={undefined} id="uf" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={20} />
+                                <Input type="complemento" title="Complemento" placeholder="" onChange={undefined} id="complemento" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={20} />
                             </div>
                             <div className="grid md:grid-cols-2 md:gap-6">
-                                <Input type="email" title="Email" placeholder="Digite o seu email" id="email" mensagemDeErro={errors} inputMask={false} mask={""} onChange={undefined} register={register} />
-                                <Input type="password" title="Senha" placeholder="Digite sua senha" id="senha" mensagemDeErro={errors} inputMask={false} mask={""} onChange={undefined} register={register} />
+                                <Input type="email" title="Email" placeholder="Digite o seu email" id="email" mensagemDeErro={errors} inputMask={false} mask={""} onChange={undefined} register={register} min={0} max={0} />
+                                <Input type="password" title="Senha" placeholder="Digite sua senha" id="senha" mensagemDeErro={errors} inputMask={false} mask={""} onChange={undefined} register={register} min={0} max={0} />
                                 <Link href="/login">
                                     <button type="submit" className="w-30 block bg-sky-500 hover:bg-sky-400 focus:bg-sky-400 text-white font-semibold rounded-lg px-4 py-3 mt-6">Finalizar</button>
                                 </Link>

@@ -2,18 +2,27 @@ import AnnounceRepublic from "../../components/AnnounceRepublic";
 import Footer from "../../components/Footer";
 import NavBar from "../../components/NavBar";
 import { Imovel } from "../../types/Imovel";
-import { useFetch } from "../../hooks/useFetch";
-
+import { useQuery } from 'react-query'
+import api from "../../services/api";
 
 function SearchRepublic(){
 
-    const { data: imovel, isFetching } = useFetch<Imovel[]>('/Imovel/ObterImovel')
+
+    const {data, isFetching} = useQuery<Imovel[]>('searchImoveis', async () => {
+        const response = await api.get('/Imovel/ObterImovel')
+        return response.data.valor;
+    },{
+        staleTime: 1000 + 60, // 1 minuto
+    })
+
+    console.log(data)
+
     return (
         <>
             <NavBar />
             { isFetching && <p>Carregando....</p>}
-            <section className="inline-flex flex-row mx-28 my-16 flex-wrap gap-4 bg-white">
-                {imovel?.map((props: Imovel) => {
+            <section className="inline-flex flex-row justify-center my-16 flex-wrap gap-4 bg-white">
+                {data?.map(props => {
                     return <AnnounceRepublic 
                         midia={props.midia}
                         quantidadeComodo={props.quantidadeComodo}

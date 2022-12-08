@@ -1,5 +1,3 @@
-import { string } from "yup"
-
 export type Imovel = {
     idImovel: number,
     midia: string,

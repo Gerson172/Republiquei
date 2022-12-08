@@ -4,6 +4,9 @@ import { HiPlus } from "react-icons/hi";
 import { useRouter } from "next/router";
 import { BiLogOut } from "react-icons/bi";
 import { BsHouseDoorFill } from "react-icons/bs"
+import { User } from "../../types/User";
+import { useQuery } from 'react-query'
+import api from "../../services/api";
 
 function Sidebar() {
 
@@ -15,9 +18,14 @@ function Sidebar() {
         return useRouter().pathname == "/dashboard/cadastrarRepublica";
     }
 
-    function getId(){
-        return useRouter().query
-    }
+    const {id} = useRouter().query
+
+    const {data, isFetching} = useQuery<User>('user', async () => {
+      const response = await api.get('/Usuario/ObterUsuarioContatoPorId?IdUsuario='+id)
+      return response.data.valor;
+  })
+  
+    console.log(data)
     
     return (
             <div className="flex md:relative md:min-h-screen md:w-1/5 w-full flex-row md:flex-col justify-between border-r bg-white">
@@ -28,7 +36,7 @@ function Sidebar() {
                             <BiLogOut className="text-6xl md:text-3xl text-slate-500 hover:text-slate-900"/>
                         </a>
                         </Link>
-                        <Link href="/dashboard/cadastrarRepublica">
+                        <Link href={`/dashboard/cadastrarRepublica?id=${id}`}>
                         <a
                             className={"flex border items-center p-4 sm:p-0 rounded-lg md:px-2 md:py-2" + (getStaticPropsCadastrarRepublica() ?  " bg-sky-500 text-white " : '')}
                         >
@@ -36,7 +44,7 @@ function Sidebar() {
                             <span className="hidden sm:block ml-3 text-sm font-medium"> Cadastrar Republica </span>
                         </a>
                         </Link>
-                        <Link href="/dashboard/visualizarRepublica">
+                        <Link href={`/dashboard/visualizarRepublica?id=${id}`}>
                         <a
                             className={"flex items-center sm:p-0 rounded-lg md:ml-2 md:px-2 md:py-2"+ (getStaticPropsVisualizarRepublica() ? " bg-sky-500 text-white " : '')}
                         >
@@ -54,15 +62,15 @@ function Sidebar() {
                         className="flex shrink-0 items-center bg-white p-4 hover:bg-gray-50"
                     >
                         <img
-                            alt="Man"
-                            src="https://github.com/huser0.png"
+                            alt={data?.nome}
+                            src={`https://github.com/${data?.nome}.png`}
                             className="h-14 sm:w-10 sm:h-10 w-14 rounded-full object-cover"
                         />
 
                         <div className="sm:ml-1.5 flex mx-auto">
                             <p className="text-xs">
-                                <strong className="hidden sm:block font-medium">Hugo Sergio</strong>
-                                <span className="hidden sm:block"> hugo@admin.com </span>
+                                <strong className="hidden sm:block font-medium">{data?.nome} {data?.sobrenome}</strong>
+                                <span className="hidden sm:block"> {data?.email} </span>
                             </p>
                         </div>
                     </a>

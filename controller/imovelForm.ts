@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 
 const imovelForm = yup.object().shape({
-    titulo: yup.string(),
+    nomeImovel: yup.string(),
     midia: yup.string(),
     quantidadeComodo: yup.number(),
     capacidadePessoas: yup.number(),

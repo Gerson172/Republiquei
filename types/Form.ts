@@ -8,6 +8,8 @@ export type Input = {
     mensagemDeErro: any,
     inputMask: boolean,
     mask: string,
+    min: number,
+    max: number,
     register: any,
 }
 
@@ -18,5 +20,11 @@ export type Select = {
     options: any,
     onChange: any,
     mensagemDeErro: any,
+    register: any
+}
+
+export type Checkbox = {
+    id: string,
+    titulo: string
     register: any
 }
