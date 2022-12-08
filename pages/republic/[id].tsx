@@ -1,80 +1,137 @@
 import NavBar from '../../components/NavBar'
-import Image from 'next/image'
 import { Imovel } from '../../types/Imovel'
-import AnnounceRepublic from '../../components/AnnounceRepublic'
 import api from '../../services/api';
-import { useQuery} from 'react-query'
+import { useQuery } from 'react-query'
 import { useRouter } from 'next/router';
+import {IoClose, IoCheckmarkDoneSharp} from 'react-icons/io5'
 
 export default function Republic() {
+  const { id } = useRouter().query
 
-
-  const {id} = useRouter().query
-
-  const {data, isFetching} = useQuery<Imovel>(['imovel', id], async () => {
-    const response = await api.get('/Imovel/ObterImovelPorId?IdImovel='+id)
+  const { data: imovel, isFetching } = useQuery<Imovel>(['imovel', id], async () => {
+    const response = await api.get('/Imovel/ObterImovelPorId?IdImovel=' + id)
     return response.data.valor;
-},{
-  staleTime: 1000 + 60, // 1 minuto
-})
+  }, {
+    staleTime: 1000 + 60, // 1 minuto
+  })
 
-  console.log(data)
-
-
+  console.log(imovel)
   return (
     <>
       <NavBar />
       {isFetching && <p>Carregando...</p>}
-      <div className='bg-white h-screen md:h-full'>
-        <div>
-          <div>
-            <img alt={data?.descricao} src={data?.midia} />
-          </div>
-        </div>
+      <div className='bg-white max-h-full'>
 
-        <div className="mx-auto max-w-2xl px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pt-16 lg:pb-24">
-          <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{data?.descricao}</h1>
-          </div>
+        <div className="max-h-full mx-auto max-w px-4 pt-10 pb-16 sm:px-6 lg:grid lg:max-w-4xl  ">
 
-          <div className="mt-4 lg:row-span-3 lg:mt-0">
-            <h2 className="sr-only">Product information</h2>
-            <p className="text-3xl tracking-tight text-gray-900">{data?.valor}</p>
-
-            <form className="mt-10">
-              <button
-                type="submit"
-                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >
-                Falar com o Proprietario
-              </button>
-            </form>
-          </div>
-
-          <div className="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pt-6 lg:pb-16 lg:pr-8">
-            {/* Description and details */}
-            <div>
-              <h3 className="sr-only">Description</h3>
-
-              <div className="space-y-6">
-                <p className="text-base text-gray-900">{data?.descricao}</p>
+          <div className="max-h-full rounded overflow-hidden shadow-lg">
+            <img className="w-full" alt='' src={imovel?.midia} />
+            <div className="px-4 py-1">
+              <div className="text-gray-700 font-bold text-4xl text-center mb-7">{imovel?.nomeImovel}
+                <span className=" text-3xl font-semibold text-gray-700  ml-10">R$ {imovel?.valor}</span>
               </div>
-            </div>
+              <div className="font-bold text-xl mb-2"></div>
+              <p className="text-gray-700 text-lg mb-7">
+                {imovel?.descricao}
+              </p>
+              <div className="text-gray-700 font-bold text-xl text-center"><b>+ Sobre o imóvel</b></div>
+              <p className="text-gray-700 text-sm">
+                <b>Tipo do Quarto:</b> {imovel?.tipoSexo}
+              </p>
+              <p className="text-gray-700 text-sm">
+                <b>Quantidade de cômodos:</b> {imovel?.quantidadeComodo}
+              </p>
+              <p className="flex items-center text-gray-700 text-sm">
+                <b>Capacidade de pessoas:</b> {imovel?.capacidadePessoas}
+              </p>
+              <p className="flex items-center text-gray-700 text-sm">
+                <b>Possui acessibilidade:</b> {imovel?.possuiAcessibilidade ? <IoCheckmarkDoneSharp className="text-xl text-green-600"/> : <IoClose className='text-xl text-red-600'/>}
+              </p>
+              <p className="flex items-center text-gray-700 text-sm">
+                <b>Possui Garagem:</b> {imovel?.possuiGaragem ? <IoCheckmarkDoneSharp className="text-xl text-green-600"/> : <IoClose className='text-xl text-red-600'/>}
+              </p>
+              <p className="flex items-center text-gray-700 text-sm">
+                <b>Possui Academia:</b> {imovel?.possuiAcademia ? <IoCheckmarkDoneSharp className="text-xl text-green-600"/> : <IoClose className='text-xl text-red-600'/>}
+              </p>
+              <p className="flex items-center text-gray-700 text-sm">
+                <b>Possui Mobilia:</b> {imovel?.possuiMobilia ? <IoCheckmarkDoneSharp className="text-xl text-green-600"/> : <IoClose className='text-xl text-red-600'/>}
+              </p>
+              <p className="flex items-center text-gray-700 text-sm">
+                <b>Possui Área de lazer:</b> {imovel?.possuiAreaLazer ? <IoCheckmarkDoneSharp className="text-xl text-green-600"/> : <IoClose className='text-xl text-red-600'/>}
+              </p>
+              <p className="flex items-center text-gray-700 text-sm">
+                <b>Possui Piscina:</b> {imovel?.possuiPiscina ? <IoCheckmarkDoneSharp className="text-xl text-green-600"/> : <IoClose className='text-xl text-red-600'/>}
+              </p>
+              <p className="text-gray-700 text-sm">
+                <b>Quantidade de Banheiros:</b> {imovel?.quantidadeBanheiros}
+              </p>
+              <p className="text-gray-700 text-sm">
+                <b>Quantidade de Quartos:</b> {imovel?.quantidadeQuartos}
+              </p>
+              <p className="text-gray-700 text-sm">
+                <b>Modelo do imovel:</b> {imovel?.tipoImovel}
+              </p>
+              <p className="text-gray-700 text-sm">
+                <b>Modelo de quarto:</b> {imovel?.tipoQuarto}
+              </p>
 
-            <div className="mt-10">
-              <h3 className="text-sm font-medium text-gray-900">O que esse lugar oferece</h3>
+              <div className="text-gray-700 font-bold text-xl mb-2 text-center mt-3 mb-3"><b>Contatos do Proprietário</b></div>
 
-              <div className="mt-4">
-                <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                </ul>
-              </div>
-            </div>
+              <p className="text-gray-700 text-sm">
+                <b>Email:</b> {imovel?.email}
+              </p>
+              <p className="text-gray-700 text-sm">
+                <b>Telefone:</b> {imovel?.telefone}
+              </p>
+              <p className="text-gray-700 text-sm">
+                <b>Celular com Whatsapp:</b> {imovel?.celular}
+              </p>
 
-            <div className="mt-10">
-              <h2 className="text-sm font-medium text-gray-900">Details</h2>
+              <div className="text-gray-700 font-bold text-xl mb-2 text-center mt-3 mb-3"><b>Restrições do imóvel</b></div>
 
-              <div className="mt-4 space-y-6">
-              </div>
+              <p className="text-gray-700 text-sm">
+                <b>Permite o uso de tabaco no local:</b> {imovel?.fumante ? <IoCheckmarkDoneSharp className="text-xl text-green-600"/> : <IoClose className='text-xl text-red-600'/> }
+              </p>
+              <p className="text-gray-700 text-sm">
+                <b>Permite animais:</b> {imovel?.animal ?  <IoCheckmarkDoneSharp className="text-xl text-green-600"/> : <IoClose className='text-xl text-red-600'/>}
+              </p>
+              <p className="text-gray-700 text-sm">
+                <b>Permite consumo de alcool no local:</b> {imovel?.alcool ?  <IoCheckmarkDoneSharp className="text-xl text-green-600"/> : <IoClose className='text-xl text-red-600'/>}
+              </p>
+              <p className="text-gray-700 text-sm">
+                <b>Aceita visitas:</b> {imovel?.visitas ?  <IoCheckmarkDoneSharp className="text-xl text-green-600"/> : <IoClose className='text-xl text-red-600'/>}
+              </p>
+              <p className="text-gray-700 text-sm">
+                <b>Aceita criancas no imóvel:</b> {imovel?.crianca ?  <IoCheckmarkDoneSharp className="text-xl text-green-600"/> : <IoClose className='text-xl text-red-600'/>}
+              </p>
+
+
+              <div className="text-gray-700 font-bold text-xl mb-2 text-center mt-3 mb-3"><b>Endereço do imóvel</b></div>
+
+              <p className="text-gray-700 text-sm">
+                <b>CEP:</b> {imovel?.cep}
+              </p>
+              <p className="text-gray-700 text-sm">
+                <b>Cidade:</b> {imovel?.localidade}
+              </p>
+              <p className="text-gray-700 text-sm">
+                <b>Bairro:</b> {imovel?.bairro}
+              </p>
+              <p className="text-gray-700 text-sm">
+                <b>Estado:</b> {imovel?.uf}
+              </p>
+              <p className="text-gray-700 text-sm">
+                <b>Logradouro:</b> {imovel?.logradouro}
+              </p>
+              <p className="text-gray-700 text-sm">
+                <b>Numero:</b> {imovel?.numero}
+              </p>
+              <p className="text-gray-700 text-sm">
+                <b>Complemento:</b> {imovel?.complemento}
+              </p>
+              {/* <button className="bg-sky-500 hover:bg-sky-400 text-white font-semibold  mt-10   py-2 px-4 border border-gray-400 rounded shadow">
+                Entrar em contato
+              </button> */}
             </div>
           </div>
         </div>

@@ -41,9 +41,9 @@ export default function CadastrarRepublica() {
         const { data } = await viacep.get<ViaCep>(`${cepApenasNumero}/json/`)
 
         setValue("logradouro", data.logradouro);
-        setValue("estado", data.uf);
+        setValue("uf", data.uf);
         setValue("bairro", data.bairro)
-        setValue("cidade", data.cidade)
+        setValue("localidade", data.localidade)
     }
 
     const { register, handleSubmit, formState: { errors }, setValue } = useForm<Imovel>({
@@ -52,21 +52,11 @@ export default function CadastrarRepublica() {
 
     const { id } = useRouter().query
 
-    const [imovel, setImovel] = useState({})
-
-
-    const { status, data, isFetching, isError } = useQuery('cadastrarImovel', async () => {
-        const response = await api.post('Imovel/InserirImovel', imovel)
-
-        return response.data
-    })
-
     const onSubmit = (data: Imovel) => {
-        setImovel({
+        const criarImovel = {
             midia: data.midia,
-            nomeImovel: data.nomeImovel,
-            capacidadePessoas: data.capacidadePessoas,
             quantidadeComodo: data.quantidadeComodo,
+            capacidadePessoas: data.capacidadePessoas,
             valor: data.valor,
             descricao: data.descricao,
             possuiAcessibilidade: data.possuiAcessibilidade,
@@ -77,6 +67,7 @@ export default function CadastrarRepublica() {
             possuiPiscina: data.possuiPiscina,
             quantidadeBanheiros: data.quantidadeBanheiros,
             quantidadeQuartos: data.quantidadeQuartos,
+            nomeImovel: data.nomeImovel,
             regraImovel: {
                 fumante: data.fumante,
                 animal: data.animal,
@@ -92,15 +83,26 @@ export default function CadastrarRepublica() {
             },
             enderecoImovel: {
                 cep: data.cep,
-                cidade: data.cidade,
+                localidade: data.localidade,
                 bairro: data.bairro,
                 logradouro: data.logradouro,
                 numero: data.numero,
                 complemento: data.complemento,
-                estado: data.estado
+                uf: data.uf
             },
             idUsuario: id
+        }
+
+        console.log(criarImovel)
+
+        api.post('/Imovel/InserirImovel', criarImovel)
+        .then(function (response) {
+            console.log(response);
         })
+        .catch(function (error) {
+            console.log(error);
+        });
+
     }
 
     return (
@@ -215,9 +217,9 @@ export default function CadastrarRepublica() {
                         <div>
                             <h2 className="mt-2 mb-10 text-xl md:text-2xl font-bold text-gray-900">Endereço</h2>
                             <div className="grid md:grid-cols-3 md:gap-6">
-                                <Input type="cep" title="CEP" placeholder="Digite o seu CEP" id="cep" mensagemDeErro={errors} inputMask={true} mask="99999-999" onChange={obterEndereco} register={register} min={0} max={8} />
+                                <Input type="cep" title="CEP" placeholder="Digite o seu CEP" id="cep" mensagemDeErro={errors} inputMask={true} mask="99999-999" onChange={obterEndereco} register={register} min={0} max={100} />
                                 <Input type="text" title="Endereço" placeholder="Digite o seu endereço" onChange={undefined} id="logradouro" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={100} />
-                                <Input type="number" title="Número" placeholder={"Digite o número da sua residência"} onChange={undefined} id="numeroCasa" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={10} />
+                                <Input type="number" title="Número" placeholder={"Digite o número da sua residência"} onChange={undefined} id="numeroCasa" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={10000} />
                             </div>
                             <div className="grid md:grid-cols-3 md:gap-6">
                                 <Input type="text" id="bairro" title="Bairro" placeholder="Digite o seu bairro" onChange={undefined} mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={20} />
@@ -235,14 +237,14 @@ export default function CadastrarRepublica() {
                         <div>
                             <Input
                                 id="midia"
-                                type="file"
+                                type="text"
                                 title={"Enviar Midia"}
-                                placeholder={""}
+                                placeholder={"https://www.imagem.com"}
                                 onChange={undefined}
                                 mensagemDeErro={errors}
                                 inputMask={false}
                                 mask={""}
-                                register={register} min={0} max={3} />
+                                register={register} min={0} max={10000} />
                         </div>
                         <section className='flex justify-evenly'>
                             <div className='flex flex-col gap-2'>
@@ -313,9 +315,7 @@ export default function CadastrarRepublica() {
                                 />
                             </div>
                         </section>
-                        <div className='flex justify-end'>
                             <button type="submit" className=" bg-sky-500 hover:bg-sky-400 focus:bg-sky-400 text-white font-semibold rounded-lg px-16 py-3 my-6">Finalizar</button>
-                        </div>
                     </form>
                 </div>
             </section>

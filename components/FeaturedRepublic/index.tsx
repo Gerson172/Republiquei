@@ -53,9 +53,9 @@ console.log(data)
                         tipoQuarto={props.tipoQuarto}
                         tipoSexo={props.tipoSexo}
                         cep={props.cep}
-                        cidade={props.cidade}
+                        localidade={props.localidade}
                         bairro={props.bairro}
-                        estado={props.estado}
+                        uf={props.uf}
                         logradouro={props.logradouro}
                         numero={props.numero}
                         complemento={props.complemento}

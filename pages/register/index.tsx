@@ -12,7 +12,6 @@ import { estadoCivil, sexo, genero, religiao, orientacaoSexual } from "../../dat
 import api from "../../services/api";
 import Link from "next/link";
 import { User } from "../../types/User";
-import { useState } from "react";
 
 
 function Register() {
@@ -32,7 +31,7 @@ function Register() {
         setValue("logradouro", data.logradouro)
         setValue("uf", data.uf)
         setValue("bairro", data.bairro)
-        setValue("localidade", data.cidade)
+        setValue("localidade", data.localidade)
     }
 
     const onSubmit = (data: User) => {
@@ -87,10 +86,10 @@ function Register() {
             <section className="md:flex-row h-full items-center">
                 <div className="md:max-w-md lg:max-w-full md:mx-auto px-6 lg:px-16 xl:px-16" >
                     <div className="w-full h-full mb-8 py-3">
-                        <form onChange={handleSubmit(onSubmit)}>
+                        <form onSubmit={handleSubmit(onSubmit)}>
                             <h2 className="mt-6 mb-10 text-xl md:text-2xl font-bold text-gray-900">Dados pessoais</h2>
                             <div className="grid md:grid-cols-4 md:gap-6">
-                                <Input  placeholder="Digite o seu nome" type="text" id="nome" mensagemDeErro={errors} inputMask={false} mask={""} onChange={undefined} title="Nome" register={register} min={0} max={40} />
+                                <Input placeholder="Digite o seu nome" type="text" id="nome" mensagemDeErro={errors} inputMask={false} mask={""} onChange={undefined} title="Nome" register={register} min={0} max={40} />
                                 <Input title="Sobrenome" placeholder="Digite o seu sobrenome" type="text" id="sobrenome" mensagemDeErro={errors} inputMask={false} mask={""} onChange={undefined} register={register} min={0} max={40} />
                                 <Input title="CPF" inputMask={true} placeholder="Digite o seu cpf" mask="999.999.999-99" mensagemDeErro={errors} id="cpf" type="text" onChange={undefined} register={register} min={0} max={20} />
                                 <Input title="Data Nascimento" inputMask={false} mensagemDeErro={errors} id="dataNascimento" type="date" placeholder={""} mask={""} onChange={undefined} register={register} min={0} max={20} />

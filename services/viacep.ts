@@ -5,7 +5,7 @@ export type ViaCep = {
   "logradouro": string,
   "complemento": string,
   "bairro": string,
-  "cidade": string,
+  "localidade": string,
   "uf": string,
   "ibge": string,
   "gia": string,
