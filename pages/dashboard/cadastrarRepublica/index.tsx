@@ -26,7 +26,7 @@ import viacep, { ViaCep } from "../../../services/viacep";
 import { Imovel } from "../../../types/Imovel";
 
 //Dados
-import { tipoSexoImovel } from "../../../data/options";
+import { tipoSexoImovel, tipoImovel, tipoQuarto} from "../../../data/options";
 
 export default function CadastrarRepublica() {
 
@@ -55,51 +55,51 @@ export default function CadastrarRepublica() {
     const postSubmit = (data: Imovel) => {
 
         const criarImovel = {
-                midia: data.midia,
-                quantidadeComodo: data.quantidadeComodo,
-                capacidadePessoas: data.capacidadePessoas,
-                valor: data.valor,
-                descricao: data.descricao,
-                possuiAcessibilidade: data.possuiAcessibilidade,
-                possuiGaragem: data.possuiGaragem,
-                possuiAcademia: data.possuiAcademia,
-                possuiMobilia: data.possuiMobilia,
-                possuiAreaLazer: data.possuiAreaLazer,
-                possuiPiscina: data.possuiPiscina,
-                quantidadeBanheiros: data.quantidadeBanheiros,
-                quantidadeQuartos: data.quantidadeQuartos,
-                nomeImovel: data.nomeImovel,
-                regraImovel: {
-                  fumante: data.fumante,
-                  animal: data.animal,
-                  alcool: data.alcool,
-                  visitas: data.visitas,
-                  crianca: data.crianca,
-                  drogas: data.drogas
-                },
-                caracteristicaImovel: {
-                  tipoImovel: data.tipoImovel,
-                  tipoQuarto: data.tipoQuarto,
-                  tipoSexo: data.tipoSexo
-                },
-                enderecoImovel: {
-                  cep: data.cep.replace(/[^0-9]/g, ""),
-                  localidade: data.localidade,
-                  bairro: data.bairro,
-                  logradouro: data.logradouro,
-                  numero: data.numero,
-                  complemento: data.complemento,
-                  uf: data.uf
-                },
-                idUsuario: id
+            midia: data.midia,
+            quantidadeComodo: data.quantidadeComodo,
+            capacidadePessoas: data.capacidadePessoas,
+            valor: data.valor,
+            descricao: data.descricao,
+            possuiAcessibilidade: data.possuiAcessibilidade,
+            possuiGaragem: data.possuiGaragem,
+            possuiAcademia: data.possuiAcademia,
+            possuiMobilia: data.possuiMobilia,
+            possuiAreaLazer: data.possuiAreaLazer,
+            possuiPiscina: data.possuiPiscina,
+            quantidadeBanheiros: data.quantidadeBanheiros,
+            quantidadeQuartos: data.quantidadeQuartos,
+            nomeImovel: data.nomeImovel,
+            regraImovel: {
+                fumante: data.fumante,
+                animal: data.animal,
+                alcool: data.alcool,
+                visitas: data.visitas,
+                crianca: data.crianca,
+                drogas: data.drogas
+            },
+            caracteristicaImovel: {
+                tipoImovel: data.tipoImovel,
+                tipoQuarto: data.tipoQuarto,
+                tipoSexo: data.tipoSexo
+            },
+            enderecoImovel: {
+                cep: data.cep.replace(/[^0-9]/g, ""),
+                localidade: data.localidade,
+                bairro: data.bairro,
+                logradouro: data.logradouro,
+                numero: data.numero,
+                complemento: data.complemento,
+                uf: data.uf
+            },
+            idUsuario: id
         }
 
         console.log(criarImovel)
 
         setTimeout(() => {
             alert('Imovel cadastrado com sucesso!')
-                router.push({pathname: '/'})
-                
+            router.push({ pathname: '/' })
+
         }, 3000)
 
         api.post('/Imovel/InserirImovel', criarImovel)
@@ -135,39 +135,33 @@ export default function CadastrarRepublica() {
                             onChange={undefined}
                             min={0} max={50} />
                         <div className='flex gap-2 items-center'>
-                            <Input 
-                                type={'number'} 
-                                title={'Preço: '} 
-                                placeholder={'Digite o preco'} 
-                                onChange={undefined} 
-                                id="valor"
-                                mensagemDeErro={errors} 
-                                inputMask={false} 
-                                mask={''} 
-                                min={0} 
-                                max={1000000} 
-                                register={register}/>            
                             <Input
+                                type={'number'}
+                                title={'Preço: '}
+                                placeholder={'Digite o preco'}
+                                onChange={undefined}
+                                id="valor"
+                                mensagemDeErro={errors}
+                                inputMask={false}
+                                mask={''}
+                                min={0}
+                                max={1000000}
+                                register={register} />
+                            <Select
                                 title="Tipo Imovel:"
                                 id="tipoImovel"
                                 mensagemDeErro={errors}
-                                inputMask={false}
-                                mask={""}
                                 register={register}
-                                type="text"
-                                placeholder="Ex: Casa, Apartamento"
                                 onChange={undefined}
-                                min={0} max={30} />
-                            <Input
+                                name={''} options={tipoImovel} />
+                            <Select
                                 title="Tipo do quarto"
                                 id="tipoQuarto"
                                 mensagemDeErro={errors}
-                                inputMask={false}
-                                mask={""}
                                 register={register}
-                                type="text"
-                                placeholder="Digite o tipo do quarto"
-                                onChange={undefined} min={0} max={30} />
+                                onChange={undefined} 
+                                name={''} 
+                                options={tipoQuarto}/>
                         </div>
                         <div className='flex gap-2'>
                             <Select title={"Sexo"} id={"tipoSexo"} options={tipoSexoImovel} onChange={undefined} mensagemDeErro={errors} register={register} name={""} />
@@ -327,7 +321,7 @@ export default function CadastrarRepublica() {
                                 />
                             </div>
                         </section>
-                            <button type="submit" className=" bg-sky-500 hover:bg-sky-400 focus:bg-sky-400 text-white font-semibold rounded-lg px-16 py-3 my-6">Finalizar</button>
+                        <button type="submit" className=" bg-sky-500 hover:bg-sky-400 focus:bg-sky-400 text-white font-semibold rounded-lg px-16 py-3 my-6">Finalizar</button>
                     </form>
                 </div>
             </section>

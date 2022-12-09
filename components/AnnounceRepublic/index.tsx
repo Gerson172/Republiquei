@@ -60,7 +60,7 @@ function AnnounceRepublic(props: Imovel) {
                                 <MapPinIcon className="h-6 w-6 text-blue-500" />
                                 <h2 className="text-blue-500">{props.localidade}-{props.uf}</h2>
                             </div>
-                            <span className="text-2xl font-bold text-gray-900">{props.valor}</span>
+                            <span className="text-2xl font-bold text-gray-900">R${props.valor}</span>
                         </div>
 
                     </div>

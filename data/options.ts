@@ -31,7 +31,6 @@ const religiao = [
     { value: 'Espiritismo', label: 'Espiritismo'},
     { value: 'Judaísmo', label: 'Judaísmo'},
     { value: 'Outro/Prefiro não dizer', label: 'Outro/Prefiro não dizer'}
-
 ]
 
 const orientacaoSexual = [
@@ -46,9 +45,21 @@ const orientacaoSexual = [
 
 const tipoSexoImovel = [
     { value: 'Selecione o tipo de sexo do quarto' , label: 'Selecione o tipo de sexo do quarto'},
-    { value: 'Masculino', label: 'Masculino'},
-    { value: 'Feminino', label: 'Feminino'},
+    { value: 'Masc.', label: 'Masculino'},
+    { value: 'Femin.', label: 'Feminino'},
     { value: 'Misto', label: 'Misto'}
 ]
 
-export { estadoCivil, sexo, genero, religiao, orientacaoSexual, tipoSexoImovel}
+const tipoImovel = [
+    { value: 'Selecione o tipo do imovel' , label: 'Selecione o tipo do imovel'},
+    { value: 'Casa', label: 'Casa'},
+    { value: 'Apart.', label: 'Apartamento'},
+]
+
+const tipoQuarto = [
+    { value: 'Selecione o tipo do quarto' , label: 'Selecione o tipo do quarto'},
+    { value: 'Comp.', label: 'Compartilhado'},
+    { value: 'Indiv.', label: 'Individual'},
+]
+
+export { estadoCivil, sexo, genero, religiao, orientacaoSexual, tipoSexoImovel, tipoImovel, tipoQuarto}

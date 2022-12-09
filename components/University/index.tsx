@@ -4,7 +4,7 @@ export const AnnounceUniversityData = [
     {
         image: "https://www.praiagrande.sp.gov.br/arquivos/foto/44324.jpg",
         acessibility: "Imagem de Republica",
-        title: "FATEC - Faculdade Estadual de Tecnologia de Praia Grande",
+        title: "FATEC - Faculdade de  Tecnologia de Praia Grande",
         location: "Praia Grande - SP",
     },
     {
@@ -16,8 +16,8 @@ export const AnnounceUniversityData = [
     {
         image: "https://alumni.unesp.br/images/1073743845/2-unesp_1630452342406.jpg",
         acessibility: "Imagem de Republica",
-        title: "UNESP",
-        location: "BAURU - SP",
+        title: "UNESP - Universidade Estadual Paulista",
+        location: "Bauru- SP",
     }
 ]
 
@@ -25,11 +25,11 @@ export const AnnounceUniversityData = [
 export const University = () => {
     return (
         <>
-      <section className="flex flex-row w-full flex-wrap bg-slate-700 justify-center gap-4 text-center">
+      <section className="flex flex-row w-full flex-wrap bg-[#212529] justify-center gap-4 text-center">
         <div className="py-16">
         <h2 className="p-4 text-5xl md:text-6xl font-bold text-white">
               Universidades mais
-          <span className="p-4 text-5xl md:text-6xl text-red-600">
+          <span className="p-4 text-5xl md:text-6xl text-[#DB2777]">
               procuradas
           </span>
           </h2>

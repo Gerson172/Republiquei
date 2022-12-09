@@ -11,7 +11,7 @@ const Home: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>Republiquei</title>
+        <title>Republiquei - ENCONTRE A SUA REPÚBLICA IDEAL</title>
         <link rel="icon" href="/favicon.png"/>
       </Head>
       <NavBar />
