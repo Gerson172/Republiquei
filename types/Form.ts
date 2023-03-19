@@ -4,7 +4,7 @@ export type Input = {
     title: string,
     placeholder: string,
     onChange: any,
-    id: string
+    id: string,
     mensagemDeErro: any,
     inputMask: boolean,
     mask: string,

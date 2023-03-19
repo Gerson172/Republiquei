@@ -19,3 +19,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+input[type=checkbox] {
+  display: none;
+}

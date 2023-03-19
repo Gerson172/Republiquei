@@ -2,7 +2,9 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/about": "pages/about.html",
+  "/cadastrar": "pages/cadastrar.html",
   "/dashboard/cadastrarRepublica": "pages/dashboard/cadastrarRepublica.html",
+  "/dashboard/visualizarRepublica": "pages/dashboard/visualizarRepublica.html",
   "/help": "pages/help.html",
   "/": "pages/index.html",
   "/login": "pages/login.html",
@@ -10,7 +12,6 @@
   "/register": "pages/register.html",
   "/republic/[id]": "pages/republic/[id].html",
   "/searchRepublic": "pages/searchRepublic.html",
-  "/dashboard/visualizarRepublica": "pages/dashboard/visualizarRepublica.html",
   "/_document": "pages/_document.js",
   "/404": "pages/404.html"
 }

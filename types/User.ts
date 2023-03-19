@@ -18,6 +18,7 @@ export interface User {
     uf: string,
     complemento: string,
     proprietario: Boolean,
+    universitario: Boolean,
     areaInteresse: string,
     religiao: string,
     orientacaoSexual: string    
