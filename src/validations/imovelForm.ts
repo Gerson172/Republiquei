@@ -1,0 +1,37 @@
+import * as yup from 'yup'
+
+const imovelForm = yup.object().shape({
+    nomeImovel: yup.string().required("O título é obrigatorio"),
+    midia: yup.string().required(),
+    quantidadeComodo: yup.number().required(),
+    capacidadePessoas: yup.number(),
+    valor: yup.number(),
+    descricao: yup.string(),
+    possuiAcessibilidade: yup.boolean(),
+    possuiGaragem: yup.boolean(),
+    possuiAcademia: yup.boolean(),
+    possuiMobilia: yup.boolean(),
+    possuiAreaLazer: yup.boolean(),
+    possuiPiscina: yup.boolean(),
+    quantidadeBanheiros: yup.number(),
+    quantidadeQuartos: yup.number(),
+    myProperty: yup.number(),
+    fumante: yup.boolean(),
+    animal: yup.boolean(),
+    alcool: yup.boolean(),
+    visitas: yup.boolean(),
+    crianca: yup.boolean(),
+    drogas: yup.boolean(),
+    tipoImovel: yup.string(),
+    tipoQuarto: yup.string(),
+    tipoSexo: yup.string(),
+    cep: yup.number(),
+    localidade: yup.string(),
+    bairro: yup.string(),
+    uf: yup.string(),
+    logradouro: yup.string(),
+    numero: yup.string(),
+    complemento: yup.string(),
+})
+
+export default imovelForm;

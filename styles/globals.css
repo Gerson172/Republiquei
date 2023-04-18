@@ -23,3 +23,14 @@ a {
 input[type=checkbox] {
   display: none;
 }
+
+::-webkit-scrollbar {
+  width: 6px;
+  background-color: white;
+}
+
+
+::-webkit-scrollbar-thumb {
+  background-color: #0ea5e9;
+}
+

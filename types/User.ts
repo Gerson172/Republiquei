@@ -24,11 +24,18 @@ export interface User {
     orientacaoSexual: string    
 }
 
-export interface Login {
+export type Login = {
     id: number, 
     nome: string,
     sobrenome: string,
     email: string,
-    senha: string
+    senha: string,
+    sucesso: boolean,
+    mensagem: string,
+    autheiticated: boolean,
+    created: boolean,
+    expiration: boolean,
+    acessToken: string,
+    existeUsuario: boolean
 }
 

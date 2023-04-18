@@ -1,50 +1,67 @@
-import NavBar from "../../components/NavBar";
-import { RiNumber1, RiNumber2, RiNumber3, RiNumber4 } from 'react-icons/ri';
-import { useForm } from "react-hook-form";
-import viacep, { ViaCep } from "../../services/viacep";
-import api from "../../services/api";
-import { User } from "../../types/User";
-import { useRouter } from "next/router";
+// Cadastro.tsx
 import { useState } from "react";
-
-import registerForm from "../../controller/registerForm";
-import DadosPessoais from "../../components/DadosPessoais";
-import Contatos from "../../components/Contatos";
-import Endereco from "../../components/Endereco";
-import CriarUsuario from "../../components/CriarUsuario";
+import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Input from "../../components/Input";
+import { ToastContainer, toast } from 'react-toastify';
+import registerForm from "../../src/validations/registerForm";
+import { RiNumber1, RiNumber2, RiNumber3, RiNumber4 } from "react-icons/ri";
+import viacep, { viaCepType } from "../../src/infra/api/viacep";
+import api from "../../src/infra/api";
+import { User } from "../../types/User";
+import * as yup from "yup";
 
 
-function Register() {
-    const { register, handleSubmit, formState: { errors }, setValue } = useForm<User>({ resolver: yupResolver(registerForm)});
-    let router = useRouter()
+import DadosPessoais from "../../src/patterns/Cadastrar/DadosPessoais";
+import Contatos from "../../src/patterns/Cadastrar/Contatos";
+import Endereco from "../../src/patterns/Cadastrar/Endereco";
+import CriarUsuario from "../../src/patterns/Cadastrar/CriarUsuario";
+import Input from "../../src/components/Formulario/Input";
+import NavBar from "../../src/components/NavBar";
 
-    const [isChecked, setIsChecked] = useState(false);
 
-    function handleCheckboxChange() {
+
+
+
+function Cadastro() {
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        setValue,
+      } = useForm<User>({ resolver: yupResolver(registerForm) });
+
+      const router = useRouter();
+      const [isChecked, setIsChecked] = useState(false);
+
+      function handleCheckboxChange() {
         setIsChecked(!isChecked);
     }
-
-    async function obterEndereco(cep: string) {
-        const cepApenasNumero = cep.replace(/[^0-9]/g, "")
-
-        if (cepApenasNumero.length !== 8) {
+    
+      async function buscarEnderecoPorCep(cep: string) {
+        try {
+          const cepApenasNumero = cep.replace(/[^0-9]/g, "");
+    
+          if (cepApenasNumero.length !== 8) {
             return;
+          }
+    
+          const { data } = await viacep.get<viaCepType>(`${cepApenasNumero}/json/`);
+    
+          setValue("logradouro", data.logradouro);
+          setValue("uf", data.uf);
+          setValue("bairro", data.bairro);
+          setValue("localidade", data.localidade);
+        } catch (error) {
+          console.log(error);
         }
-
-        const { data } = await viacep.get<ViaCep>(`${cepApenasNumero}/json/`)
-
-        setValue("logradouro", data.logradouro)
-        setValue("uf", data.uf)
-        setValue("bairro", data.bairro)
-        setValue("localidade", data.localidade)
-    }
+      }
 
 
     const onSubmit = (data: User) => {
 
-        console.log(data.proprietario)
+        console.log(data)
 
         const criarUsuario = {
             nome: data.nome,
@@ -78,9 +95,10 @@ function Register() {
         }
 
         setTimeout(() => {
-            alert('Usuario cadastrado com sucesso!')
+            toast.success('Usuario cadastrado com sucesso!', {
+                position: toast.POSITION.BOTTOM_LEFT
+            })
             router.push({ pathname: '/login' })
-
         }, 1000)
 
 
@@ -95,7 +113,7 @@ function Register() {
     }
 
     const formComponents = [<DadosPessoais errors={errors} register={register} />, <Contatos errors={errors} register={register} />,
-    <Endereco register={register} errors={errors} obterEndereco={obterEndereco} />, <CriarUsuario errors={errors} register={register} />]
+    <Endereco register={register} errors={errors} obterEndereco={buscarEnderecoPorCep} />, <CriarUsuario errors={errors} register={register} />]
 
     const [step, setStep] = useState<number>(0);
 
@@ -110,7 +128,9 @@ function Register() {
     }
 
     return (
-        <section className="h-full bg-gray-50">
+        <>
+        <NavBar/>
+        <section className="h-full w-screen bg-gray-50">
             <div className={`${isChecked ? 'hidden' : ''} flex flex-wrap sm:p-8 items-center justify-center md:h-screen gap-10`}>
                 <div className="bg-white px-5 shadow-md rounded-lg mx-4 hover:border-solid border-8 hover:border-sky-600">
                     <label htmlFor="proprietario">
@@ -165,9 +185,10 @@ function Register() {
                 </form>
             </div>
         </section>
+        </>
     )
 
 }
 
-export default Register;
+export default Cadastro;
 

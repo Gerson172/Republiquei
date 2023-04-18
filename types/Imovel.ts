@@ -2,8 +2,8 @@ export type Imovel = {
     idImovel: number,
     midia: string,
     quantidadeComodo: string,
-    capacidadePessoas: string,
-    valor: string,
+    capacidadePessoas: number,
+    valor: number,
     descricao: string,
     possuiAcessibilidade: boolean,
     possuiGaragem: boolean,
@@ -30,7 +30,10 @@ export type Imovel = {
     localidade: string,
     bairro: string,
     uf: string
+    estado: string,
+    cidade: string,
     logradouro: string,
+    universidade: string,
     numero: number,
     complemento: string,
     idUsuario: number

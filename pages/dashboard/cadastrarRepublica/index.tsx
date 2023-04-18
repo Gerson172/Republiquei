@@ -4,31 +4,35 @@ import { useState } from "react";
 
 //React Hook Form
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import registerForm from "../../../controller/registerForm";
 
 //Next.js
 import { useRouter } from 'next/router';
 import Head from "next/head";
 
 //Components
-import CheckBox from "../../../components/Checkbox";
-import CurrencyInput from "../../../components/CurrencyInput";
-import Input from "../../../components/Input";
-import Select from "../../../components/Select";
-import Sidebar from "../../../components/Sidebar";
+import CheckBox from "../../../src/components/Formulario/Checkbox";
+import Input from "../../../src/components/Formulario/Input";
+import Select from "../../../src/components/Formulario/Select";
+import Sidebar from "../../../src/components/Sidebar";
 
 //Api
-import api from "../../../services/api";
-import viacep, { ViaCep } from "../../../services/viacep";
+import api from "../../../src/infra/api";
+import viacep, { viaCepType } from "../../../src/infra/api/viacep";
 
 //Tipos
 import { Imovel } from "../../../types/Imovel";
 
 //Dados
-import { tipoSexoImovel, tipoImovel, tipoQuarto} from "../../../data/options";
+import { tipoSexoImovel, tipoImovel, tipoQuarto } from "../../../src/constants/options";
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import { yupResolver } from '@hookform/resolvers/yup';
+import imovelForm from '../../../src/validations/imovelForm';
+
 
 export default function CadastrarRepublica() {
+
+    const router = useRouter()
 
     async function obterEndereco(cep: string) {
         const cepApenasNumero = cep.replace(/[^0-9]/g, "")
@@ -37,7 +41,7 @@ export default function CadastrarRepublica() {
             return;
         }
 
-        const { data } = await viacep.get<ViaCep>(`${cepApenasNumero}/json/`)
+        const { data } = await viacep.get<viaCepType>(`${cepApenasNumero}/json/`)
 
         setValue("logradouro", data.logradouro);
         setValue("uf", data.uf);
@@ -46,11 +50,23 @@ export default function CadastrarRepublica() {
     }
 
     const { register, handleSubmit, formState: { errors }, setValue } = useForm<Imovel>({
+        resolver: yupResolver(imovelForm)
     });
 
-    const { id } = useRouter().query
+    if (typeof window !== 'undefined') {
+        // Perform localStorage action
+        const id = sessionStorage.getItem("id")   
+        
+        if (!id) {
+            router.push('/login')
+        }
+    }
+    
+   
 
-    let router = useRouter()
+
+
+
 
     const postSubmit = (data: Imovel) => {
 
@@ -91,20 +107,23 @@ export default function CadastrarRepublica() {
                 complemento: data.complemento,
                 uf: data.uf
             },
-            idUsuario: id
+            idUsuario: sessionStorage.getItem("id") 
         }
 
         console.log(criarImovel)
 
         setTimeout(() => {
-            alert('Imovel cadastrado com sucesso!')
+            toast.success('Imovel cadastrado com sucesso!', {
+                position: toast.POSITION.TOP_RIGHT
+            });
             router.push({ pathname: '/' })
 
         }, 3000)
 
         api.post('/Imovel/InserirImovel', criarImovel)
             .then(function (response) {
-                console.log(response);
+                console.log(response)
+
             })
             .catch(function (error) {
                 console.log(error);
@@ -118,35 +137,33 @@ export default function CadastrarRepublica() {
                 <title>Cadastrar Republica</title>
                 <link rel="icon" href="/favicon.png" />
             </Head>
-
+            <ToastContainer />
             <section className="flex md:flex-row flex-col-reverse text-slate-900">
                 <Sidebar />
                 <div className="bg-white my-8 w-full flex justify-center">
                     <form onSubmit={handleSubmit(postSubmit)}>
-                        <Input
-                            title={"Titulo: "}
-                            mensagemDeErro={errors}
-                            inputMask={false}
-                            mask={""}
-                            register={register}
-                            type="text"
-                            id="nomeImovel"
-                            placeholder="Digite um titulo para que os universitarios possam ver"
-                            onChange={undefined}
-                            min={0} max={50} />
+                        <div className="relative z-0 mb-6 w-full group">
+                            <label htmlFor="nomeImovel" className="block mb-2 text-sm font-medium text-gray-900">Titulo</label>
+                            <input
+                                {...register('nomeImovel')}
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                type="text"
+                                id="nomeImovel"
+                                placeholder="Digite um titulo para que os universitarios possam ver"
+                            />
+                            {errors.nomeImovel && <span className="text-sm text-red-500">{errors.nomeImovel.message}</span>}
+                        </div>
                         <div className='flex gap-2 items-center'>
-                            <Input
-                                type={'number'}
-                                title={'Preço: '}
-                                placeholder={'Digite o preco'}
-                                onChange={undefined}
+                            <div>
+                            <label htmlFor="valor" className="block mb-2 text-sm font-medium text-gray-900">Preço:</label>
+                            <input
+                                {...register('valor')}
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 id="valor"
-                                mensagemDeErro={errors}
-                                inputMask={false}
-                                mask={''}
-                                min={0}
-                                max={1000000}
-                                register={register} />
+                                placeholder="Digite o preco"
+                            />
+                            {errors.valor && <span className="text-sm text-red-500">{errors.valor.message}</span>}
+                            </div>
                             <Select
                                 title="Tipo Imovel:"
                                 id="tipoImovel"
@@ -159,9 +176,9 @@ export default function CadastrarRepublica() {
                                 id="tipoQuarto"
                                 mensagemDeErro={errors}
                                 register={register}
-                                onChange={undefined} 
-                                name={''} 
-                                options={tipoQuarto}/>
+                                onChange={undefined}
+                                name={''}
+                                options={tipoQuarto} />
                         </div>
                         <div className='flex gap-2'>
                             <Select title={"Sexo"} id={"tipoSexo"} options={tipoSexoImovel} onChange={undefined} mensagemDeErro={errors} register={register} name={""} />

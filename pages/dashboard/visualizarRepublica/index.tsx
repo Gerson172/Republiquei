@@ -1,8 +1,8 @@
-import AnnounceRepublic from "../../../components/AnnounceRepublic"
-import Sidebar from "../../../components/Sidebar"
+import AnnounceRepublic from "../../../src/components/Republicas/CardRepublicas"
+import Sidebar from "../../../src/components/Sidebar"
 import { Imovel } from "../../../types/Imovel";
 import { useQuery} from 'react-query'
-import api from "../../../services/api";
+import api from "../../../src/infra/api";
 
 
 function visualizarRepublica(){
@@ -57,8 +57,8 @@ function visualizarRepublica(){
                         logradouro={props.logradouro}
                         numero={props.numero}
                         complemento={props.complemento}
-                        idUsuario={props.idUsuario} 
-                        idImovel={props.idImovel} />
+                        idUsuario={props.idUsuario}
+                        idImovel={props.idImovel} estado={""} cidade={""} universidade={""} />
                 })}
         </div>
   </section>)

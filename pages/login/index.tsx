@@ -2,21 +2,18 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Image from "next/image";
 import Link from "next/link";
 import Router from "next/router";
-import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useQuery } from "react-query";
-import * as yup from "yup";
-import api from "../../services/api";
+import api from "../../src/infra/api";
 import { Login } from "../../types/User";
+import LoginTypes from "../../src/validations/loginForm";
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import { useMutation, useQuery } from "react-query";
+import { useState } from "react";
+
+
 
 function Login() {
-  const LoginTypes = yup.object().shape({
-    email: yup.string().email().required("O campo email é obrigatório"),
-    senha: yup
-      .string()
-      .required("O campo password é obrigatório")
-      .min(4, "A senha deve conter mais de 4 caracteres"),
-  });
 
   const {
     register,
@@ -26,38 +23,27 @@ function Login() {
     resolver: yupResolver(LoginTypes),
   });
 
-  const [loginError, setLoginError] = useState<boolean>(false);
 
-  const { data, isFetching, isError } = useQuery<Login[]>("login", async () => {
-    const response = await api.get("/Usuario/ObterUsuarioContato");
-    return response.data.valor;
+  
+
+  const realizarLogin = useMutation(async (data: Login) => {
+    const response = await api.post("/Login/RealizarLogin", data);
+    sessionStorage.setItem("accessToken", response.data.valor.acessToken);
+    sessionStorage.setItem("id", response.data.valor.existeUsuario.id);
+    sessionStorage.setItem("email", data.email);
+    sessionStorage.setItem("senha", data.senha);
+    Router.push("/dashboard/cadastrarRepublica");
   });
 
-  function handleSignIn(e: Login) {
-    const userInfo = data?.filter((valor: any) => {
-      return valor.email == e.email && valor.senha == e.senha;
-    });
+  const handleSignIn = (data: Login) => {
+    realizarLogin.mutate(data);
+  };
 
-    if (userInfo?.length) {
-      Router.push(`/dashboard/cadastrarRepublica?id=${userInfo[0]?.id}`);
-    }
-
-    if (!userInfo?.length) {
-      setLoginError(true);
-    }
-  }
-
-  useEffect(() => {
-    console.log("loginError", loginError);
-  });
-
-  if (isError) {
-    // Trata o erro aqui depois, coloca pra renderizar um modal, ou um snackbar
-  }
-
+  
   return (
+    <>
+    <ToastContainer/>
     <section className="flex flex-col md:flex-row h-screen items-center">
-      {isFetching && <p>Carregando....</p>}
       <div className="bg-indigo-600 hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">
         <Image
           src="/login.jpeg"
@@ -100,11 +86,11 @@ function Login() {
                 className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
               />
               {errors.email ==
-              (
-                <span className="text-red-500 text-sm">
-                  {errors.email?.message}
-                </span>
-              )}
+                (
+                  <span className="text-red-500 text-sm">
+                    {errors.email?.message}
+                  </span>
+                )}
             </div>
 
             <div className="mt-4">
@@ -118,11 +104,11 @@ function Login() {
                 className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
               />
               {errors.senha ==
-              (
-                <span className="text-red-500 text-sm">
-                  {errors.senha?.message}
-                </span>
-              )}
+                (
+                  <span className="text-red-500 text-sm">
+                    {errors.senha?.message}
+                  </span>
+                )}
             </div>
 
             <div className="text-right mt-2">
@@ -138,16 +124,19 @@ function Login() {
               className="w-full block bg-sky-500 hover:bg-sky-600 focus:bg-sky-600 text-white font-semibold rounded-lg
                             px-4 py-3 mt-6"
             >
-              Entrar
+              {realizarLogin.isLoading ? 'Entrando...' : 'Entrar'}
+
             </button>
           </form>
 
-          {loginError && <span className="text-red-500 text-sm">Usuário ou senha inválidos</span>}
+          {
+            //email && <span className="text-red-500 text-sm">Usuário ou senha inválidos</span>
+          }
           <hr className="my-6 border-gray-300 w-full" />
 
           <p className="mt-8">
             Possui uma conta?
-            <Link href="/register">
+            <Link href="/cadastrar">
               <a className="text-sky-500 hover:text-sky-700 font-semibold">
                 Criar uma conta
               </a>
@@ -156,6 +145,7 @@ function Login() {
         </div>
       </div>
     </section>
+    </>
   );
 }
 
