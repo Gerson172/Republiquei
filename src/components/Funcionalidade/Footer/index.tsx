@@ -2,7 +2,7 @@ function Footer(){
     return (
         <>
         
-<footer className="bg-white border-t mt-36">
+<footer className="bg-white border-t">
     <div className="grid grid-cols-2 gap-8 py-8 px-6 md:grid-cols-4">
         <div>
             <h2 className="mb-6 text-sm font-semibold text-gray-500 uppercase">Company</h2>

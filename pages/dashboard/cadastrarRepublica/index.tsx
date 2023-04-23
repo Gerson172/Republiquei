@@ -29,10 +29,34 @@ import "react-toastify/dist/ReactToastify.css";
 import { yupResolver } from '@hookform/resolvers/yup';
 import imovelForm from '../../../src/validations/imovelForm';
 
+import jwt_decode from "jwt-decode";
+
+interface JwtToken{
+    unique_name: string
+}
 
 export default function CadastrarRepublica() {
 
     const router = useRouter()
+    const [id, setId] = useState();
+
+    if (typeof window !== 'undefined') {
+        var accessToken = sessionStorage.getItem("accessToken") 
+        if(typeof accessToken == 'string') {
+        var decoded = jwt_decode<JwtToken>(accessToken);
+
+        console.log(decoded?.unique_name)
+        
+        }
+        
+        if (!accessToken) {
+            router.push('/login')
+        }
+    }
+
+
+
+
 
     async function obterEndereco(cep: string) {
         const cepApenasNumero = cep.replace(/[^0-9]/g, "")
@@ -52,18 +76,6 @@ export default function CadastrarRepublica() {
     const { register, handleSubmit, formState: { errors }, setValue } = useForm<Imovel>({
         resolver: yupResolver(imovelForm)
     });
-
-    if (typeof window !== 'undefined') {
-        // Perform localStorage action
-        const id = sessionStorage.getItem("id")   
-        
-        if (!id) {
-            router.push('/login')
-        }
-    }
-    
-   
-
 
 
 
@@ -139,7 +151,6 @@ export default function CadastrarRepublica() {
             </Head>
             <ToastContainer />
             <section className="flex md:flex-row flex-col-reverse text-slate-900">
-                <Sidebar />
                 <div className="bg-white my-8 w-full flex justify-center">
                     <form onSubmit={handleSubmit(postSubmit)}>
                         <div className="relative z-0 mb-6 w-full group">

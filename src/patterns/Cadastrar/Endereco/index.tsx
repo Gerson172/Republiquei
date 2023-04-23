@@ -1,6 +1,7 @@
 import Input from "../../../components/Formulario/Input";
 
 export default function Endereco({ errors, register, obterEndereco }: any) {
+
     return (
         <section>
             <div className="grid md:grid-cols-3 md:gap-6">

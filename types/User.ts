@@ -35,7 +35,7 @@ export type Login = {
     autheiticated: boolean,
     created: boolean,
     expiration: boolean,
-    acessToken: string,
+    accessToken: string,
     existeUsuario: boolean
 }
 

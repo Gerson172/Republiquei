@@ -9,8 +9,6 @@ import LoginTypes from "../../src/validations/loginForm";
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { useMutation, useQuery } from "react-query";
-import { useState } from "react";
-
 
 
 function Login() {
@@ -22,17 +20,21 @@ function Login() {
   } = useForm<Login>({
     resolver: yupResolver(LoginTypes),
   });
-
-
   
-
   const realizarLogin = useMutation(async (data: Login) => {
     const response = await api.post("/Login/RealizarLogin", data);
+
+    try{
     sessionStorage.setItem("accessToken", response.data.valor.acessToken);
-    sessionStorage.setItem("id", response.data.valor.existeUsuario.id);
-    sessionStorage.setItem("email", data.email);
-    sessionStorage.setItem("senha", data.senha);
+    sessionStorage.setItem("created", response.data.valor.created);  
+    sessionStorage.setItem("expiration", response.data.valor.expiration);
+
+    
     Router.push("/dashboard/cadastrarRepublica");
+
+    }catch{
+      Router.push("/login")
+    }
   });
 
   const handleSignIn = (data: Login) => {

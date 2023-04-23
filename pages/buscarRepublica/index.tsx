@@ -4,29 +4,66 @@ import { IoIosOptions } from "react-icons/io";
 import NavBar from "../../src/components/NavBar";
 import Loading from "../../src/components/Funcionalidade/Loading";
 import getRepublicas from "../../src/service/republicas/getRepublicas";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ReactPaginate from 'react-paginate';
 import { Imovel } from "../../types/Imovel";
+import { BiSearch } from "react-icons/bi";
+import { useRouter } from "next/router";
 
 
 function buscarRepublica() {
 
   const { data, isFetching } = getRepublicas();
 
-  const [filtroDeCidade, setfiltroDeCidade] = useState('');
-  const [filtroDeAluguel, setfiltroDeAluguel] = useState('');
-  const [filtroQTDPessoas, setfiltroQTDPessoas] = useState('');
-  const [filtroDeBairro, setfiltroDeBairro] = useState('');
-  const [filtroDeTipoImovel, setfiltroDeTipoImovel] = useState('');
-  const [filtroDeUniversidade, setfiltroDeUniversidade] = useState('');
+  const { cidade, bairro, aluguel, tipo, pessoas, universidade } = useRouter().query
 
-  const [filteredData, setFilteredData] = useState<Imovel[]>([]);
+  const cidadeString = typeof cidade === 'string' ? cidade : ''
+  const bairroString = typeof bairro === 'string' ? bairro : ''
+  const tipoString = typeof tipo === 'string' ? tipo : ''
+  const pessoasString = typeof pessoas === 'string' ? pessoas : ''
+  const universidadeString = typeof universidade === 'string' ? universidade : ''
 
+  console.log("cidade:", cidadeString, "aluguel:", aluguel, "pessoa:", pessoasString, "bairro:", bairroString,
+    "tipo:", tipoString, "universidade:", universidadeString)
+
+
+  const [filtroDeCidade, setfiltroDeCidade] = useState<string>(cidadeString || '');
+  const [filtroDeAluguel, setfiltroDeAluguel] = useState(aluguel || '');
+  const [filtroQTDPessoas, setfiltroQTDPessoas] = useState(pessoasString || 0);
+  const [filtroDeBairro, setfiltroDeBairro] = useState<string>(bairroString || '');
+  const [filtroDeTipoImovel, setfiltroDeTipoImovel] = useState<string>(tipoString || '');
+  const [filtroDeUniversidade, setfiltroDeUniversidade] = useState<string>(universidadeString || '');
+
+  const [openFilter, setOpenFilter] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 9
-  
 
+  const filteredData = data ? data.filter((item) => {
+    const cidadePass = item.cidade.toLowerCase().includes(filtroDeCidade.toLowerCase());
+    const aluguelPass = item.valor <= Number(filtroDeAluguel) || Number(filtroDeAluguel) === 0;
+    const qtdPessoasPass = item.capacidadePessoas >= Number(filtroQTDPessoas) || Number(filtroQTDPessoas) === 0;
+    const bairroPass = item.bairro.toLowerCase().includes(filtroDeBairro.toLowerCase());
+    const tipoImovelPass = item.tipoImovel.toLowerCase().includes(filtroDeTipoImovel.toLowerCase());
+
+    return cidadePass && aluguelPass && qtdPessoasPass && bairroPass && tipoImovelPass;
+  }) : [];
+
+  const filteredDataPaginated = filteredData?.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
+
+
+  const mappedData = filteredDataPaginated
+    .map((props) => {
+      return (
+        <AnnounceRepublic
+          {...props}
+        />
+      );
+    })
+
+  const tamanhoMappedData = filteredData.length
+
+  const handleOpenFilter = () => !openFilter ? setOpenFilter(true) : setOpenFilter(false)
 
   const handlePageClick = (data: any) => {
     setCurrentPage(data.selected);
@@ -37,70 +74,111 @@ function buscarRepublica() {
   return (
     <>
       <NavBar />
+      <section className={`${!openFilter ? 'hidden' : ''} pt-16 px-36 max-sm:px-4`}>
+        <form className="grid grid-rows-2 grid-cols-2 max-sm:grid-cols-1 gap-2">
+          <div className="col-span-1">
+            <label className="block mb-2 font-bold" htmlFor="cidade">Cidade</label>
+            <div className="relative flex w-full">
+              <input
+                className="w-full px-3 py-2 border rounded mr-2"
+                placeholder='Busque por cidade'
+                type="text"
+                value={filtroDeCidade}
+                onChange={(e) => setfiltroDeCidade(e.target.value)}
+              />
+              <span className="absolute right-0 top-0 h-full w-12 flex items-center justify-center text-gray-400">
+                <BiSearch />
+              </span>
+            </div>
+            <div>
+              <label className="block mt-4 mb-2 font-bold" htmlFor="aluguel">Aluguel</label>
+              <div className="relative flex w-full">
+                <span className="absolute left-0 top-0 h-full w-12 flex items-center justify-center text-gray-400">
+                  R$
+                </span>
+                <input
+                  className="w-full pl-10 py-2 border rounded"
+                  type="number"
+                  id="aluguel"
+                  name="aluguel"
+                  placeholder='Escolha o valor'
+                  value={filtroDeAluguel}
+                  onChange={(e) => setfiltroDeAluguel(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+          </div>
 
-      <input type="text" value={filtroDeCidade} onChange={(e) => setfiltroDeCidade(e.target.value)} placeholder="Cidade" />
-      <input type="number" value={filtroDeAluguel} onChange={(e) => setfiltroDeAluguel(e.target.value)} placeholder="Valor até" />
-      <input type="number" value={filtroQTDPessoas} onChange={(e) => setfiltroQTDPessoas(e.target.value)} placeholder="Quantidade de pessoas" />
-      <input type="text" value={filtroDeBairro} onChange={(e) => setfiltroDeBairro(e.target.value)} placeholder="Bairro" />
-      <input type="text" value={filtroDeTipoImovel} onChange={(e) => setfiltroDeTipoImovel(e.target.value)} placeholder="Tipo de imóvel" />
-      <input type="text" value={filtroDeUniversidade} onChange={(e) => setfiltroDeUniversidade(e.target.value)} placeholder="Universidade" />
+          <div className="col-span-1">
+            <label className="block mb-2 font-bold" htmlFor="bairro">Bairro</label>
+            <div className="relative flex w-full">
+              <input className="w-full px-3 py-2 border rounded mr-2"
+                placeholder='Busque por bairro'
+                value={filtroDeBairro}
+                onChange={(e) => setfiltroDeBairro(e.target.value)}
+                type="text"
+              />
+              <span className="absolute right-0 top-0 h-full w-12 flex items-center justify-center text-gray-400">
+                <BiSearch />
+              </span>
+            </div>
+            <div>
+              <label className="block mt-4 mb-2 font-bold" htmlFor="tipo">Tipo</label>
+              <input className="w-full px-3 py-2 border rounded"
+                type="text" id="tipo"
+                name="tipo"
+                placeholder='EX: Apartamento, Casa'
+                value={filtroDeTipoImovel}
+                onChange={(e) => setfiltroDeTipoImovel(e.target.value)}
+                required
+              />
+            </div>
+          </div>
 
-      <section className="w-screen h-full container mx-auto scrollbar-track-sky-300 ">
-        <div className="result-info flex items-center justify-between mb-6 mx-5 md:mx-0">
-          <h2 className="text-xl font-sans text-slate-800 font-bold">{data?.length} repúblicas para morar em </h2>
-          <span className="p-4 bg-slate-800 text-white flex flex-row items-center gap-2 rounded-md">
+          <div className="col-span-1">
+            <label className="block mt-4 mb-2 font-bold" htmlFor="pessoas">Pessoas</label>
+            <input
+              className="w-full px-3 py-2 border rounded"
+              type="number"
+              id="pessoas"
+              name="pessoas"
+              placeholder='Escolha a quantidade'
+              value={filtroQTDPessoas}
+              onChange={(e) => setfiltroQTDPessoas(e.target.value)}
+              required />
+          </div>
+
+          <div className="col-span-1">
+            <label className="block mt-4 mb-2 font-bold" htmlFor="universidade">Universidade</label>
+            <input
+              className="w-full px-3 py-2 border rounded"
+              type="text"
+              id="universidade"
+              name="universidade"
+              placeholder='Escolha a universidade'
+              value={filtroDeUniversidade}
+              onChange={(e) => setfiltroDeUniversidade(e.target.value)}
+              required
+              disabled
+            />
+          </div>
+        </form>
+      </section>
+
+      <section className="w-screen h-full container my-12 mx-auto scrollbar-track-sky-300 ">
+        <div className="result-info flex items-center justify-between mb-6 mx-20">
+          <h2 className="text-xl font-sans text-slate-800 font-bold">{tamanhoMappedData} repúblicas para morar em </h2>
+          <span className="p-4 bg-slate-800 text-white cursor-pointer hover:bg-slate-600 flex flex-row items-center gap-2 rounded-md" onClick={handleOpenFilter}>
             <IoIosOptions></IoIosOptions>Filtros
           </span>
         </div>
 
-        <div className="grid justify-center grid-cols-1 md:px-40 gap-x-52 sm:gap-x-[300px] md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
+        <div className="grid justify-center grid-cols-1 md:px-40 gap-x-52  2xl:gap-x-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
 
-        {
-            data?.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
-            .map((props) => {
-              return (
-                <AnnounceRepublic
-                  midia={props.midia}
-                  quantidadeComodo={props.quantidadeComodo}
-                  capacidadePessoas={props.capacidadePessoas}
-                  valor={props.valor}
-                  descricao={props.descricao}
-                  possuiAcessibilidade={props.possuiAcessibilidade}
-                  possuiGaragem={props.possuiGaragem}
-                  possuiAcademia={props.possuiAcademia}
-                  possuiMobilia={props.possuiMobilia}
-                  possuiAreaLazer={props.possuiAreaLazer}
-                  possuiPiscina={props.possuiPiscina}
-                  quantidadeBanheiros={props.quantidadeBanheiros}
-                  quantidadeQuartos={props.quantidadeQuartos}
-                  nomeImovel={props.nomeImovel}
-                  email={props.email}
-                  telefone={props.telefone}
-                  celular={props.celular}
-                  fumante={props.fumante}
-                  animal={props.animal}
-                  alcool={props.alcool}
-                  visitas={props.visitas}
-                  crianca={props.crianca}
-                  drogas={props.drogas}
-                  tipoImovel={props.tipoImovel}
-                  tipoQuarto={props.tipoQuarto}
-                  tipoSexo={props.tipoSexo}
-                  cep={props.cep}
-                  cidade={props.cidade}
-                  bairro={props.bairro}
-                  estado={props.estado}
-                  logradouro={props.logradouro}
-                  numero={props.numero}
-                  complemento={props.complemento}
-                  idUsuario={props.idUsuario}
-                  idImovel={props.idImovel}
-                  localidade={""}
-                  uf={""}
-                  universidade={""}
-                />
-              );
-            })}
+          {
+            mappedData
+          }
         </div>
 
         {data?.length &&
@@ -126,8 +204,8 @@ function buscarRepublica() {
 
         }
 
-        <Footer />
       </section>
+      <Footer />
     </>
   )
 }

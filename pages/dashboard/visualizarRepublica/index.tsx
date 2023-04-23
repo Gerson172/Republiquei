@@ -3,17 +3,13 @@ import Sidebar from "../../../src/components/Sidebar"
 import { Imovel } from "../../../types/Imovel";
 import { useQuery} from 'react-query'
 import api from "../../../src/infra/api";
+import getRepublica from "../../../src/service/republicas/getRepublicas";
 
 
 function visualizarRepublica(){
     
-    const {data, isFetching} = useQuery<Imovel[]>('visualizarImovel', async () => {
-        const response = await api.get('/Imovel/ObterImovel')
+    const {data, isFetching} = getRepublica()
 
-        return response.data.valor;
-    }, {
-        staleTime: 1000 + 60, // 1 minuto
-    })
 
     console.log(data)
 
