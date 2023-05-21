@@ -5,11 +5,12 @@ import NavBar from '../src/components/NavBar'
 import { Universidades } from '../src/components/Universidades'
 import Head from '../src/infra/components/Head'
 
-import { IoIosChatbubbles} from 'react-icons/io'
+import { IoIosChatbubbles } from 'react-icons/io'
 import { BiSearch } from 'react-icons/bi'
 import { BsFillCreditCard2FrontFill } from 'react-icons/bs'
 import { useState } from 'react'
 import { useRouter } from 'next/router';
+import Image from 'next/image'
 
 interface FormValues {
 	cidade: string;
@@ -163,8 +164,14 @@ const Home: NextPage = () => {
 				<div>
 					<div className="max-sm:p-0 py-8 flex flex-wrap items-center justify-center">
 						<div className='max-sm:w-screen flex max-sm:flex-wrap max-sm:flex-col-reverse bg-[#212529] items-center'>
-							<img src="https://s3-alpha-sig.figma.com/img/e375/8c5d/40dc6e14349cecb0202e10dc9c254d01?Expires=1682899200&Signature=nR2~OAEQxWbkRqK1eMZybS9SAIOj57PD2KqWm4OkxDhnEFf7hz7C4P2s4Hd6mUqSZvFuIg~72dSMIsPU~nR~caWSerBG4FylQlJHhrgRbM-hBnCxnvyxwPtv0THtkHZ~WiXkyoI8wMypjhqJWwhg1HzulxVZMN88UwMp2mthpYeCbLDtOyb6SZzToPPRO2XMbGLNYweI494a9CObLrfjyTXx87SSkSvEKmK4subVQNaV5kILMPDoMFnkQpXNP3ThpDjz4Zo-hpFUPcrcmnI5c3wpqd4AHq3xPNSuoueG81X~cdMViyJPXJaUzZqp~RxNjDwDG2wz2LVilYgxijo1Gw__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4" className="mr-8" />
-							<div className='px-2 text-white space-y-4'>
+							<Image
+								src="https://images.unsplash.com/photo-1576267423445-b2e0074d68a4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+								width={1700}
+								height={1000}
+								alt="Imagem da República"
+								className="mr-8"
+							/>
+							<div className='px-8 text-white space-y-4'>
 								<h2 className='font-semibold text-5xl'>Conheça a melhor república para você</h2>
 								<p>
 									Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis
@@ -219,7 +226,13 @@ const Home: NextPage = () => {
 									<div className="p-6 rounded shadow-md">
 										<p>A Republiquei me ajudou a encontrar a república que mais combinava comigo. Com ela consegui encontrar um local onde só tem meninas.</p>
 										<div className="flex items-center mt-4 space-x-4">
-											<img className="w-12 h-12 bg-center bg-cover rounded-full" src="https://source.unsplash.com/50x50/?portrait?1" alt="img" />
+											<Image
+												className="w-12 h-12 bg-center bg-cover rounded-full"
+												src="https://source.unsplash.com/50x50/?portrait?1"
+												alt="img"
+												width={50}
+												height={50}
+											/>
 											<div>
 												<p className="text-lg font-semibold">Nathaly Silva</p>
 												<p className="text-sm">Estudante de Ciencia da Computação</p>
@@ -229,8 +242,13 @@ const Home: NextPage = () => {
 									<div className="p-6 rounded shadow-md">
 										<p>Com a Republiquei pude encontrar a minha república sem precisar ir até a cidade, dessa forma, quando me mudei já tinha o local me esperando.</p>
 										<div className="flex items-center mt-4 space-x-4">
-											<img className="w-12 h-12 bg-center bg-cover rounded-full" src="https://source.unsplash.com/50x50/?portrait?2" alt="img" />
-											<div>
+										<Image
+												className="w-12 h-12 bg-center bg-cover rounded-full"
+												src="https://source.unsplash.com/50x50/?portrait?2"
+												alt="img"
+												width={50}
+												height={50}
+											/>											<div>
 												<p className="text-lg font-semibold">Bruno Arantes</p>
 												<p className="text-sm">Estudante de Direito.</p>
 											</div>
@@ -241,8 +259,13 @@ const Home: NextPage = () => {
 									<div className="p-6 rounded shadow-md">
 										<p>A Republiquei facilitou a encontrar repúblicas mais próximas a minha universidade, além disso pude escolher uma república de acordo com o meu gosto.</p>
 										<div className="flex items-center mt-4 space-x-4">
-											<img className="w-12 h-12 bg-center bg-cover rounded-full" src="https://source.unsplash.com/50x50/?portrait?3" alt="img" />
-											<div>
+										<Image
+												className="w-12 h-12 bg-center bg-cover rounded-full"
+												src="https://source.unsplash.com/50x50/?portrait?3"
+												alt="img"
+												width={50}
+												height={50}
+											/>											<div>
 												<p className="text-lg font-semibold">Gabrielly Spindola</p>
 												<p className="text-sm">Estudante de Medicina.</p>
 											</div>
@@ -251,8 +274,13 @@ const Home: NextPage = () => {
 									<div className="p-6 rounded shadow-md">
 										<p>A Republiquei facilitou o meu contato com o proprietário da casa, não precisei ir até a cidade para ver república por república. Com poucos cliques pude encontrar uma república sensacional e próxima a minha universidade.</p>
 										<div className="flex items-center mt-4 space-x-4">
-											<img className="w-12 h-12 bg-center bg-cover rounded-full" src="https://source.unsplash.com/50x50/?portrait?4" alt="" />
-											<div>
+										<Image
+												className="w-12 h-12 bg-center bg-cover rounded-full"
+												src="https://source.unsplash.com/50x50/?portrait?4"
+												alt="img"
+												width={50}
+												height={50}
+											/>											<div>
 												<p className="text-lg font-semibold">Renato Hilbert</p>
 												<p className="text-sm">Estudante de Engenharia Civil</p>
 											</div>

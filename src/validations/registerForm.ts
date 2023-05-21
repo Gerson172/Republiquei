@@ -15,9 +15,9 @@ let registerForm = yup.object().shape({
     logradouro: yup.string(),
     numeroCasa: yup.number().nullable().transform((curr, orig) => orig === '' ? null : curr).required('O campo número casa é obrigatório'),
     bairro: yup.string(),
-    localidade: yup.string(),
+    cidade: yup.string(),
     complemento: yup.string().notRequired(),
-    uf: yup.string(),
+    estado: yup.string(),
     senha: yup.string().required('O campo password é obrigatório').min(4).max(16),
     proprietario: yup.bool().notRequired(),
 })

@@ -8,7 +8,7 @@ import api from "../../../infra/api";
 import { Imovel } from "../../../../types/Imovel";
 
 
-function AnnounceRepublic(props: Imovel) {
+function CardRepublicas(props: Imovel) {
 
   const { id } = useRouter().query
   const router = useRouter()
@@ -109,4 +109,4 @@ function AnnounceRepublic(props: Imovel) {
   )
 }
 
-export default AnnounceRepublic;
+export default CardRepublicas;

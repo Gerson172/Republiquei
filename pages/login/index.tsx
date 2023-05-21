@@ -24,17 +24,17 @@ function Login() {
   const realizarLogin = useMutation(async (data: Login) => {
     const response = await api.post("/Login/RealizarLogin", data);
 
-    try{
+    if(response.data.valor.sucesso){
     sessionStorage.setItem("accessToken", response.data.valor.acessToken);
     sessionStorage.setItem("created", response.data.valor.created);  
     sessionStorage.setItem("expiration", response.data.valor.expiration);
 
     
-    Router.push("/dashboard/cadastrarRepublica");
-
-    }catch{
-      Router.push("/login")
+    Router.push("/");
     }
+      
+    Router.push("/login")
+    
   });
 
   const handleSignIn = (data: Login) => {
@@ -52,7 +52,7 @@ function Login() {
           alt=""
           layout="responsive"
           width={800}
-          height={684}
+          height={600}
           objectFit="cover"
         />
       </div>
@@ -115,7 +115,6 @@ function Login() {
 
             <div className="text-right mt-2">
               <a
-                href="#"
                 className="text-sm font-semibold text-gray-700 hover:text-blue-700 focus:text-blue-700"
               >
                 Esqueceu a senha?
@@ -135,7 +134,6 @@ function Login() {
             //email && <span className="text-red-500 text-sm">Usuário ou senha inválidos</span>
           }
           <hr className="my-6 border-gray-300 w-full" />
-
           <p className="mt-8">
             Possui uma conta?
             <Link href="/cadastrar">

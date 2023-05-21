@@ -50,9 +50,9 @@ function Cadastro() {
           const { data } = await viacep.get<viaCepType>(`${cepApenasNumero}/json/`);
     
           setValue("logradouro", data.logradouro);
-          setValue("uf", data.uf);
+          setValue("estado", data.uf);
           setValue("bairro", data.bairro);
-          setValue("localidade", data.localidade);
+          setValue("cidade", data.localidade);
         } catch (error) {
           console.log(error);
         }
@@ -130,7 +130,7 @@ function Cadastro() {
     return (
         <>
         <NavBar/>
-        <section className="h-full w-screen bg-gray-50">
+        <section className="h-full bg-gray-50">
             <div className={`${isChecked ? 'hidden' : ''} flex flex-wrap sm:p-8 items-center justify-center md:h-screen gap-10`}>
                 <div className="bg-white px-5 shadow-md rounded-lg mx-4 hover:border-solid border-8 hover:border-sky-600">
                     <label htmlFor="proprietario">
@@ -162,7 +162,7 @@ function Cadastro() {
                     </label>
                 </div>
             </div>
-            <div className={`${!isChecked ? 'hidden' : ''} h-screen w-screen flex items-center justify-center bg-gray-100`}>
+            <div className={`${!isChecked ? 'hidden' : ''} h-screen flex items-center justify-center bg-gray-100`}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="bg-white md:w-full w-full mx-auto p-8 rounded-lg shadow-md">
                         <div className="flex flex-row justify-between p-8 gap-8">

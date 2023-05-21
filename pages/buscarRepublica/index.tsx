@@ -1,20 +1,20 @@
-import AnnounceRepublic from "../../src/components/Republicas/CardRepublicas";
+import CardRepublicas from "../../src/components/Republicas/CardRepublicas";
 import Footer from "../../src/components/Funcionalidade/Footer";
 import { IoIosOptions } from "react-icons/io";
 import NavBar from "../../src/components/NavBar";
-import Loading from "../../src/components/Funcionalidade/Loading";
 import getRepublicas from "../../src/service/republicas/getRepublicas";
 import { useState } from "react";
 import ReactPaginate from 'react-paginate';
-import { Imovel } from "../../types/Imovel";
 import { BiSearch } from "react-icons/bi";
 import { useRouter } from "next/router";
+import { useDeferredValue } from "react";
 
 
-function buscarRepublica() {
+function BuscarRepublica() {
 
   const { data, isFetching } = getRepublicas();
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { cidade, bairro, aluguel, tipo, pessoas, universidade } = useRouter().query
 
   const cidadeString = typeof cidade === 'string' ? cidade : ''
@@ -49,13 +49,16 @@ function buscarRepublica() {
     return cidadePass && aluguelPass && qtdPessoasPass && bairroPass && tipoImovelPass;
   }) : [];
 
-  const filteredDataPaginated = filteredData?.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
+  const deferredData = useDeferredValue(filteredData)
+
+  const filteredDataPaginated = deferredData?.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
 
 
   const mappedData = filteredDataPaginated
-    .map((props) => {
+    .map((props, index) => {
       return (
-        <AnnounceRepublic
+        <CardRepublicas
+          key={index}
           {...props}
         />
       );
@@ -210,4 +213,4 @@ function buscarRepublica() {
   )
 }
 
-export default buscarRepublica;
+export default BuscarRepublica;

@@ -15,6 +15,8 @@ export interface User {
     numeroCasa: number,
     bairro: string,
     localidade: string,
+    estado: string,
+    cidade: string,
     uf: string,
     complemento: string,
     proprietario: Boolean,

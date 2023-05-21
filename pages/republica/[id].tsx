@@ -174,6 +174,8 @@ export default function Republic() {
                 </ul>
               </div>
             </div>
+
+            {!sessionStorage.getItem('acessToken') ?
             <div className='mb-8 flex flex-col h-[600px] gap-4 px-4 border rounded bg-gray-100'>
               <span className='mt-4 font-bold flex flex-row items-center gap-2'>
                 <BiMessage size="20px" />
@@ -204,10 +206,13 @@ export default function Republic() {
                 <a></a>
               </form>
             </div>
+              : ''}
           </div>
 
+            
           {/* <pre>{JSON.stringify(imovel, null, 2)}</pre> */}
         </div>
+                  
 
         <DynamicMap address={endereco} />
         <Footer />

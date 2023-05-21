@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5"
-
+import { VscAccount} from "react-icons/vsc"
 
 function NavBar() {
 
@@ -21,7 +22,25 @@ function NavBar() {
 
     const [showLaunch, setShowLaunch] = useState(true);
 
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+
+    const toggleDropdown = () => setDropdownOpen(prevState => !prevState);
+
+
     const launchDays = 24 - new Date().getUTCDate();
+
+    function handleLogout() {
+        sessionStorage.removeItem("creationDate");
+        sessionStorage.removeItem("expirationDate");
+        useRouter().push("/")
+    }
+
+    const [token, setToken] = useState<string | null>();
+
+    useEffect(() => {
+        const acessToken = sessionStorage.getItem("acessToken")
+        setToken(acessToken)
+    }, [])
 
     return (
         <>
@@ -102,41 +121,127 @@ function NavBar() {
                                 ))}
                             </ul>
 
-                            <div className="mt-3 space-y-2 lg:hidden md:inline-block">
-                                <Link href="/cadastrar">
-                                    <a
-                                        className="inline-block w-full px-6 py-4 font-bold text-gray-800 bg-white rounded-md drop-shadow"
-                                    >
-                                        Cadastre-se
-                                    </a>
-                                </Link>
-                                <Link href='/login'>
-                                    <a
-                                        className="inline-block w-full px-6 py-4 font-bold text-white bg-sky-500 rounded-md shadow"
-                                    >
-                                        Entrar
-                                    </a>
-                                </Link>
-                            </div>
+                            {token? (
+                                <div>
+                                    <div className="mt-3 space-y-2 lg:hidden md:inline-block">
+                                        <button
+                                            className="inline-block w-full px-6 py-4 font-bold text-white bg-sky-500 rounded-md shadow" onClick={handleLogout}
+                                        >
+                                            Anunciar
+                                        </button>
+                                    </div>
+
+                                    <div className="mt-3 space-y-2 lg:hidden md:inline-block">
+                                        <button
+                                            className="inline-block w-full px-6 py-4 font-bold text-white bg-sky-500 rounded-md shadow" onClick={handleLogout}
+                                        >
+                                            Sair
+                                        </button>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="mt-3 space-y-2 lg:hidden md:inline-block">
+                                    <Link href="/cadastrar">
+                                        <a
+                                            className="inline-block w-full px-6 py-4 font-bold text-gray-800 bg-white rounded-md drop-shadow"
+                                        >
+                                            Cadastre-se
+                                        </a>
+                                    </Link>
+                                    <Link href='/login'>
+                                        <a
+                                            className="inline-block w-full px-6 py-4 font-bold text-white bg-sky-500 rounded-md shadow"
+                                        >
+                                            Entrar
+                                        </a>
+                                    </Link>
+                                </div>
+                            )}
                         </div>
                     </div>
 
-                    <div className="hidden space-x-2 md:inline-block">
-                        <Link href="/cadastrar">
-                            <a
-                                className="px-6 py-4 font-bold text-gray-800 bg-white rounded-md drop-shadow transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
-                            >
-                                Cadastre-se
-                            </a>
-                        </Link>
-                        <Link href="/login">
-                            <a
-                                className="transition ease-in-out delay-200 hover:scale-105 px-6 py-4 font-bold text-white bg-sky-500 rounded-md shadow"
-                            >
-                                Entrar
-                            </a>
-                        </Link>
-                    </div>
+
+                    {token ? (
+                        <div className="flex gap-4 items-center">
+                            <div className="hidden space-x-2 md:inline-block">
+                                <button
+                                    className="px-6 py-2 text-[#212529] font-bold bg-[#E5E5E5] rounded-md shadow"
+                                >
+                                    Anunciar
+                                </button>
+                            </div>
+                            <div className="hidden space-x-2 md:inline-block">
+                                <div className="relative inline-block text-left">
+                                    <div>
+                                        <button
+                                            type="button"
+                                            className="inline-flex py-2 px-4 gap-2 justify-center items-center w-full rounded-md bg-white text-gray-700 "
+                                            id="options-menu"
+                                            aria-haspopup="true"
+                                            aria-expanded={dropdownOpen}
+                                            onClick={toggleDropdown}
+                                        >
+                                            <span className="text-2xl">
+                                               <VscAccount/>
+                                            </span>
+                                            <span className="text-sm font-medium">Edhoni</span>
+                                        </button>
+                                    </div>
+
+                                    {dropdownOpen && (
+                                        <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                            <div
+                                                className="py-1"
+                                                role="menu"
+                                                aria-orientation="vertical"
+                                                aria-labelledby="options-menu"
+                                            >
+                                                <a
+                                                    href="#"
+                                                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                                                    role="menuitem"
+                                                >
+                                                    Meu Perfil
+                                                </a>
+                                                <Link href="/meusAnuncios">
+                                                <span
+                                                    className="block px-4 py-2 text-sm cursor-pointer text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                                                    role="menuitem"
+                                                >
+                                                    Meus Anúncios
+                                                </span>
+                                                </Link>
+                                                <button
+                                                    className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                                                    onClick={handleLogout}
+                                                    role="menuitem"
+                                                >
+                                                    Sair
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="hidden space-x-2 md:inline-block">
+                            <Link href="/cadastrar">
+                                <a
+                                    className="px-6 py-4 font-bold text-gray-800 bg-white rounded-md drop-shadow transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
+                                >
+                                    Cadastre-se
+                                </a>
+                            </Link>
+                            <Link href="/login">
+                                <a
+                                    className="transition ease-in-out delay-200 hover:scale-105 px-6 py-4 font-bold text-white bg-sky-500 rounded-md shadow"
+                                >
+                                    Entrar
+                                </a>
+                            </Link>
+                        </div>
+                    )}
                 </div>
             </nav>
         </>
@@ -145,3 +250,9 @@ function NavBar() {
 
 
 export default NavBar;
+
+
+function SetStateAction<T>() {
+    throw new Error("Function not implemented.");
+}
+

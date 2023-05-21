@@ -54,8 +54,6 @@
     "@types/react-input-mask": "^3.0.2",
     "@typescript-eslint/eslint-plugin": "^5.40.0",
     "autoprefixer": "^10.4.12",
-    "eslint": "8.36.0",
-    "eslint-config-next": "13.2.4",
     "ngrok": "^4.3.3",
     "nookies": "^2.5.2",
     "postcss": "^8.4.17",
