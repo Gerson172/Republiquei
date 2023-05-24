@@ -8,6 +8,7 @@ import ReactPaginate from 'react-paginate';
 import { BiSearch } from "react-icons/bi";
 import { useRouter } from "next/router";
 import { useDeferredValue } from "react";
+import Head from "../../src/infra/components/Head";
 
 
 function BuscarRepublica() {
@@ -23,8 +24,6 @@ function BuscarRepublica() {
   const pessoasString = typeof pessoas === 'string' ? pessoas : ''
   const universidadeString = typeof universidade === 'string' ? universidade : ''
 
-  console.log("cidade:", cidadeString, "aluguel:", aluguel, "pessoa:", pessoasString, "bairro:", bairroString,
-    "tipo:", tipoString, "universidade:", universidadeString)
 
 
   const [filtroDeCidade, setfiltroDeCidade] = useState<string>(cidadeString || '');
@@ -76,8 +75,9 @@ function BuscarRepublica() {
 
   return (
     <>
+      <Head title="Buscar Republicas"/>
       <NavBar />
-      <section className={`${!openFilter ? 'hidden' : ''} pt-16 px-36 max-sm:px-4`}>
+      <section className={`${!openFilter ? 'hidden' : ''} pt-16 max-w-screen-sm px-36 max-sm:px-4`}>
         <form className="grid grid-rows-2 grid-cols-2 max-sm:grid-cols-1 gap-2">
           <div className="col-span-1">
             <label className="block mb-2 font-bold" htmlFor="cidade">Cidade</label>
@@ -188,7 +188,7 @@ function BuscarRepublica() {
           <ReactPaginate
             previousLabel={'← Previous'}
             nextLabel={'Next →'}
-            pageCount={data.length / itemsPerPage}
+            pageCount={Math.ceil(data.length / itemsPerPage)}
             marginPagesDisplayed={1}
             pageRangeDisplayed={2}
             onPageChange={handlePageClick}

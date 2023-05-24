@@ -11,13 +11,12 @@ import { BsFillCreditCard2FrontFill } from 'react-icons/bs'
 import { useState } from 'react'
 import { useRouter } from 'next/router';
 import Image from 'next/image'
+import Filter from '../src/components/Funcionalidade/Filter'
 
 interface FormValues {
 	cidade: string;
 	bairro: string;
-	aluguel: number;
 	tipo: string;
-	pessoas: number;
 	universidade: string;
 }
 
@@ -26,20 +25,22 @@ const Home: NextPage = () => {
 	const [formValues, setFormValues] = useState<FormValues>({
 		cidade: '',
 		bairro: '',
-		aluguel: 0,
 		tipo: '',
-		pessoas: 0,
 		universidade: '',
 	});
+
+
+	const [aluguel, setAluguel] = useState<number | undefined>(0);
+	const [qtPessoas, setQtPessoas] = useState<number | undefined>(0);
 
 	const router = useRouter();
 
 	const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const { cidade, bairro, aluguel, tipo, pessoas, universidade } = formValues;
+		const { cidade, bairro, tipo, universidade } = formValues;
 		router.push({
 			pathname: '/buscarRepublica',
-			query: { cidade, bairro, aluguel, tipo, pessoas, universidade },
+			query: { cidade, bairro, aluguel, tipo, qtPessoas, universidade },
 		});
 	};
 
@@ -48,27 +49,35 @@ const Home: NextPage = () => {
 		setFormValues({ ...formValues, [name]: value });
 	};
 
+	const handleRangeChangeAluguel = (value: number) => {
+		setAluguel(value);
+	};
+
+	const handleRangeChangePessoas = (value: number) => {
+		setQtPessoas(value);
+	};
+
+
 	return (
 		<>
 			<Head title="Republiquei - ENCONTRE A SUA REPÚBLICA IDEAL" />
 			<NavBar />
-			<section className="grid grid-cols-2 gap-4 p-20 text-slate-600">
-				<div className="col-span-2 sm:col-span-1 my-14">
-					<div>
-						<h2 className="text-5xl font-bold mb-2">ENCONTRE A SUA
-							REPÚBLICA IDEAL</h2>
-						<p className="mb-4 line-clamp-4 w-96">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+			<section className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-5 sm:p-20 text-slate-600">
+				<div className="flex items-center justify-center" id="textocentralizado">
+					<div className="flex flex-col gap-8">
+						<h2 className="text-4xl sm:text-6xl font-bold mb-2 font-sans">ENCONTRE A SUA REPÚBLICA IDEAL</h2>
+						<p className="mb-4 sm:w-96 md:w-5/6">A Republiquei me ajudou a encontrar a república que mais combinava comigo. Com ela consegui encontrar um local onde só tem meninas. Com ela consegui encontrar um local onde só tem meninas. Com ela consegui encontrar um local onde só tem meninas. Com ela consegui encontrar um local onde só tem meninas. Com ela consegui encontrar um local onde só tem meninas.</p>
 					</div>
 				</div>
-				<div className="col-span-2 sm:col-span-1">
-					<form className="grid grid-cols-2" onSubmit={handleFormSubmit}>
+				<div>
+					<form className="grid grid-cols-2 gap-2 border rounded-md p-8" onSubmit={handleFormSubmit}>
 						<div className="col-span-2">
 							<label className="block mb-2 font-bold" htmlFor="cidade">
 								Cidade
 							</label>
 							<div className="relative flex w-full">
 								<input
-									className="w-full px-3 py-2 border rounded"
+									className="w-full px-3 py-4 border rounded bg-[#F5F5F5]"
 									placeholder="Busque por cidade"
 									type="text"
 									name="cidade"
@@ -86,7 +95,7 @@ const Home: NextPage = () => {
 							</label>
 							<div className="relative flex w-full">
 								<input
-									className="w-full px-3 py-2 border rounded"
+									className="w-full px-3 py-4 border rounded bg-[#F5F5F5]"
 									placeholder="Busque por bairro"
 									type="text"
 									name="bairro"
@@ -100,49 +109,30 @@ const Home: NextPage = () => {
 						</div>
 						<div className="col-span-1 mr-4">
 							<label className="block mt-4 mb-2 font-bold" htmlFor="aluguel">
-								Aluguel
+								Aluguel até
 							</label>
-							<div className="relative flex w-full">
-								<span className="absolute left-0 top-0 h-full w-12 flex items-center justify-center text-gray-400">
-									R$
-								</span>
-								<input className="w-full pl-10 py-2 border rounded"
-									type="number"
-									id="aluguel"
-									name="aluguel" placeholder='Escolha o valor'
-									value={formValues.aluguel}
-									onChange={handleInputChange}
-									required />
-							</div>
+							<Filter title="Aluguel até" id='aluguel' placeholder='Escolha o valor' min={1} max={10000} onRangeChange={handleRangeChangeAluguel} />
 						</div>
 						<div className="col-span-1">
 							<label className="block mt-4 mb-2 font-bold" htmlFor="tipo">Tipo</label>
 							<input
-								className="w-full px-3 py-2 border rounded"
+								className="w-full px-3 py-4 border rounded bg-[#F5F5F5]"
 								type="text"
 								id="tipo"
 								name="tipo"
 								placeholder='EX: Apartamento, Casa'
 								value={formValues.tipo}
 								onChange={handleInputChange}
-								required />
+							/>
 						</div>
 						<div className="col-span-1 mr-4">
 							<label className="block mt-4 mb-2 font-bold" htmlFor="pessoas">Pessoas</label>
-							<input
-								className="w-full px-3 py-2 border rounded"
-								type="text"
-								id="pessoas"
-								name="pessoas"
-								placeholder='Escolha a quantidade'
-								value={formValues.pessoas}
-								onChange={handleInputChange}
-								required />
+							<Filter title='Escolha a quantidade de Pessoas' id='pessoas' placeholder='Escolha a quantidade' min={1} max={100} onRangeChange={handleRangeChangePessoas} />
 						</div>
 						<div className="col-span-1">
 							<label className="block mt-4 mb-2 font-bold" htmlFor="universidade">Universidade</label>
 							<input
-								className="w-full px-3 py-2 border rounded"
+								className="w-full px-3 py-4 border rounded bg-[#F5F5F5]"
 								type="text"
 								id="universidade"
 								name="universidade"
@@ -152,7 +142,7 @@ const Home: NextPage = () => {
 							/>
 						</div>
 						<div className="col-span-2">
-							<button type='submit' className='w-full block mt-5 px-4 py-4 text-center bg-[#FF3D6F] text-white rounded'>Buscar Repúblicas</button>
+							<button type='submit' className='w-full block mt-5 uppercase font-bold text-xl px-4 py-4 shadow-xl hover:bg-rose-500 text-center bg-[#FF3D6F] text-white rounded'>Buscar Repúblicas</button>
 						</div>
 					</form>
 
@@ -160,19 +150,19 @@ const Home: NextPage = () => {
 			</section>
 			<RepublicasDestaques />
 			<Universidades />
-			<section className="w-full flex  flex-wrap items-center justify-center bg-zinc-100 max-sm:p-0 p-20">
+			<section className="w-full flex  flex-wrap items-center justify-center bg-zinc-100 max-sm:p-0 p-24">
 				<div>
 					<div className="max-sm:p-0 py-8 flex flex-wrap items-center justify-center">
-						<div className='max-sm:w-screen flex max-sm:flex-wrap max-sm:flex-col-reverse bg-[#212529] items-center'>
+						<div className='flex max-sm:flex-wrap max-sm:flex-col-reverse bg-[#212529] items-center'>
 							<Image
-								src="https://images.unsplash.com/photo-1576267423445-b2e0074d68a4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-								width={1700}
+								src="https://i.imgur.com/SIZyJV6.jpeg"
+								width={650}
 								height={1000}
 								alt="Imagem da República"
 								className="mr-8"
 							/>
-							<div className='px-8 text-white space-y-4'>
-								<h2 className='font-semibold text-5xl'>Conheça a melhor república para você</h2>
+							<div className='max-sm:p-4 px-16 text-white space-y-4'>
+								<h2 className='text-5xl'>Conheça a melhor <span className='font-bold'>república</span> para você</h2>
 								<p>
 									Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis
 									praesentium nam molestias tempore labore exercitationem aut vitae
@@ -242,7 +232,7 @@ const Home: NextPage = () => {
 									<div className="p-6 rounded shadow-md">
 										<p>Com a Republiquei pude encontrar a minha república sem precisar ir até a cidade, dessa forma, quando me mudei já tinha o local me esperando.</p>
 										<div className="flex items-center mt-4 space-x-4">
-										<Image
+											<Image
 												className="w-12 h-12 bg-center bg-cover rounded-full"
 												src="https://source.unsplash.com/50x50/?portrait?2"
 												alt="img"
@@ -259,7 +249,7 @@ const Home: NextPage = () => {
 									<div className="p-6 rounded shadow-md">
 										<p>A Republiquei facilitou a encontrar repúblicas mais próximas a minha universidade, além disso pude escolher uma república de acordo com o meu gosto.</p>
 										<div className="flex items-center mt-4 space-x-4">
-										<Image
+											<Image
 												className="w-12 h-12 bg-center bg-cover rounded-full"
 												src="https://source.unsplash.com/50x50/?portrait?3"
 												alt="img"
@@ -274,7 +264,7 @@ const Home: NextPage = () => {
 									<div className="p-6 rounded shadow-md">
 										<p>A Republiquei facilitou o meu contato com o proprietário da casa, não precisei ir até a cidade para ver república por república. Com poucos cliques pude encontrar uma república sensacional e próxima a minha universidade.</p>
 										<div className="flex items-center mt-4 space-x-4">
-										<Image
+											<Image
 												className="w-12 h-12 bg-center bg-cover rounded-full"
 												src="https://source.unsplash.com/50x50/?portrait?4"
 												alt="img"

@@ -8,15 +8,15 @@ function Sobre() {
     return (
         <>
             <NavBar />
-            <section className="bg-white">
-                <div className="md:mx-auto md:container px-4">
-                    <div className="pt-10 md:pt-40">
+            <section>
+                <div className="md:mx-auto md:container px-4 md:px-32">
+                    <div className="pt-10 ">
                         <div className="container mx-auto">
                             <div className="flex flex-wrap items-center pb-12">
                                 <div className="md:w-1/2 lg:w-2/3 w-full xl:pr-20 md:pr-6">
                                     <div className="py-2 text-color">
-                                        <h1 className="text-2xl lg:text-6xl md:leading-snug tracking-tighter f-f-l font-black">A república estudantil com a cara do universitário</h1>
-                                        <h2 className="text-lg lg:text-3xl lg:leading-7 md:leading-10 f-f-r py-4 md:py-8">A ideia de morar sozinho pode ser assustadora, mas com a preparação certa, você pode encontrar um lugar acessível e seguro para morar. É importante que o estudante encontre a casa certa para ele e não qualquer casa disponível. Você precisa pensar no que quer em sua casa, quanto de aluguel está disposto a pagar e que tipo de acomodação prefere.</h2>
+                                        <h1 className="text-xl md:text-2xl lg:text-6xl md:leading-snug tracking-tighter f-f-l font-black">A república estudantil com a cara do universitário</h1>
+                                        <h2 className="text-sm md:text-md lg:text-lg lg:leading-7 md:leading-10 f-f-r py-4 md:py-8">A ideia de morar sozinho pode ser assustadora, mas com a preparação certa, você pode encontrar um lugar acessível e seguro para morar. É importante que o estudante encontre a casa certa para ele e não qualquer casa disponível. Você precisa pensar no que quer em sua casa, quanto de aluguel está disposto a pagar e que tipo de acomodação prefere.</h2>
                                         <div className="flex items-center cursor-pointer pb-4 md:pb-0">
                                             <button type="button" className="text-white bg-rose-500 hover:bg-rose-600 focus:ring-4 focus:outline-none focus:ring-rose-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2">
                                                 <span>Entre como universitario</span>
@@ -70,7 +70,7 @@ function Sobre() {
                                 <div className="md:w-1/2 lg:w-2/3 w-full lg:pl-20 md:pl-10 sm:pl-0 pl-0">
                                     <div className="py-2 text-color">
                                         <h1 className="text-2xl lg:text-6xl tracking-tighter md:leading-snug f-f-l font-black">Somos o porta-voz da pessoa que deseja anunciar um imóvel</h1>
-                                        <h2 className="text-lg lg:text-3xl leading-7 md:leading-10 f-f-r py-8">Fornecemos as informações mais importantes sobre sua propriedade e garantimos que seja fácil encontrá-la. Estamos aqui para ajudá-lo a criar um anúncio que fará com que as pessoas se interessem pelo seu imóvel.</h2>
+                                        <h2 className="sm:text-sm md:text-md lg:text-lg leading-7 md:leading-10 f-f-r py-8">Fornecemos as informações mais importantes sobre sua propriedade e garantimos que seja fácil encontrá-la. Estamos aqui para ajudá-lo a criar um anúncio que fará com que as pessoas se interessem pelo seu imóvel.</h2>
                                         <div className="flex items-center cursor-pointer pb-4 md:pb-0">
                                             <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                                 <span className="">Entre como Proprietario</span>
@@ -121,15 +121,15 @@ function Sobre() {
                     </div>
                 </div>
             </section>
-            <div className="bg-white">
+            <div>
                 <div className="xl:px-20 px-6 py-20 xl:mx-auto xl:container">
                     <h1 className="text-2xl lg:text-6xl md:leading-snug text-center tracking-tighter f-f-l font-black">
                         Somos o parceiro do proprietário <br className="md:block hidden" />
                         e do estudante
                     </h1>
                     <div className="md:mt-14 mt-4 relative sm:flex items-center justify-center">
-                        <img src="https://i.imgur.com/LgCdVqK.jpeg" alt="world map image" className="w-full xl:h-full h-96 object-cover object-fill sm:block hidden" />
-                        <img src="https://i.imgur.com/LgCdVqK.jpeg" alt="mobile-image" className="sm:hidden -mt-10 block w-full h-96 object-cover object-fill absolute z-0" />
+                        <img src="https://i.imgur.com/LgCdVqK.jpeg" alt="world map image" className="w-full xl:h-full h-96r object-fill sm:block hidden" />
+                        <img src="https://i.imgur.com/LgCdVqK.jpeg" alt="mobile-image" className="sm:hidden -mt-10 block w-full h-96 object-fill absolute z-0" />
                         <div className="shadow-lg xl:p-6 p-4 sm:w-auto w-full bg-white sm:absolute relative z-20 mt-4 left-0 xl:ml-56 sm:ml-12 xl:-mt-40 sm:-mt-12 hover:">
                             <p className="text-3xl font-semibold text-sky-800">20K+</p>
                             <p className="text-base leading-4 xl:mt-4 mt-2 text-sky-600">Propriedades parceiras</p>

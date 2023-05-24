@@ -13,6 +13,7 @@ import Footer from '../../src/components/Funcionalidade/Footer';
 import Carrosel from '../../src/components/Funcionalidade/Carrosel';
 import { MdApartment, MdEmojiPeople, MdFemale, MdHouse, MdMale, MdPeople } from 'react-icons/md';
 import dynamic from "next/dynamic";
+import Head from '../../src/infra/components/Head';
 
 const DynamicMap = dynamic(() => import("../../src/components/Map"), {
   ssr: false,
@@ -20,8 +21,6 @@ const DynamicMap = dynamic(() => import("../../src/components/Map"), {
 
 
 export default function Republic() {
-
-
 
   const imagens: string[] = [
     "https://a0.muscache.com/im/pictures/miso/Hosting-22319550/original/cc1fd71d-1a91-4026-99f8-c2cbffefd68f.jpeg?im_w=960",
@@ -70,6 +69,7 @@ export default function Republic() {
   console.log(contato)
   return (
     <>
+      <Head title={imovel?.nomeImovel}/>
       <NavBar />
       {isFetching && <p>Carregando...</p>}
       <section className="text-black">
@@ -175,7 +175,7 @@ export default function Republic() {
               </div>
             </div>
 
-            {!sessionStorage.getItem('acessToken') ?
+            {1 == 1 ?
             <div className='mb-8 flex flex-col h-[600px] gap-4 px-4 border rounded bg-gray-100'>
               <span className='mt-4 font-bold flex flex-row items-center gap-2'>
                 <BiMessage size="20px" />

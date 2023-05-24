@@ -18,6 +18,7 @@ import Endereco from "../../src/patterns/Cadastrar/Endereco";
 import CriarUsuario from "../../src/patterns/Cadastrar/CriarUsuario";
 import Input from "../../src/components/Formulario/Input";
 import NavBar from "../../src/components/NavBar";
+import Head from "../../src/infra/components/Head";
 
 
 
@@ -60,9 +61,6 @@ function Cadastro() {
 
 
     const onSubmit = (data: User) => {
-
-        console.log(data)
-
         const criarUsuario = {
             nome: data.nome,
             sobrenome: data.sobrenome,
@@ -129,6 +127,7 @@ function Cadastro() {
 
     return (
         <>
+        <Head title="Cadastre-se"/>
         <NavBar/>
         <section className="h-full bg-gray-50">
             <div className={`${isChecked ? 'hidden' : ''} flex flex-wrap sm:p-8 items-center justify-center md:h-screen gap-10`}>
@@ -137,7 +136,7 @@ function Cadastro() {
                 
                     <Input type="checkbox" title="" placeholder={""} onChange={handleCheckboxChange} id="proprietario" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={20} />   
                         <img
-                            src={!isChecked ? "https://s3-alpha-sig.figma.com/img/e3ba/e82b/314cfabd905d6ee51904f10bb2b8571d?Expires=1679875200&Signature=oAIHhPv0NdvGZg2lkx0dWyt5Gmb0UxVz6t8Dru~tBSN3kleKst633utFK5TN0fpRGHUQJYsEYjp0QRS-xecRj1jj6sw0rhsZEKySkBdv~yvZHe-Lfr-2rk69cZcuwwkjpODOBdoxa4Bpp4iaLTN-hC6-lZijt8zoVj2F84zqwQgbe2kc3cyzVjKTppbzxMAeTen09VHaWYReZfZrR~o3JdJeBUnGk5Tc-s2CBvXcsga7XQ1Plh5atyLgSCrk8bRztciWTMINrWjE75HT7YG~MNeolo61iEifZTh2AchLFMX6qUiIsonNH6EBrE4k4~OQp0Z8YqCXlJk0WbnUrUJb7Q__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4":""}
+                            src={!isChecked ? "https://i.imgur.com/hbJEsbD.png":""}
                             alt="descrição da imagem"
                             className="w-96"
                         />
@@ -154,7 +153,7 @@ function Cadastro() {
                             onChange={handleCheckboxChange}
                         />
                         <img
-                            src={!isChecked ? "https://s3-alpha-sig.figma.com/img/25d2/5127/226b631e1f6e4e0d78dd164da4ef94c0?Expires=1679875200&Signature=gizLTaXatK6TRTXe1-eAMaswazYhNU8aul0cntbOHc4NLOxUQh1snKoLSZ8U4zlM6jtHgMoO2O1OkAPO26XsQVyAjhNneZaL1ujirDDL6MHt9DEWdphoD-fJrQatcBTcNrWK8edfs4OgFhOg-zlGg98wm20KjB3J9f5wipE1hbWxcSLH9IvMfBdL5WIZ3KnVj6LoGwgC3C-zlJeREcUz68JJiSHNK6ZDruGiZAJKggwdsJiEBM~UvmBa7XCzPdXFckPRrNSfhdk0W33swpDJ5d8tEaMidxRPZaLyLJsOf~CEoMn6IXn~dylJ~j4kIkkYLLta6zIN5WXsOOGmiAXicQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4":""}
+                            src={!isChecked ? "https://i.imgur.com/88oQahk.png":""}
                             alt="descrição da imagem"
                             className="w-96"
                         />
@@ -175,7 +174,7 @@ function Cadastro() {
                         {formComponents[step]}
                         </div>
                         <div className="flex flex-row items-center justify-between">
-                            <a className={` ${step !== 0 ? 'visible' : 'invisible'} w-30 block bg-sky-500 hover:bg-sky-400 focus:bg-sky-400 text-white font-semibold rounded-lg px-4 py-3 mt-6 cursor-pointer`} onClick={previousStep}>Voltar</a>
+                            <span className={` ${step !== 0 ? 'visible' : 'invisible'} w-30 block bg-sky-500 hover:bg-sky-400 focus:bg-sky-400 text-white font-semibold rounded-lg px-4 py-3 mt-6 cursor-pointer`} onClick={previousStep}>Voltar</span>
                             {step == formComponents.length - 1?
                                 <button type="submit" className="w-30 block bg-sky-500 hover:bg-sky-400 focus:bg-sky-400 text-white font-semibold rounded-lg px-4 py-3 mt-6">Finalizar</button>
                                 : <a className={` ${step !== formComponents.length - 1 ? 'visible' : 'invisible'} w-30 block bg-sky-500 hover:bg-sky-400 focus:bg-sky-400 text-white font-semibold rounded-lg px-4 py-3 mt-6 cursor-pointer`} onClick={nextStep}>Avançar</a>

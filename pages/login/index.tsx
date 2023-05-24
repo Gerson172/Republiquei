@@ -9,6 +9,7 @@ import LoginTypes from "../../src/validations/loginForm";
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { useMutation, useQuery } from "react-query";
+import Head from "../../src/infra/components/Head";
 
 
 function Login() {
@@ -28,13 +29,11 @@ function Login() {
     sessionStorage.setItem("accessToken", response.data.valor.acessToken);
     sessionStorage.setItem("created", response.data.valor.created);  
     sessionStorage.setItem("expiration", response.data.valor.expiration);
-
-    
     Router.push("/");
     }
-      
+    else{
     Router.push("/login")
-    
+    }
   });
 
   const handleSignIn = (data: Login) => {
@@ -44,6 +43,7 @@ function Login() {
   
   return (
     <>
+    <Head title="Login"/>
     <ToastContainer/>
     <section className="flex flex-col md:flex-row h-screen items-center">
       <div className="bg-indigo-600 hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">
@@ -63,9 +63,7 @@ function Login() {
       >
         <div className="w-full h-100">
           <a
-            className="flex flex-row items-center gap-x-2"
-            href="javascript:void(0)"
-          >
+            className="flex flex-row items-center gap-x-2">
             <Image src="/favicon.png" width={70} height={70} alt="logo" />
             <h2 className="text-4xl font-bold text-sky-500 uppercase">
               Republiquei
@@ -136,10 +134,9 @@ function Login() {
           <hr className="my-6 border-gray-300 w-full" />
           <p className="mt-8">
             Possui uma conta?
-            <Link href="/cadastrar">
-              <a className="text-sky-500 hover:text-sky-700 font-semibold">
+            <Link href="/cadastrar" 
+              className="text-sky-500 hover:text-sky-700 font-semibold">
                 Criar uma conta
-              </a>
             </Link>
           </p>
         </div>

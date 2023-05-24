@@ -26,7 +26,7 @@ const Map = ({ address }: MapProps): JSX.Element => {
   return (
     <MapContainer center={[lat, lon]} zoom={13} className="h-96 w-full">
       <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        attribution='&copy; <Link href="https://www.openstreetmap.org/copyright">OpenStreetMap</Link> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       <Marker position={[lat, lon]}>

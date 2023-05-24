@@ -13,7 +13,6 @@ import Head from "next/head";
 import CheckBox from "../../../src/components/Formulario/Checkbox";
 import Input from "../../../src/components/Formulario/Input";
 import Select from "../../../src/components/Formulario/Select";
-import Sidebar from "../../../src/components/Sidebar";
 
 //Api
 import api from "../../../src/infra/api";
@@ -122,7 +121,6 @@ export default function CadastrarRepublica() {
             idUsuario: sessionStorage.getItem("id") 
         }
 
-        console.log(criarImovel)
 
         setTimeout(() => {
             toast.success('Imovel cadastrado com sucesso!', {

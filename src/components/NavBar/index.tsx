@@ -3,7 +3,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5"
-import { VscAccount} from "react-icons/vsc"
+import { GiHamburgerMenu } from "react-icons/gi"
+import { GrClose } from "react-icons/gr"
+import { VscAccount } from "react-icons/vsc"
 
 function NavBar() {
 
@@ -32,13 +34,14 @@ function NavBar() {
     function handleLogout() {
         sessionStorage.removeItem("creationDate");
         sessionStorage.removeItem("expirationDate");
+        sessionStorage.removeItem("accessToken");
         useRouter().push("/")
     }
 
     const [token, setToken] = useState<string | null>();
 
     useEffect(() => {
-        const acessToken = sessionStorage.getItem("acessToken")
+        const acessToken = sessionStorage.getItem("accessToken")
         setToken(acessToken)
     }, [])
 
@@ -63,44 +66,20 @@ function NavBar() {
                 <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
                     <div>
                         <div className="flex items-center justify-between py-3 md:py-5 md:block">
-                            <Link href="/">
-                                <a className="flex flex-row items-center gap-x-2" href="javascript:void(0)">
-                                    <Image loader={customLoader} alt="logo" src="/favicon.png" width={50} height={50} />
-                                    <h2 className="text-2xl text-sky-500 font-bold">REPUBLIQUEI</h2>
-                                </a>
+                            <Link href="/" className="flex flex-row items-center gap-x-2">
+                                <Image loader={customLoader} alt="logo" src="/favicon.png" width={50} height={50} />
+                                <h2 className="text-2xl text-[#00A3D8] font-bold">REPUBLIQUEI</h2>
                             </Link>
                             <div className="md:hidden">
                                 <button
                                     className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
                                     onClick={() => setNavbar(!navbar)}>
                                     {navbar ? (
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            className="w-6 h-6"
-                                            viewBox="0 0 20 20"
-                                            fill="currentColor"
-                                        >
-                                            <path
-                                                fillRule="evenodd"
-                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                clipRule="evenodd"
-                                            />
-                                        </svg>
+                                            <GrClose className="text-2xl"/>
                                     ) : (
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            className="w-6 h-6"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                            strokeWidth={2}
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                d="M4 6h16M4 12h16M4 18h16"
-                                            />
-                                        </svg>
+                                        <span>
+                                            <GiHamburgerMenu className="text-2xl"/>
+                                        </span>
                                     )}
                                 </button>
                             </div>
@@ -115,13 +94,13 @@ function NavBar() {
                                 {navItems.map((item) => (
                                     <li key={item.href} className="hover:text-sky-500">
                                         <Link href={item.href}>
-                                            <a>{item.label}</a>
+                                            {item.label}
                                         </Link>
                                     </li>
                                 ))}
                             </ul>
 
-                            {token? (
+                            {token ? (
                                 <div>
                                     <div className="mt-3 space-y-2 lg:hidden md:inline-block">
                                         <button
@@ -141,19 +120,17 @@ function NavBar() {
                                 </div>
                             ) : (
                                 <div className="mt-3 space-y-2 lg:hidden md:inline-block">
-                                    <Link href="/cadastrar">
-                                        <a
-                                            className="inline-block w-full px-6 py-4 font-bold text-gray-800 bg-white rounded-md drop-shadow"
-                                        >
-                                            Cadastre-se
-                                        </a>
+                                    <Link href="/cadastrar"
+                                        className="inline-block w-full px-6 py-4 font-bold text-gray-800 bg-white rounded-md drop-shadow"
+                                    >
+                                        Cadastre-se
+
                                     </Link>
-                                    <Link href='/login'>
-                                        <a
-                                            className="inline-block w-full px-6 py-4 font-bold text-white bg-sky-500 rounded-md shadow"
-                                        >
-                                            Entrar
-                                        </a>
+                                    <Link href='/login'
+                                        className="inline-block w-full px-6 py-4 font-bold text-white bg-sky-500 rounded-md shadow"
+                                    >
+                                        Entrar
+
                                     </Link>
                                 </div>
                             )}
@@ -182,7 +159,7 @@ function NavBar() {
                                             onClick={toggleDropdown}
                                         >
                                             <span className="text-2xl">
-                                               <VscAccount/>
+                                                <VscAccount />
                                             </span>
                                             <span className="text-sm font-medium">Edhoni</span>
                                         </button>
@@ -196,20 +173,20 @@ function NavBar() {
                                                 aria-orientation="vertical"
                                                 aria-labelledby="options-menu"
                                             >
-                                                <a
+                                                <Link
                                                     href="#"
                                                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                                                     role="menuitem"
                                                 >
                                                     Meu Perfil
-                                                </a>
+                                                </Link>
                                                 <Link href="/meusAnuncios">
-                                                <span
-                                                    className="block px-4 py-2 text-sm cursor-pointer text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                                                    role="menuitem"
-                                                >
-                                                    Meus Anúncios
-                                                </span>
+                                                    <span
+                                                        className="block px-4 py-2 text-sm cursor-pointer text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                                                        role="menuitem"
+                                                    >
+                                                        Meus Anúncios
+                                                    </span>
                                                 </Link>
                                                 <button
                                                     className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
@@ -226,19 +203,15 @@ function NavBar() {
                         </div>
                     ) : (
                         <div className="hidden space-x-2 md:inline-block">
-                            <Link href="/cadastrar">
-                                <a
-                                    className="px-6 py-4 font-bold text-gray-800 bg-white rounded-md drop-shadow transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
-                                >
-                                    Cadastre-se
-                                </a>
+                            <Link href="/cadastrar"
+                                className="px-6 py-4 font-bold text-gray-800 bg-white rounded-md drop-shadow transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300"
+                            >
+                                Cadastre-se
+
                             </Link>
-                            <Link href="/login">
-                                <a
-                                    className="transition ease-in-out delay-200 hover:scale-105 px-6 py-4 font-bold text-white bg-sky-500 rounded-md shadow"
-                                >
-                                    Entrar
-                                </a>
+                            <Link href="/login"
+                                className="transition ease-in-out delay-200 hover:scale-105 px-6 py-4 font-bold text-white bg-sky-500 rounded-md shadow">
+                                Entrar
                             </Link>
                         </div>
                     )}
