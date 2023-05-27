@@ -145,11 +145,12 @@ function NavBar() {
                     {user ? (
                         <div className="flex gap-4 items-center">
                             <div className="hidden space-x-2 md:inline-block">
-                                <button
+                                <Link
+                                    href="/anunciarRepublicas"
                                     className="px-6 py-2 text-[#212529] font-bold bg-[#E5E5E5] rounded-md shadow"
                                 >
                                     Anunciar
-                                </button>
+                                </Link>
                             </div>
                             <div className="hidden space-x-2 md:inline-block">
                                 <div className="relative inline-block text-left">

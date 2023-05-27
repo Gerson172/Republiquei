@@ -17,7 +17,7 @@ export type ResponseError = {
 };
 
 const api = axios.create({
-	baseURL: 'https://apirepubliquei.azurewebsites.net/api'
+	baseURL: BACKEND_URL
 });
 
 export { api };

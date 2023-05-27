@@ -1,9 +1,14 @@
 const path = require('path');
 
+const BACKEND_URL = process.env
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  publicRuntimeConfig: {
+    BACKEND_URL: BACKEND_URL,
+  },
   images: {
     domains: ['images.unsplash.com', 'a0.muscache.com', 'i.pinimg.com', 'github.com','play-lh.googleusercontent.com'],
     unoptimized: true,

@@ -15,6 +15,8 @@ import dynamic from "next/dynamic";
 import Head from '../../infra/components/Head';
 import { parseCookies } from "nookies"
 import NavBar from '~/components/NavBar';
+import { User } from '~/service';
+import { useEffect } from 'react';
 
 
 const DynamicMap = dynamic(() => import("../../components/Map"), {
@@ -22,7 +24,7 @@ const DynamicMap = dynamic(() => import("../../components/Map"), {
 });
 
 
-export default function Republic(props:any) {
+export default function Republic(props: any) {
 
 
   const imagens: string[] = [
@@ -42,10 +44,11 @@ export default function Republic(props:any) {
 
   const { imovel, isFetching } = getRepublicaPorId(id);
 
-  const { data: contato } = useQuery<UserType>(['contato', id], async () => {
-    const response = await api.get(`/Usuario/ObterUsuarioPorId?IdUsuario=${imovel?.idUsuario}`)
-    return response.data.valor
-  })
+  useEffect(() => {
+    async function obterContatoUsuario(){
+      return await User.getUser();
+    }
+  }, [])
 
   const endereco = `${imovel?.logradouro} - ${imovel?.bairro} ${imovel?.cidade} ${imovel?.estado}`
 
@@ -57,7 +60,7 @@ export default function Republic(props:any) {
     imovel?.drogas ? 'Proibido Drogas' : ''
   ].filter(Boolean);
 
-  
+
   const Comodidades = [
     imovel?.possuiGaragem ? 'Possui Garagem' : '',
     imovel?.possuiPiscina ? 'Possui Piscina' : '',
@@ -69,11 +72,10 @@ export default function Republic(props:any) {
     imovel?.quantidadeQuartos ? `Possui ${imovel.quantidadeQuartos} quartos` : ''
   ].filter(Boolean);
 
-  console.log(contato)
   return (
     <>
-      <Head title={imovel?.nomeImovel}/>
-      <NavBar/>
+      <Head title={imovel?.nomeImovel} />
+      <NavBar />
       <section className="text-black">
         <div className="flex flex-col py-12 max-sm:px-2 px-36">
           <div className="flex flex-wrap justify-between items-center px-4 py-2">
@@ -177,44 +179,42 @@ export default function Republic(props:any) {
               </div>
             </div>
 
-            { props.TOKEN ?
-            <div className='mb-8 flex flex-col h-[600px] gap-4 px-4 border rounded bg-gray-100'>
-              <span className='mt-4 font-bold flex flex-row items-center gap-2'>
-                <BiMessage size="20px" />
-                <h2>Fale com o proprietario</h2>
-              </span>
-              <div>
-                <span className='flex flex-row items-center gap-2'>
-                  <BiUser />
-                  <p>{imovel?.universidade || "Universidade de SP"}</p>
+            {props.TOKEN ?
+              <div className='mb-8 flex flex-col h-[600px] gap-4 px-4 border rounded bg-gray-100'>
+                <span className='mt-4 font-bold flex flex-row items-center gap-2'>
+                  <BiMessage size="20px" />
+                  <h2>Fale com o proprietario</h2>
                 </span>
-                <span className='flex flex-row items-center gap-2'>
-                  <BsTelephone />
-                  <p>(13) 9 8126-0330</p>
+                <div>
+                  <span className='flex flex-row items-center gap-2'>
+                    <BiUser />
+                    <p>{imovel?.universidade || "Universidade de SP"}</p>
+                  </span>
+                  <span className='flex flex-row items-center gap-2'>
+                    <BsTelephone />
+                    <p>(13) 9 8126-0330</p>
+                  </span>
+                </div>
+                <a className='px-24 py-2 text-white font-semibold bg-green-500 rounded-md'>Whatsapp</a>
+                <span className='flex flex-row items-center gap-2 font-bold'>
+                  <MdMarkEmailUnread />
+                  <p className="font-sans">Envie uma mensagem</p>
+
                 </span>
+
+                <form className='flex flex-col p-4 rounded-md border'>
+                  <input type="text" name="" placeholder='Nome' id="" />
+                  <input type="text" name="" id="" placeholder='Sobrenome' />
+                  <input type="text" name="" id="" placeholder='Email' />
+                  <input type="text" name="" id="" placeholder='Mensagem' />
+                  <a></a>
+                </form>
               </div>
-              <a className='px-24 py-2 text-white font-semibold bg-green-500 rounded-md'>Whatsapp</a>
-              <span className='flex flex-row items-center gap-2 font-bold'>
-                <MdMarkEmailUnread />
-                <p className="font-sans">Envie uma mensagem</p>
-
-              </span>
-
-              <form className='flex flex-col p-4 rounded-md border'>
-                <input type="text" name="" placeholder='Nome' id="" />
-                <input type="text" name="" id="" placeholder='Sobrenome' />
-                <input type="text" name="" id="" placeholder='Email' />
-                <input type="text" name="" id="" placeholder='Mensagem' />
-                <a></a>
-              </form>
-            </div>
               : ''}
           </div>
 
-            
-          {/* <pre>{JSON.stringify(imovel, null, 2)}</pre> */}
         </div>
-                  
+
 
         <DynamicMap address={endereco} />
         <Footer />
@@ -223,15 +223,4 @@ export default function Republic(props:any) {
   )
 }
 
-export async function getServerSideProps(context:any) {
-  const cookies = parseCookies(context);
 
-  console.log('[cookies]', cookies, cookies.TOKEN )
-
-  return {
-    props: {
-      TOKEN: cookies.TOKEN || null,
-    }
-  }
-  
-}

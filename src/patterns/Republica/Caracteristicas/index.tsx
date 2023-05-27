@@ -48,7 +48,6 @@ export default function Caracteristicas() {
                                 type="radio"
                                 id="feminino"
                                 value="feminino"
-                                name="tipoRepublica"
                                 {...register('tipoRepublica')}
                                 checked={selectedTipoRepublica === 'feminino'}
                                 onChange={() => handleTipoRepublicaChange('feminino')}
@@ -64,7 +63,6 @@ export default function Caracteristicas() {
                                 type="radio"
                                 id="masculino"
                                 value="masculino"
-                                name="tipoRepublica"
                                 {...register('tipoRepublica')}
                                 checked={selectedTipoRepublica === 'masculino'}
                                 onChange={() => handleTipoRepublicaChange('masculino')}
@@ -79,7 +77,6 @@ export default function Caracteristicas() {
                             <input
                                 type="radio"
                                 id="mista"
-                                name="tipoRepublica"
                                 value="mista"
                                 {...register('tipoRepublica')}
                                 checked={selectedTipoRepublica === 'mista'}
@@ -101,7 +98,6 @@ export default function Caracteristicas() {
                                 type="radio"
                                 id="apartamento"
                                 value="apartamento"
-                                name="tipoImovel"
                                 {...register('tipoImovel')}
                                 checked={selectedTipoImovel === 'apartamento'}
                                 onChange={() => handleTipoImovelChange('apartamento')}
@@ -117,7 +113,6 @@ export default function Caracteristicas() {
                                 type="radio"
                                 id="casa"
                                 value="casa"
-                                name="tipoImovel"
                                 {...register('tipoImovel')}
                                 checked={selectedTipoImovel === 'casa'}
                                 onChange={() => handleTipoImovelChange('casa')}
@@ -138,7 +133,6 @@ export default function Caracteristicas() {
                                 type="radio"
                                 id="individual"
                                 value="individual"
-                                name="tipoQuarto"
                                 {...register('tipoQuarto')}
                                 checked={selectedTipoQuarto === 'individual'}
                                 onChange={() => handleTipoQuartoChange('individual')}
@@ -154,7 +148,6 @@ export default function Caracteristicas() {
                                 type="radio"
                                 id="compartilhado"
                                 value="compartilhado"
-                                name="tipoQuarto"
                                 {...register('tipoQuarto')}
                                 checked={selectedTipoQuarto === 'compartilhado'}
                                 onChange={() => handleTipoQuartoChange('compartilhado')}
@@ -186,7 +179,6 @@ export default function Caracteristicas() {
                             value={quantidadeMoradores}
                             className='text-center'
                             disabled
-                            onChange={handleQuantidadeMoradoresChange}
                             {...register('quantidadeMoradores')}
                         />
                         <button

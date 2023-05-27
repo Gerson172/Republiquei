@@ -20,7 +20,7 @@ function MeusAnuncios() {
             <>
                 <Head title="Meus Anuncios" />
                 <NavBar />
-                <main className="h-full w-full">
+                <main className="h-screen w-full">
                     <h2 className="text-4xl font-semibold py-8 px-16 text-[#212529]">Meus Anuncios</h2>
                     {isLoading ? (
                         <div>Carregando...</div>

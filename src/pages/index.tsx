@@ -66,7 +66,7 @@ const Home: NextPage = () => {
 				<div className="flex items-center justify-center" id="textocentralizado">
 					<div className="flex flex-col gap-8">
 						<h2 className="text-4xl sm:text-6xl font-bold mb-2 font-sans">ENCONTRE A SUA REPÚBLICA IDEAL</h2>
-						<p className="mb-4 sm:w-96 md:w-5/6">A Republiquei me ajudou a encontrar a república que mais combinava comigo. Com ela consegui encontrar um local onde só tem meninas. Com ela consegui encontrar um local onde só tem meninas. Com ela consegui encontrar um local onde só tem meninas. Com ela consegui encontrar um local onde só tem meninas. Com ela consegui encontrar um local onde só tem meninas.</p>
+						<p className="mb-4 text-xl sm:w-96 md:w-5/6">A plataforma perfeita para tornar sua busca rápida, fácil e eficiente. Explore as opções, encontre seu lar ideal e comece a viver a experiência universitária dos seus sonhos.</p>
 					</div>
 				</div>
 				<div>
@@ -164,40 +164,32 @@ const Home: NextPage = () => {
 							<div className='max-sm:p-4 px-16 text-white space-y-4'>
 								<h2 className='text-5xl'>Conheça a melhor <span className='font-bold'>república</span> para você</h2>
 								<p>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis
-									praesentium nam molestias tempore labore exercitationem aut vitae
-									sint qui placeat eligendi velit blanditiis aliquam quia, fugiat
-									obcaecati quisquam architecto. Modi.
+									Junte-se a nossa comunidade vibrante e crie memórias inesquecíveis. Na Republiquei, seu lar vai além do endereço, é um lugar onde você se sentirá verdadeiramente em casa, rodeado por pessoas com os mesmos objetivos e sonhos.
 								</p>
 							</div>
 						</div>
 					</div>
 					<div className='flex text-slate-900 flex-row max-sm:flex-wrap gap-8'>
-						<div className="bg-pink-500 p-8 border-b-2 border-pink-600">
+						<div className="bg-[#FF3D6F] border-b-2 border-pink-600 p-12">
 							<span className='flex flex-row gap-2'>
 								<BsFillCreditCard2FrontFill className='text-4xl' />
 								<h2 className="text-2xl font-bold border-b-2 border-pink-600 mb-4 pb-2">
 									Alugar sem complicações
 								</h2>
 							</span>
-							<p>
-								Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt
-								magni, vel vero, placeat ipsam amet molestias exercitationem dolore quo
-								iure deleniti dicta eos commodi, doloribus fugiat ullam? Sit, consequatur
-								facilis.
+							<p className='text-xl'>
+								Simplificamos o processo para tornar a busca pela sua república perfeita uma experiência tranquila e sem estresse.
 							</p>
 						</div>
-						<div className="bg-blue-500 p-8 border-b-2 border-blue-600">
+						<div className="bg-blue-500 border-b-2 space-x-8 border-blue-600 p-16">
 							<span className='flex flex-row gap-2'>
 								<IoIosChatbubbles className='text-4xl' />
 								<h2 className="text-2xl font-bold border-b-2 border-pink-600 mb-4 pb-2">
 									Contato com o proprietário
 								</h2>
 							</span>
-							<p>
-								Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure ex, harum
-								voluptatibus delectus quos perspiciatis cumque maxime ab dolorem ratione
-								sunt dicta voluptas modi velit earum voluptatum accusamus illum fugit.
+							<p className='text-xl'>
+								Conectamos você diretamente com os responsáveis pelas repúblicas, proporcionando uma comunicação direta e ágil.
 							</p>
 						</div>
 					</div>
