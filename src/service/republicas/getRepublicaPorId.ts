@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { Imovel } from "../../../types/Imovel";
+import { Imovel } from "../../types/Imovel";
 import api from "../../infra/api";
 
 function getRepublicaPorId(idImovel:any){

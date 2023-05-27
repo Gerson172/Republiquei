@@ -4,7 +4,7 @@ import { HiPlus } from "react-icons/hi";
 import { useRouter } from "next/router";
 import { BiLogOut } from "react-icons/bi";
 import { BsHouseDoorFill } from "react-icons/bs"
-import { User } from "../../../types/User";
+import { User } from "../../types/User";
 import { useQuery } from 'react-query'
 import api from "../../infra/api";
 import { useState } from "react";
@@ -36,7 +36,6 @@ function Sidebar() {
     
     return (
             <div className="flex md:relative md:min-h-screen md:w-1/5 w-full flex-row md:flex-col justify-between border-r bg-white">
-                        {isFetching && <p>Carregando...</p>}
                 <div className=" py-6 text-gray-700">
                     <nav aria-label="Main Nav" className="flex fixed items-center sm:items-stretch md:flex-col flex-row gap-10 sm:gap-2 sm:space-y-1">
                         <Link href="/">

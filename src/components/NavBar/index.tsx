@@ -7,6 +7,10 @@ import { GiHamburgerMenu } from "react-icons/gi"
 import { GrClose } from "react-icons/gr"
 import { VscAccount } from "react-icons/vsc"
 
+import { REPUBLIQUEI_JWT } from "~/utils";
+import { destroyCookie } from "nookies";
+import { useUser } from "~/service";
+
 function NavBar() {
 
     const navItems = [
@@ -29,22 +33,22 @@ function NavBar() {
     const toggleDropdown = () => setDropdownOpen(prevState => !prevState);
 
 
-    const launchDays = 24 - new Date().getUTCDate();
+    const launchDays = 23;
 
-    function handleLogout() {
-        sessionStorage.removeItem("creationDate");
-        sessionStorage.removeItem("expirationDate");
-        sessionStorage.removeItem("accessToken");
-        useRouter().push("/")
+    const router = typeof window !== "undefined" ? useRouter() : undefined;
+
+    async function handleLogout() {
+        destroyCookie(null, REPUBLIQUEI_JWT);
+        refetch();
+        await router?.push("/login");
     }
 
-    const [token, setToken] = useState<string | null>();
 
-    useEffect(() => {
-        const acessToken = sessionStorage.getItem("accessToken")
-        setToken(acessToken)
-    }, [])
+    const { data: user, isLoading, isError, refetch } = useUser();
 
+    const [token, setToken] = useState<string | null | boolean>(null);
+
+    
     return (
         <>
             {showLaunch && (
@@ -75,10 +79,10 @@ function NavBar() {
                                     className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
                                     onClick={() => setNavbar(!navbar)}>
                                     {navbar ? (
-                                            <GrClose className="text-2xl"/>
+                                        <GrClose className="text-2xl" />
                                     ) : (
                                         <span>
-                                            <GiHamburgerMenu className="text-2xl"/>
+                                            <GiHamburgerMenu className="text-2xl" />
                                         </span>
                                     )}
                                 </button>
@@ -138,7 +142,7 @@ function NavBar() {
                     </div>
 
 
-                    {token ? (
+                    {user ? (
                         <div className="flex gap-4 items-center">
                             <div className="hidden space-x-2 md:inline-block">
                                 <button
@@ -161,7 +165,7 @@ function NavBar() {
                                             <span className="text-2xl">
                                                 <VscAccount />
                                             </span>
-                                            <span className="text-sm font-medium">Edhoni</span>
+                                            <span className="text-sm font-medium">{user?.nome}</span>
                                         </button>
                                     </div>
 
@@ -223,9 +227,4 @@ function NavBar() {
 
 
 export default NavBar;
-
-
-function SetStateAction<T>() {
-    throw new Error("Function not implemented.");
-}
 

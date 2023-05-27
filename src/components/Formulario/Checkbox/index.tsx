@@ -1,4 +1,4 @@
-import { Checkbox } from "../../../../types/Form";
+import { Checkbox } from "../../../types/Form";
 
 export default function CheckBox({id, titulo, register}:Checkbox){
     return (

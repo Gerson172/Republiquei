@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Imovel } from "../../../../../types/Imovel"
+import { Imovel } from "../../../../types/Imovel"
 
 
 function CardAnuncios({ midia, nomeImovel, valor }: any) {

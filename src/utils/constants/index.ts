@@ -1,0 +1,3 @@
+const REPUBLIQUEI_JWT = 'TOKEN';
+
+export { REPUBLIQUEI_JWT };

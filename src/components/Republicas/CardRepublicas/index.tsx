@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import api from "../../../infra/api";
-import { Imovel } from "../../../../types/Imovel";
+import { Imovel } from "../../../types/Imovel";
 
 
 function CardRepublicas(props: Imovel) {

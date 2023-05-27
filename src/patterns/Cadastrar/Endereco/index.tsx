@@ -24,7 +24,7 @@ export default function Endereco({ errors, register, obterEndereco }: any) {
                     />
                     {errors.areaInteresse && <span className="text-sm text-red-500">{errors.areaInteresse.message}</span>}
                 </div>
-                                <Input type="complemento" title="Complemento" placeholder="" onChange={undefined} id="complemento" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={20} />
+                    <Input type="complemento" title="Complemento" placeholder="" onChange={undefined} id="complemento" mensagemDeErro={errors} inputMask={false} mask={""} register={register} min={0} max={20} />
             </div>
         </section>
     );

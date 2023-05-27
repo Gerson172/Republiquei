@@ -1,5 +1,5 @@
 import InputMask from "react-input-mask"
-import { Input } from "../../../../types/Form"
+import { Input } from "../../../types/Form"
 import { FormEvent } from 'react'
 
 function Input({ id, title, type, placeholder, mensagemDeErro, inputMask, mask, onChange, register, min, max}: Input) {
