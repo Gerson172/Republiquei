@@ -44,10 +44,8 @@ function Login() {
           <Image
             src="/login.jpeg"
             alt=""
-            layout="responsive"
             width={800}
             height={600}
-            objectFit="cover"
           />
         </div>
 
@@ -117,13 +115,10 @@ function Login() {
                 className="w-full block bg-sky-500 hover:bg-sky-600 focus:bg-sky-600 text-white font-semibold rounded-lg
                             px-4 py-3 mt-6"
               >
-                'Entrar'
+                Entrar
               </button>
             </form>
 
-            {
-              //email && <span className="text-red-500 text-sm">Usuário ou senha inválidos</span>
-            }
             <hr className="my-6 border-gray-300 w-full" />
             <p className="mt-8">
               Possui uma conta?

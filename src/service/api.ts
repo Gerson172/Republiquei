@@ -17,7 +17,7 @@ export type ResponseError = {
 };
 
 const api = axios.create({
-	baseURL: BACKEND_URL
+	baseURL: `${BACKEND_URL}`
 });
 
 export { api };

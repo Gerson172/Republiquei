@@ -1,9 +1,8 @@
 import { AxiosError } from "axios";
-import { deleteCookie, getCookie } from "cookies-next";
-import { api, ResponseError } from '~/service'
+import { getCookie } from "cookies-next";
+import { api,  } from '~/service'
 import { REPUBLIQUEI_JWT } from "~/utils";
 import { setCookie, destroyCookie } from 'nookies';
-import moment from "moment";
 import { useQuery, useQueryClient } from "react-query";
 
 
@@ -12,13 +11,6 @@ type UserSignIn = {
     senha: string;
 }
 
-type UserSignUp = {
-
-}
-
-type ChangePassword = {
-
-}
 
 class User {
     static async signIn(

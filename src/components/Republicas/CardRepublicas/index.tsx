@@ -4,8 +4,8 @@ import { IoMaleFemaleSharp } from "react-icons/io5";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-import api from "../../../infra/api";
 import { Imovel } from "../../../types/Imovel";
+import { api } from "~/service";
 
 
 function CardRepublicas(props: Imovel) {

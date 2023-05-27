@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
 import { Imovel } from "../../types/Imovel";
-import api from "../../infra/api";
+import { api } from "../api";
 
 function getRepublicaPorId(idImovel:any){
     const { data: imovel, isFetching } = useQuery<Imovel>(['imovel', idImovel], async () => {

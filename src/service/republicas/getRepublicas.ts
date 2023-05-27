@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
-import api from '../../infra/api';
 import { Imovel } from '../../types/Imovel';
+import { api } from '../api';
 
 function getRepublica(){
 

@@ -7,7 +7,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import registerForm from "../../validations/registerForm";
 import { RiNumber1, RiNumber2, RiNumber3, RiNumber4 } from "react-icons/ri";
 import viacep, { viaCepType } from "../../infra/api/viacep";
-import api from "../../infra/api";
 import { UserType } from "../../types/User";
 import * as yup from "yup";
 
@@ -19,6 +18,7 @@ import CriarUsuario from "../../patterns/Cadastrar/CriarUsuario";
 import Input from "../../components/Formulario/Input";
 import Head from "../../infra/components/Head";
 import NavBar from "~/components/NavBar";
+import { api } from "~/service";
 
 
 

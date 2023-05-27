@@ -1,4 +1,3 @@
-import api from '../../infra/api';
 import { useQuery } from 'react-query'
 import { useRouter } from 'next/router';
 import { IoLocation, IoMaleFemaleSharp } from 'react-icons/io5'
