@@ -1,17 +1,16 @@
-import axios from "axios";
-import { useEffect } from "react";
+import axios from 'axios';
+import { useEffect } from 'react';
 
 export default async function getCoordenadas(
 	address: string,
 ): Promise<[number, number]> {
-
 	const url = `https://nominatim.openstreetmap.org/search?q=${address}&format=json`;
 
 	try {
 		const response = await axios.get(url);
 		const data = response.data;
 
-		console.log(data[0].lat)
+		console.log(data[0].lat);
 
 		if (data.length > 0) {
 			const lat = parseFloat(data[0].lat);

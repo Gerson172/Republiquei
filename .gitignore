@@ -11,7 +11,6 @@
 # next.js
 /.next/
 .next/
-/out/
 
 .next/cache/webpack/client-development/2.pack
 .next/cache/webpack/client-production/0.pack

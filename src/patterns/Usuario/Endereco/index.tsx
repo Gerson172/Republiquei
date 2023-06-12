@@ -17,7 +17,6 @@ export default function Endereco({ errors, register, obterEndereco }: any) {
 							onChange: (e: FormEvent<HTMLInputElement>) =>
 								obterEndereco ? obterEndereco(e.currentTarget.value) : null,
 						})}
-					
 						placeholder="Digite o seu cep"
 						id="cep"
 						mask="99999-999"
@@ -120,7 +119,7 @@ export default function Endereco({ errors, register, obterEndereco }: any) {
 						{...register('estado')}
 						type="text"
 						id="estado"
-						readOnly						
+						readOnly
 						className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
 					/>
 					{errors.localidade && (

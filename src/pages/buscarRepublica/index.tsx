@@ -12,10 +12,7 @@ import { useQuery } from 'react-query';
 import { Republica } from '~/service';
 
 function BuscarRepublica() {
-	const { data } = useQuery(
-		'todasRepublicas',
-		() => Republica.ObterImovel(),
-	);
+	const { data } = useQuery('todasRepublicas', () => Republica.ObterImovel());
 	const { cidade, bairro, aluguel, tipo, pessoas, universidade } =
 		useRouter().query;
 
@@ -47,31 +44,31 @@ function BuscarRepublica() {
 	const itemsPerPage = 9;
 
 	const filteredData = data
-		? data.filter((item:any) => {
-			const cidadePass = item.cidade
-				.toLowerCase()
-				.includes(filtroDeCidade.toLowerCase());
-			const aluguelPass =
-				item.valor <= Number(filtroDeAluguel) ||
-				Number(filtroDeAluguel) === 0;
-			const qtdPessoasPass =
-				item.capacidadePessoas >= Number(filtroQTDPessoas) ||
-				Number(filtroQTDPessoas) === 0;
-			const bairroPass = item.bairro
-				.toLowerCase()
-				.includes(filtroDeBairro.toLowerCase());
-			const tipoImovelPass = item.tipoImovel
-				.toLowerCase()
-				.includes(filtroDeTipoImovel.toLowerCase());
+		? data.filter((item: any) => {
+				const cidadePass = item.cidade
+					.toLowerCase()
+					.includes(filtroDeCidade.toLowerCase());
+				const aluguelPass =
+					item.valor <= Number(filtroDeAluguel) ||
+					Number(filtroDeAluguel) === 0;
+				const qtdPessoasPass =
+					item.capacidadePessoas >= Number(filtroQTDPessoas) ||
+					Number(filtroQTDPessoas) === 0;
+				const bairroPass = item.bairro
+					.toLowerCase()
+					.includes(filtroDeBairro.toLowerCase());
+				const tipoImovelPass = item.tipoImovel
+					.toLowerCase()
+					.includes(filtroDeTipoImovel.toLowerCase());
 
-			return (
-				cidadePass &&
-				aluguelPass &&
-				qtdPessoasPass &&
-				bairroPass &&
-				tipoImovelPass
-			);
-		})
+				return (
+					cidadePass &&
+					aluguelPass &&
+					qtdPessoasPass &&
+					bairroPass &&
+					tipoImovelPass
+				);
+		  })
 		: [];
 
 	const deferredData = useDeferredValue(filteredData);
@@ -81,10 +78,11 @@ function BuscarRepublica() {
 		(currentPage + 1) * itemsPerPage,
 	);
 
-	const mappedData = [...filteredDataPaginated].reverse().map((props:any, index:any) => {
-		return <CardRepublicas key={index} {...props} />;
-	});
-	
+	const mappedData = [...filteredDataPaginated]
+		.reverse()
+		.map((props: any, index: any) => {
+			return <CardRepublicas key={index} {...props} />;
+		});
 
 	const tamanhoMappedData = filteredData.length;
 
@@ -213,8 +211,7 @@ function BuscarRepublica() {
 			<section className="w-full h-full container my-12 mx-auto scrollbar-track-sky-300 ">
 				<div className="result-info flex items-center justify-between mb-6 mx-8 md:mx-48">
 					<h2 className="text-xl font-sans text-slate-800 font-bold">
-						{tamanhoMappedData} repúblicas para morar 
-
+						{tamanhoMappedData} repúblicas para morar
 					</h2>
 					<span
 						className="p-4 bg-slate-800 text-white cursor-pointer hover:bg-slate-600 flex flex-row items-center gap-2 rounded-md"

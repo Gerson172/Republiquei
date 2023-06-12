@@ -14,7 +14,7 @@ import { toast } from 'react-toastify';
 import router from 'next/router';
 import { api } from '~/service';
 import { Imovel } from '~/types/Imovel';
-import RegrasComordidades from "../../patterns/Republica/Regras"
+import RegrasComordidades from '../../patterns/Republica/Regras';
 
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -27,7 +27,7 @@ import {
 	nomeImovel,
 	RegrasComordidadesYup,
 	enderecoImovel,
-} from "../../validations/imovelForm"
+} from '../../validations/imovelForm';
 import { getCookie } from 'cookies-next';
 import { REPUBLIQUEI_JWT, USUARIO_ID } from '~/utils';
 import { parseCookies } from 'nookies';
@@ -52,16 +52,18 @@ const StepComponent = ({ id, name, step, check }: stepComponentType) => {
 				</div>
 			) : (
 				<div
-					className={`px-4 py-2 drop-shadow-xl shadow-md rounded-lg translate-y-4 ${step === id ? 'bg-sky-500 text-white' : 'bg-[#F8F9FA]'
-						}`}
+					className={`px-4 py-2 drop-shadow-xl shadow-md rounded-lg translate-y-4 ${
+						step === id ? 'bg-sky-500 text-white' : 'bg-[#F8F9FA]'
+					}`}
 				>
 					<h3 className="font-bold text-xl leading-6">{id}</h3>
 				</div>
 			)}
 			<div className="px-4 py-2 translate-y-4">
 				<h3
-					className={`text-sky-500 py-2 font-semibold leading-tight ml-2 self-center ${step === id ? 'text-sky-500' : ''
-						}`}
+					className={`text-sky-500 py-2 font-semibold leading-tight ml-2 self-center ${
+						step === id ? 'text-sky-500' : ''
+					}`}
 				>
 					{name}
 				</h3>
@@ -70,13 +72,10 @@ const StepComponent = ({ id, name, step, check }: stepComponentType) => {
 	);
 };
 
-
-
 const AnunciarRepublica: NextPage = () => {
-
 	useEffect(() => {
 		if (getCookie(REPUBLIQUEI_JWT) == null) {
-			router.push("/");
+			router.push('/');
 		}
 	}, []);
 
@@ -89,9 +88,6 @@ const AnunciarRepublica: NextPage = () => {
 		...RegrasComordidadesYup.fields,
 		...valor.fields,
 	});
-
-
-
 
 	const formMethods = useForm<Imovel>({
 		resolver: yupResolver(validationSchema),
@@ -111,7 +107,7 @@ const AnunciarRepublica: NextPage = () => {
 		<Endereco />,
 		<Caracteristicas />,
 		<Descricao />,
-		<RegrasComordidades/>,
+		<RegrasComordidades />,
 		<Valor />,
 	];
 	const [step, setStep] = useState<number>(0);
@@ -137,11 +133,12 @@ const AnunciarRepublica: NextPage = () => {
 	}
 
 	const onSubmit = (data: Imovel) => {
-		console.log("Nome do Imóvel:", data.nomeImovel);
-		console.log(data)
+		console.log('Nome do Imóvel:', data.nomeImovel);
+		console.log(data);
 
 		const criarImovel = {
-			midia: "https://a0.muscache.com/im/pictures/miso/Hosting-22319550/original/cc1fd71d-1a91-4026-99f8-c2cbffefd68f.jpeg?im_w=96",
+			midia:
+				'https://images.unsplash.com/photo-1651932809880-bfd75fe113e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
 			capacidadePessoas: data.capacidadePessoas,
 			valor: data.valor,
 			descricao: data.descricao,
@@ -160,12 +157,12 @@ const AnunciarRepublica: NextPage = () => {
 				alcool: data.alcool,
 				visitas: data.visitas,
 				crianca: data.crianca,
-				drogas: data.drogas
+				drogas: data.drogas,
 			},
 			caracteristicaImovel: {
 				tipoImovel: data.tipoImovel,
 				tipoQuarto: data.tipoQuarto,
-				tipoSexo: data.tipoSexo
+				tipoSexo: data.tipoSexo,
 			},
 			enderecoImovel: {
 				cep: data.cep.replace(/[^0-9]/g, ''),
@@ -178,17 +175,18 @@ const AnunciarRepublica: NextPage = () => {
 			},
 			idUsuario: Number(getCookie(USUARIO_ID)),
 			verificado: false,
-			universidadeProxima: "USP"
-		}
+			universidadeProxima: 'USP',
+		};
 
 		setTimeout(() => {
 			toast.success('Imovel cadastrado com sucesso!', {
 				position: toast.POSITION.BOTTOM_LEFT,
 			});
-			//router.push({ pathname: '/meusAnuncios' });
+
+			router.push({ pathname: '/meusAnuncios' });
 		}, 1000);
 
-		console.log(criarImovel)
+		console.log(criarImovel);
 
 		api
 			.post('/Imovel/InserirImovel', criarImovel)
@@ -198,8 +196,7 @@ const AnunciarRepublica: NextPage = () => {
 			.catch(function (error) {
 				console.error(error);
 			});
-	}
-
+	};
 
 	return (
 		<FormProvider {...formMethods}>
@@ -213,15 +210,21 @@ const AnunciarRepublica: NextPage = () => {
 						<StepComponent id={1} name="Titulo" step={step} check={check} />
 						<StepComponent id={2} name="Fotos" step={step} check={check} />
 						<StepComponent id={3} name="Endereço" step={step} check={check} />
-						<StepComponent id={4} name="Características" step={step} check={check} />
+						<StepComponent
+							id={4}
+							name="Características"
+							step={step}
+							check={check}
+						/>
 						<StepComponent id={5} name="Descrição" step={step} check={check} />
-						<StepComponent id={6} name='Regras' step={step} check={check} />
+						<StepComponent id={6} name="Regras" step={step} check={check} />
 						<StepComponent id={7} name="Valor" step={step} check={check} />
 					</div>
 				</section>
 				<form
 					onSubmit={formMethods.handleSubmit(onSubmit)}
-					className="flex flex-col gap-4  items-center justify-center w-full">
+					className="flex flex-col gap-4  items-center justify-center w-full"
+				>
 					{formComponents[step]}
 					<div className="flex flex-row justify-around space-x-56 w-full">
 						<span
@@ -240,12 +243,12 @@ const AnunciarRepublica: NextPage = () => {
 							>
 								Finalizar
 							</button>
-
 						) : (
 							<a
 								className={`w-30 block bg-sky-500 hover:bg-sky-400 focus:bg-sky-400 
                   text-white font-semibold rounded-lg px-4 py-3 mt-6 cursor-pointer  
-                  ${step !== formComponents.length - 1 ? 'visible' : 'invisible'
+                  ${
+										step !== formComponents.length - 1 ? 'visible' : 'invisible'
 									}`}
 								onClick={nextStep}
 							>
@@ -259,22 +262,21 @@ const AnunciarRepublica: NextPage = () => {
 			<Footer />
 		</FormProvider>
 	);
-}
+};
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-	const cookies = parseCookies(context)
+	const cookies = parseCookies(context);
 
 	if (!cookies[REPUBLIQUEI_JWT])
-
 		return {
 			redirect: {
 				permanent: false,
 				destination: '/',
-			}
-		}
+			},
+		};
 	return {
 		props: {},
-	}
-}
+	};
+};
 
-export default AnunciarRepublica
+export default AnunciarRepublica;

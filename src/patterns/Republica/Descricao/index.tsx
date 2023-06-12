@@ -3,7 +3,7 @@ import { useFormContext } from 'react-hook-form';
 export default function Descricao() {
 	const { register, watch } = useFormContext();
 
-	console.log(watch('descricao'))
+	console.log(watch('descricao'));
 
 	return (
 		<section className="flex flex-col gap-8 w-10/12 h-full">

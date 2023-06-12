@@ -37,6 +37,6 @@ export type Imovel = {
 	numero: number;
 	complemento: string;
 	idUsuario: number;
-	verificado: boolean,
-	universidadeProxima: string
+	verificado: boolean;
+	universidadeProxima: string;
 };

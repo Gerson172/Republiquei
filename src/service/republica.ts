@@ -3,12 +3,11 @@ import { REPUBLIQUEI_JWT } from '~/utils';
 import { api } from './api';
 
 class Republica {
-	
-	static async ObterImovel(){
+	static async ObterImovel() {
 		const response = await api.get('/Imovel/ObterImovel');
 		return response.data.valor;
 	}
-	
+
 	static async MeusAnuncios() {
 		const token = getCookie(REPUBLIQUEI_JWT);
 
@@ -22,12 +21,13 @@ class Republica {
 	}
 
 	static async ObterImovelPorId(idImovel: any) {
-		const response = await api.get('/Imovel/ObterImovelPorId?IdImovel=' + String(idImovel));
+		const response = await api.get(
+			'/Imovel/ObterImovelPorId?IdImovel=' + String(idImovel),
+		);
 		return response.data.valor;
-	  }
+	}
 
-	
-	static async editarMeusAnuncios(idImovel: any){
+	static async editarMeusAnuncios(idImovel: any) {
 		const token = getCookie(REPUBLIQUEI_JWT);
 		const headers = {
 			Authorization: `Bearer ${token}`,
@@ -35,9 +35,9 @@ class Republica {
 		return api.put(`/Imovel/AtualizarImovel?IdImovel=${idImovel}`, {
 			headers,
 		});
-	  }
-	
-	static async ExcluirMeusAnuncios(idImovel:any){
+	}
+
+	static async ExcluirMeusAnuncios(idImovel: any) {
 		const token = getCookie(REPUBLIQUEI_JWT);
 		const headers = {
 			Authorization: `Bearer ${token}`,
@@ -45,8 +45,7 @@ class Republica {
 		return api.delete(`/Imovel/DeletarImovelPorId?IdImovel=${idImovel}`, {
 			headers,
 		});
-	  }
+	}
 }
-
 
 export { Republica };

@@ -22,7 +22,7 @@ export interface UserType {
 	proprietario: Boolean;
 	universitario: Boolean;
 	areaInteresse: string;
-	checkTermos: boolean
+	checkTermos: boolean;
 	religiao: string;
 	orientacaoSexual: string;
 }

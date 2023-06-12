@@ -18,7 +18,7 @@ function Range({
 	onRangeChange,
 }: FilterType) {
 	const [isOpen, setIsOpen] = useState(false);
-	const [rangeValue, setRangeValue] = useState(0); 
+	const [rangeValue, setRangeValue] = useState(0);
 	const modalRef = useRef<HTMLDivElement>(null);
 
 	const handleInputClick = () => {
@@ -32,11 +32,11 @@ function Range({
 	const handleRangeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const value = parseInt(event.target.value);
 		setRangeValue(value);
-		onRangeChange(value); 
+		onRangeChange(value);
 	};
 
 	useEffect(() => {
-		const handleClickOutside = (event:any) => {
+		const handleClickOutside = (event: any) => {
 			if (modalRef.current && !modalRef.current.contains(event.target)) {
 				handleCloseModal();
 			}
@@ -81,8 +81,15 @@ function Range({
 				checked={isOpen}
 			/>
 			{isOpen && (
-				<div className={`absolute z-50 ${isOpen ? 'open' : ' '}`} onClick={handleCloseModal} ref={modalRef}>
-					<div className="modal-box bg-white w-96" onClick={e => e.stopPropagation()}>
+				<div
+					className={`absolute z-50 ${isOpen ? 'open' : ' '}`}
+					onClick={handleCloseModal}
+					ref={modalRef}
+				>
+					<div
+						className="modal-box bg-white w-96"
+						onClick={(e) => e.stopPropagation()}
+					>
 						<h3 className="mb-5 text-lg font-medium text-sky-900">{title}</h3>
 						<span>{rangeValue}</span>
 						<div className="grid gap-2 grid-cols-3">

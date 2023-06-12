@@ -15,8 +15,7 @@ function AnuncioRepublicas({ idImovel, midia, nomeImovel, valor }: any) {
 	const queryClient = useQueryClient();
 
 	const deleteImovel = useMutation(
-		() => Republica.ExcluirMeusAnuncios(idImovel)
-		,
+		() => Republica.ExcluirMeusAnuncios(idImovel),
 		{
 			onSuccess: () => {
 				queryClient.invalidateQueries('minhasRepublica');

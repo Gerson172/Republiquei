@@ -1,20 +1,19 @@
 import * as yup from 'yup';
 
-
 const nomeImovel = yup.object().shape({
-	nomeImovel: yup.string().required("O titulo do anuncio é obrigatório")
-})
+	nomeImovel: yup.string().required('O titulo do anuncio é obrigatório'),
+});
 
 const midiaImovel = yup.object().shape({
-	midia: yup.string().required("É obrigatório imagens do imovel")
-})
+	midia: yup.string().required('É obrigatório imagens do imovel'),
+});
 
 const enderecoImovel = yup.object().shape({
 	cep: yup
 		.string()
 		.nullable()
 		.transform((curr, orig) => (orig === '' ? null : curr))
-		.required('O campo cep é obrigatório')
+		.required('O campo cep é obrigatório'),
 });
 
 const caracteristicasImovel = yup.object().shape({
@@ -22,7 +21,7 @@ const caracteristicasImovel = yup.object().shape({
 	tipoQuarto: yup.string(),
 	tipoSexo: yup.string(),
 	capacidadePessoas: yup.number(),
-})
+});
 
 const RegrasComordidadesYup = yup.object().shape({
 	fumante: yup.boolean(),
@@ -39,15 +38,15 @@ const RegrasComordidadesYup = yup.object().shape({
 	possuiPiscina: yup.boolean(),
 	quantidadeBanheiros: yup.number(),
 	quantidadeQuartos: yup.number(),
-})
+});
 
 const descricaoRepublica = yup.object().shape({
 	descricao: yup.string(),
-})
+});
 
 const valor = yup.object().shape({
 	valor: yup.number().required('Informe um valor válido').nullable(),
-})
+});
 
 const imovelForm = yup.object().shape({
 	enderecoImovel,
@@ -63,4 +62,13 @@ const imovelForm = yup.object().shape({
 	myProperty: yup.number(),
 });
 
-export {imovelForm, caracteristicasImovel, nomeImovel, midiaImovel, enderecoImovel,  descricaoRepublica, RegrasComordidadesYup, valor};
+export {
+	imovelForm,
+	caracteristicasImovel,
+	nomeImovel,
+	midiaImovel,
+	enderecoImovel,
+	descricaoRepublica,
+	RegrasComordidadesYup,
+	valor,
+};

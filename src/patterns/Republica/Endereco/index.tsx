@@ -2,14 +2,17 @@ import { FormEvent, useEffect } from 'react';
 import axios from 'axios';
 import { useFormContext } from 'react-hook-form';
 import { Imovel } from '~/types/Imovel';
-import InputMask from 'react-input-mask'
+import InputMask from 'react-input-mask';
 import viacep, { viaCepType } from '~/infra/api/viacep';
 
-
 export default function Endereco() {
-	const { register, formState: { errors }, setValue, getValues, watch } = useFormContext<Imovel>();
-
-
+	const {
+		register,
+		formState: { errors },
+		setValue,
+		getValues,
+		watch,
+	} = useFormContext<Imovel>();
 
 	async function buscarEnderecoPorCep(cep: string) {
 		try {
@@ -30,7 +33,6 @@ export default function Endereco() {
 		}
 	}
 
-
 	const onSubmit = (data: Imovel) => console.log(data);
 
 	return (
@@ -47,78 +49,78 @@ export default function Endereco() {
 					Informe o endereço de localização da sua república.
 				</p>
 			</div>
-				<div className="flex space-x-4 space-y-4">
-					<InputMask
-						{...register('cep', {
-							onChange: (e: FormEvent<HTMLInputElement>) =>
-								buscarEnderecoPorCep ? buscarEnderecoPorCep(e.currentTarget.value) : null,
-						})}
+			<div className="flex space-x-4 space-y-4">
+				<InputMask
+					{...register('cep', {
+						onChange: (e: FormEvent<HTMLInputElement>) =>
+							buscarEnderecoPorCep
+								? buscarEnderecoPorCep(e.currentTarget.value)
+								: null,
+					})}
+					placeholder="Digite o seu cep"
+					id="cep"
+					mask="99999-999"
+					className="bg-[#F8F9FA] py-4 px-6 text-[#90989F] font-semibold flex-grow"
+				/>
 
-						placeholder="Digite o seu cep"
-						id="cep"
-						mask="99999-999"
-						className="bg-[#F8F9FA] py-4 px-6 text-[#90989F] font-semibold flex-grow"
-					/>
-
-					<input
-						{...register('logradouro')}
-						type="text"
-						name="logradouro"
-						className="bg-[#F8F9FA] py-4 px-6 text-[#90989F] font-semibold flex-grow"
-						id="logradouro"
-						placeholder="Endereço"
-					/>
-										{errors.logradouro && (
-						<span className="text-sm text-red-500">
-							{errors.logradouro.message}
-						</span>
-					)}
-				</div>
-				<div className="flex space-x-4">
-					<input
-						{...register('numero')}
-						type="text"
-						name="numero"
-						className="bg-[#F8F9FA] py-4 px-6 text-[#90989F] font-semibold flex-grow"
-						id="numero"
-						placeholder="Número"
-					/>
-					<input
-						{...register('bairro')}
-						type="text"
-						name="bairro"
-						className="bg-[#F8F9FA] py-4 px-6 text-[#90989F] font-semibold flex-grow"
-						id="bairro"
-						placeholder="Bairro"
-					/>
-					<input
-						{...register('cidade')}
-						type="text"
-						name="cidade"
-						className="bg-[#F8F9FA] py-4 px-6 text-[#90989F] font-semibold flex-grow"
-						id="cidade"
-						placeholder="Cidade"
-					/>
-				</div>
-				<div className="flex space-x-4 space-y-4">
-					<input
-						{...register('uf')}
-						type="text"
-						name="uf"
-						className="bg-[#F8F9FA] py-4 px-6 text-[#90989F] font-semibold flex-grow"
-						id="uf"
-						placeholder="Estado"
-					/>
-					<input
-						{...register('complemento')}
-						type="text"
-						name="complemento"
-						className="bg-[#F8F9FA] py-4 px-6 text-[#90989F] font-semibold flex-grow"
-						id="complemento"
-						placeholder="Complemento"
-					/>
-
-				</div>
+				<input
+					{...register('logradouro')}
+					type="text"
+					name="logradouro"
+					className="bg-[#F8F9FA] py-4 px-6 text-[#90989F] font-semibold flex-grow"
+					id="logradouro"
+					placeholder="Endereço"
+				/>
+				{errors.logradouro && (
+					<span className="text-sm text-red-500">
+						{errors.logradouro.message}
+					</span>
+				)}
+			</div>
+			<div className="flex space-x-4">
+				<input
+					{...register('numero')}
+					type="text"
+					name="numero"
+					className="bg-[#F8F9FA] py-4 px-6 text-[#90989F] font-semibold flex-grow"
+					id="numero"
+					placeholder="Número"
+				/>
+				<input
+					{...register('bairro')}
+					type="text"
+					name="bairro"
+					className="bg-[#F8F9FA] py-4 px-6 text-[#90989F] font-semibold flex-grow"
+					id="bairro"
+					placeholder="Bairro"
+				/>
+				<input
+					{...register('cidade')}
+					type="text"
+					name="cidade"
+					className="bg-[#F8F9FA] py-4 px-6 text-[#90989F] font-semibold flex-grow"
+					id="cidade"
+					placeholder="Cidade"
+				/>
+			</div>
+			<div className="flex space-x-4 space-y-4">
+				<input
+					{...register('uf')}
+					type="text"
+					name="uf"
+					className="bg-[#F8F9FA] py-4 px-6 text-[#90989F] font-semibold flex-grow"
+					id="uf"
+					placeholder="Estado"
+				/>
+				<input
+					{...register('complemento')}
+					type="text"
+					name="complemento"
+					className="bg-[#F8F9FA] py-4 px-6 text-[#90989F] font-semibold flex-grow"
+					id="complemento"
+					placeholder="Complemento"
+				/>
+			</div>
 		</section>
 	);
 }

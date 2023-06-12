@@ -8,7 +8,6 @@ import { GoVerified } from 'react-icons/go';
 import ReactMarkdown from 'react-markdown';
 import { IoIosArrowForward } from 'react-icons/io';
 
-
 import {
 	MdApartment,
 	MdEmojiPeople,
@@ -35,8 +34,6 @@ const DynamicMap = dynamic(() => import('../../components/Map'), {
 	ssr: false,
 });
 
-
-
 function Republic(props: any) {
 	const imagens: string[] = [
 		'https://a0.muscache.com/im/pictures/miso/Hosting-22319550/original/cc1fd71d-1a91-4026-99f8-c2cbffefd68f.jpeg?im_w=960',
@@ -52,18 +49,15 @@ function Republic(props: any) {
 
 	const [isClient, setIsClient] = useState(false);
 
-
-	const { data: imovel } = useQuery<Imovel>(
-		['imovel', id],
-		() => Republica.ObterImovelPorId(id)
+	const { data: imovel } = useQuery<Imovel>(['imovel', id], () =>
+		Republica.ObterImovelPorId(id),
 	);
 
-	const { data: proprietario } = useQuery<UserType>(
-		'contatoProprietario',
-		() => User.getUser(57),
+	const { data: proprietario } = useQuery<UserType>('contatoProprietario', () =>
+		User.getUser(57),
 	);
 
-	console.log(proprietario)
+	console.log(proprietario);
 
 	const endereco = `${imovel?.logradouro} - ${imovel?.bairro} - ${imovel?.cidade}/${imovel?.estado}`;
 
@@ -186,22 +180,25 @@ function Republic(props: any) {
 					<div className="w-2/3">
 						<div>
 							<h2 className="font-semibold text-xl">Descrição:</h2>
-							<div className='bg-sky-500 mt-2 h-2 w-12 rounded-md'></div>
+							<div className="bg-sky-500 mt-2 h-2 w-12 rounded-md"></div>
 						</div>
-						<div className='w-5/6 max-sm:w-screen max-sm:pr-8 my-4'>
-							<ReactMarkdown className="w-full break-words whitespace-pre-line" children={`
+						<div className="w-5/6 max-sm:w-screen max-sm:pr-8 my-4">
+							<ReactMarkdown
+								className="w-full break-words whitespace-pre-line"
+								children={`
 Apartamento no Villaggio Del Mare, com 91m² privativos, 03 dormitórios (sendo 03 suítes), living 02 ambientes, lavabo, cozinha americana, área de serviço e churrasqueira.
 
 O Villaggio Del Mare é um empreendimento com a grife Montebello Construtora, de alto padrão, em ótima localização no centro de Torres/RS. Conta com 4 apartamentos por andar nas opções de 3 suítes e 2 suítes com churrasqueira, exclusivo com 2 vagas de garagem. Infraestrutura de lazer que dispõe de um amplo salão de festas, espaço gourmet e fitness entregues mobiliadas.
 
 A apenas 3 quadras do mar, possui uma arquitetura arrojada e moderna, pensado para que tivesse a melhor orientação solar em qualquer das suas unidades. Outro grande diferencial é o uso de energia fotovoltaica (pioneiro no litoral) nas áreas comuns para reduzir o consumo de energia elétrica do local, com esse sistema inovador, a energia elétrica é produzida a partir de luz solar, e pode ser produzida mesmo em dias nublados ou chuvosos.
-`} />
+`}
+							/>
 						</div>
 
 						<div className="flex flex-col gap-4 my-8">
 							<div>
 								<h2 className="font-semibold text-xl">Regras:</h2>
-								<div className='bg-sky-500 mt-2 h-2 w-16 rounded-md'></div>
+								<div className="bg-sky-500 mt-2 h-2 w-16 rounded-md"></div>
 							</div>
 							<ul className="list-inside list-disc">
 								{Regras.map((regra) => (
@@ -215,7 +212,7 @@ A apenas 3 quadras do mar, possui uma arquitetura arrojada e moderna, pensado pa
 						<div className="flex flex-col gap-4 mb-8">
 							<div>
 								<h2 className="font-semibold text-xl">Comodidades:</h2>
-								<div className='bg-sky-500 mt-2 h-2 w-32 rounded-md'></div>
+								<div className="bg-sky-500 mt-2 h-2 w-32 rounded-md"></div>
 							</div>
 							<ul className="list-inside list-disc">
 								{Comodidades.map((comodidade) => (
@@ -231,27 +228,32 @@ A apenas 3 quadras do mar, possui uma arquitetura arrojada e moderna, pensado pa
 						{getCookie(REPUBLIQUEI_JWT) ? (
 							<div className="mb-8 flex flex-col gap-4 px-4 border rounded-md shadow-md bg-gray-100">
 								<span className="mt-8 flex flex-row items-center gap-2 font-bold">
-									<span className='text-2xl'>
+									<span className="text-2xl">
 										<BiMessage />
 									</span>
-									<h2 className='text-xl'>Fale com o proprietario</h2>
+									<h2 className="text-xl">Fale com o proprietario</h2>
 								</span>
 								<div>
 									<span className="flex flex-row items-center gap-2">
 										<BiUser />
-										<p>{imovel?.universidade || proprietario?.nome.concat(" ", proprietario.sobrenome)}</p>
+										<p>
+											{imovel?.universidade ||
+												proprietario?.nome.concat(' ', proprietario.sobrenome)}
+										</p>
 									</span>
 									<span className="flex flex-row items-center gap-2">
 										<BsTelephone />
 										<p>{proprietario?.celular}</p>
 									</span>
 								</div>
-								<a className="px-24 py-2 text-center
-								 text-white font-semibold bg-green-500 rounded-md">
+								<a
+									className="px-24 py-2 text-center
+								 text-white font-semibold bg-green-500 rounded-md"
+								>
 									Whatsapp
 								</a>
 								<span className="flex flex-row items-center gap-2 font-bold">
-									<span className='text-2xl'>
+									<span className="text-2xl">
 										<MdOutlineMarkEmailUnread />
 									</span>
 									<p className="font-sans ">Envie uma mensagem</p>
@@ -259,20 +261,35 @@ A apenas 3 quadras do mar, possui uma arquitetura arrojada e moderna, pensado pa
 
 								<form className="flex flex-col p-4 rounded-md gap-4">
 									<input
-										className='px-2 py-4'
-										type="text" name="" placeholder="Nome" id="" />
+										className="px-2 py-4"
+										type="text"
+										name=""
+										placeholder="Nome"
+										id=""
+									/>
 									<input
-										className='px-2 py-4'
-										type="text" name="" id="" placeholder="Sobrenome" />
+										className="px-2 py-4"
+										type="text"
+										name=""
+										id=""
+										placeholder="Sobrenome"
+									/>
 									<input
-										className='px-2 py-4'
-										type="text" name="" id="" placeholder="Email" />
+										className="px-2 py-4"
+										type="text"
+										name=""
+										id=""
+										placeholder="Email"
+									/>
 									<textarea
-										className='px-2 py-4'
+										className="px-2 py-4"
 										rows={5}
-										placeholder="Mensagem" />
-									<a className="py-2 my-2 text-center
-								 text-white font-semibold bg-sky-500 hover:bg-sky-600 rounded-md">
+										placeholder="Mensagem"
+									/>
+									<a
+										className="py-2 my-2 text-center
+								 text-white font-semibold bg-sky-500 hover:bg-sky-600 rounded-md"
+									>
 										Enviar Mensagem
 									</a>
 								</form>
@@ -289,4 +306,4 @@ A apenas 3 quadras do mar, possui uma arquitetura arrojada e moderna, pensado pa
 	);
 }
 
-export default dynamic(() => Promise.resolve(Republic),{ssr:false})
+export default dynamic(() => Promise.resolve(Republic), { ssr: false });

@@ -8,7 +8,6 @@ import { GetServerSideProps } from 'next';
 import { parseCookies } from 'nookies';
 
 function MeusAnuncios() {
-
 	const { data: minhasRepublicas, isLoading } = useQuery(
 		'minhasRepublica',
 		() => Republica.MeusAnuncios(),
@@ -26,7 +25,7 @@ function MeusAnuncios() {
 					Meus Anuncios
 				</h2>
 				<section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 px-16 py-8 gap-8 ">
-					{minhasRepublicas?.data.valor.length  === 0 ? (
+					{minhasRepublicas?.data.valor.length === 0 ? (
 						<div>Nenhuma republica foi encontrada.</div>
 					) : (
 						minhasRepublicas?.data.valor.map(
@@ -45,24 +44,21 @@ function MeusAnuncios() {
 			</main>
 		</>
 	);
-
 }
 
 export default MeusAnuncios;
 
-
 export const getServerSideProps: GetServerSideProps = async (context) => {
-	const cookies = parseCookies(context)
+	const cookies = parseCookies(context);
 
-	if(!cookies[REPUBLIQUEI_JWT])
-
-	return {
-		redirect: {
-			permanent: false,
-			destination: '/',
-		}
-	}
+	if (!cookies[REPUBLIQUEI_JWT])
+		return {
+			redirect: {
+				permanent: false,
+				destination: '/',
+			},
+		};
 	return {
 		props: {},
-	}
-}
+	};
+};

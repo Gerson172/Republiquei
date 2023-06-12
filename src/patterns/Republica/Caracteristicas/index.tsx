@@ -14,23 +14,21 @@ import {
 export default function Caracteristicas() {
 	const { register, setValue, watch } = useFormContext();
 
-	console.log(watch('feminino'))
+	console.log(watch('feminino'));
 
 	const [selectedTipoSexo, setSelectedTipoSexo] = useState('');
 	const [selectedTipoImovel, setSelectedTipoImovel] = useState('');
 	const [selectedTipoQuarto, setSelectedTipoQuarto] = useState('');
-	
+
 	const capacidadePessoas = watch('capacidadePessoas', 0);
-	
+
 	const AddQuantidadeMoradoresChange = () => {
 		setValue('capacidadePessoas', Math.min(capacidadePessoas + 1, 10));
-	  }
-	
-	  const RemoveQuantidadeMoradoresChange = () => {
+	};
+
+	const RemoveQuantidadeMoradoresChange = () => {
 		setValue('capacidadePessoas', Math.max(capacidadePessoas - 1, 0));
-	  }
-
-
+	};
 
 	const handleTipoQuartoChange = (value: string) => {
 		setSelectedTipoQuarto(value);

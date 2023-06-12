@@ -3,7 +3,12 @@ import { useFormContext } from 'react-hook-form';
 import { Imovel } from '~/types/Imovel';
 
 export default function Titulo() {
-	const { register, formState: { errors }, getValues, watch } = useFormContext<Imovel>();
+	const {
+		register,
+		formState: { errors },
+		getValues,
+		watch,
+	} = useFormContext<Imovel>();
 
 	console.log(watch('nomeImovel'));
 

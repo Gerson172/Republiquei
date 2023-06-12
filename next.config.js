@@ -8,7 +8,7 @@ const nextConfig = {
 	swcMinify: true,
 	publicRuntimeConfig: {
 		BACKEND_URL: BACKEND_URL.trim(),
-		TOKEN_MAP: TOKEN_MAP
+		TOKEN_MAP: TOKEN_MAP,
 	},
 	images: {
 		domains: [

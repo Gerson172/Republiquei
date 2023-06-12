@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form';
-import InputMask from 'react-input-mask'
+import InputMask from 'react-input-mask';
 
 export default function Valor() {
 	const { register } = useFormContext();
@@ -22,7 +22,6 @@ export default function Valor() {
 				id="titulo"
 				placeholder="Valor mensal do aluguel da república"
 				{...register('valor')}
-
 			/>
 		</section>
 	);

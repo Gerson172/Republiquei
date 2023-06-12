@@ -66,7 +66,8 @@ const Home: NextPage = () => {
 				>
 					<div className="flex flex-col gap-8">
 						<h2 className="text-4xl text-[#212529] sm:text-5xl font-semibold mb-2 font-sans uppercase">
-							Encontre A <span className='font-bold'>república</span> QUE É A SUA CARA
+							Encontre A <span className="font-bold">república</span> QUE É A
+							SUA CARA
 						</h2>
 						<p className="mb-4 tracking-[.04rem] text-xl sm:w-96 md:w-5/6">
 							A plataforma perfeita para tornar sua busca rápida, fácil e
@@ -198,7 +199,8 @@ const Home: NextPage = () => {
 						/>
 						<div className="p-4 sm:px-8 md:px-12 lg:px-16 text-white space-y-4">
 							<h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
-								Conheça a melhor <span className="font-bold">república</span> para você
+								Conheça a melhor <span className="font-bold">república</span>{' '}
+								para você
 							</h2>
 							<p className="text-sm sm:text-base md:text-lg">
 								Junte-se a nossa comunidade vibrante e crie memórias

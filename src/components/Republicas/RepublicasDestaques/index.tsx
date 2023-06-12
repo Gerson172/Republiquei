@@ -5,9 +5,8 @@ import { useQuery } from 'react-query';
 import { Republica } from '~/service';
 
 export function RepublicasDestaques() {
-	const { data, isFetching } = useQuery(
-		'todasRepublicas',
-		() => Republica.ObterImovel(),
+	const { data, isFetching } = useQuery('todasRepublicas', () =>
+		Republica.ObterImovel(),
 	);
 	return (
 		<main
@@ -32,7 +31,7 @@ export function RepublicasDestaques() {
 				{isFetching ? (
 					<Loading />
 				) : (
-					data?.slice(0, 6).map((props:any, index:any) => {
+					data?.slice(0, 6).map((props: any, index: any) => {
 						return <CardRepublicas key={index} {...props} />;
 					})
 				)}

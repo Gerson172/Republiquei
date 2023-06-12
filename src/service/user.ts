@@ -20,13 +20,12 @@ class User {
 				sameSite: 'none',
 				secure: true,
 			});
-			setCookie(ctx,USUARIO_ID, data.valor.existeUsuario.id, {
+			setCookie(ctx, USUARIO_ID, data.valor.existeUsuario.id, {
 				path: '/',
 				maxAge: 10000 * 60,
 				sameSite: 'none',
 				secure: true,
 			});
-
 		} catch (err) {
 			throw err;
 		}
@@ -41,12 +40,12 @@ class User {
 			};
 
 			if (id) {
-				const response =  await api.get(
-					`/Usuario/ObterUsuarioContatoPorId?IdUsuario=${id}`, {headers}
+				const response = await api.get(
+					`/Usuario/ObterUsuarioContatoPorId?IdUsuario=${id}`,
+					{ headers },
 				);
 
-				return response.data.valor
-
+				return response.data.valor;
 			} else {
 				return await api.get('/Usuario/ObterUsuarioPorId', { headers });
 			}
@@ -54,9 +53,8 @@ class User {
 	}
 
 	static async solicitarAlteracao(email: any) {
-		
 		return await api.post('/Usuario/SolicitarAlteracao', { email });
-	  }
+	}
 }
 
 export const useUser = () => {

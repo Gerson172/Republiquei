@@ -3,7 +3,10 @@ import { useFormContext } from 'react-hook-form';
 import { Imovel } from '~/types/Imovel';
 
 export default function Fotos() {
-	const { register, formState: { errors } } = useFormContext<Imovel>();
+	const {
+		register,
+		formState: { errors },
+	} = useFormContext<Imovel>();
 
 	const [selectedImages, setSelectedImages] = useState<
 		Array<string | ArrayBuffer>
@@ -45,15 +48,13 @@ export default function Fotos() {
 				<input
 					type="file"
 					{...register('midia')}
-					id='midia'
+					id="midia"
 					onChange={onImageChange}
 					multiple
 				/>
 				{errors.midia && (
-				<span className="text-sm text-red-500">
-					{errors.midia.message}
-				</span>
-			)}
+					<span className="text-sm text-red-500">{errors.midia.message}</span>
+				)}
 				{selectedImages.map((image, index) => (
 					<div key={index} className="relative mt-5 flex mr-3 flex-wrap">
 						<img

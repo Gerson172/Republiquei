@@ -65,7 +65,9 @@ function Login() {
 
 						<form className="mt-6" onSubmitCapture={handleSubmit(handleSignIn)}>
 							<div>
-								<label className="block font-semibold text-gray-700">Email</label>
+								<label className="block font-semibold text-gray-700">
+									Email
+								</label>
 								<input
 									{...register('email')}
 									type="text"
@@ -74,8 +76,7 @@ function Login() {
 									placeholder="Insira o email"
 									className="w-full px-4 py-3 rounded-lg bg-gray-100 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
 								/>
-								{errors.email &&
-								(
+								{errors.email && (
 									<span className="text-red-500 text-sm">
 										{errors.email?.message}
 									</span>
@@ -83,7 +84,9 @@ function Login() {
 							</div>
 
 							<div className="mt-4">
-								<label className="block font-semibold text-gray-700">Senha</label>
+								<label className="block font-semibold text-gray-700">
+									Senha
+								</label>
 								<input
 									{...register('senha')}
 									type="password"
@@ -92,8 +95,7 @@ function Login() {
 									placeholder="Insira a senha"
 									className="w-full px-4 py-3 rounded-lg bg-gray-100 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
 								/>
-								{errors.senha &&
-								(
+								{errors.senha && (
 									<span className="text-red-500 text-sm">
 										{errors.senha?.message}
 									</span>
@@ -101,9 +103,11 @@ function Login() {
 							</div>
 
 							<div className="text-right mt-2">
-								<Link 
+								<Link
 									className="text-sm font-semibold text-gray-900
-									 hover:text-blue-700 focus:text-blue-700" href="/confirmarEmail">
+									 hover:text-blue-700 focus:text-blue-700"
+									href="/confirmarEmail"
+								>
 									Esqueceu a senha?
 								</Link>
 							</div>
@@ -118,7 +122,7 @@ function Login() {
 						</form>
 
 						<p className="mt-8 text-center text-slate-950">
-							Não possui conta? 
+							Não possui conta?
 							<Link
 								href="/cadastrar"
 								className="text-sky-500 hover:text-sky-600 ml-1 font-semibold"

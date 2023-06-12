@@ -67,8 +67,7 @@ function Cadastro() {
 	}
 
 	const onSubmit = (data: UserType) => {
-
-		console.log(data)
+		console.log(data);
 		const criarUsuario = {
 			nome: data.nome,
 			sobrenome: data.sobrenome,
