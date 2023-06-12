@@ -1,3 +1,3 @@
-export * from './api'
-export * from './user'
-export * from './republica'
+export * from './api';
+export * from './user';
+export * from './republica';

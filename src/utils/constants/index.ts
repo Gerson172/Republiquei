@@ -1,3 +1,3 @@
 const REPUBLIQUEI_JWT = 'TOKEN';
-
-export { REPUBLIQUEI_JWT };
+const USUARIO_ID = "USUARIO"
+export { REPUBLIQUEI_JWT, USUARIO_ID };
