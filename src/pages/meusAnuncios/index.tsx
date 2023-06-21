@@ -6,6 +6,7 @@ import Head from '~/infra/components/Head';
 import { REPUBLIQUEI_JWT } from '~/utils';
 import { GetServerSideProps } from 'next';
 import { parseCookies } from 'nookies';
+import Footer from '~/components/Funcionalidade/Footer';
 
 function MeusAnuncios() {
 	const { data: minhasRepublicas, isLoading } = useQuery(
@@ -20,11 +21,11 @@ function MeusAnuncios() {
 		<>
 			<Head title="Meus Anuncios" />
 			<NavBar />
-			<main className="h-full">
+			<main className="h-screen max-sm:h-full mb-8">
 				<h2 className="text-4xl font-bold p-16 text-[#212529]">
 					Meus Anuncios
 				</h2>
-				<section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 px-16 py-8 gap-8 ">
+				<section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 px-16 py-8 gap-8 max-sm:p-2">
 					{minhasRepublicas?.data.valor.length === 0 ? (
 						<div>Nenhuma republica foi encontrada.</div>
 					) : (
@@ -42,6 +43,7 @@ function MeusAnuncios() {
 					)}
 				</section>
 			</main>
+			<Footer/>
 		</>
 	);
 }

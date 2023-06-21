@@ -3,11 +3,20 @@ import { api } from '~/service';
 import { REPUBLIQUEI_JWT, USUARIO_ID } from '~/utils';
 import { setCookie, destroyCookie } from 'nookies';
 import { useQuery, useQueryClient } from 'react-query';
+import { Login } from '~/types/User';
 
 type UserSignIn = {
 	email: string;
 	senha: string;
+	novasenha: string;
 };
+
+type RedefinirSenha = {
+	email: string;
+	senha: string;
+	novasenha: string;
+	token: string;
+}
 
 class User {
 	static async signIn(user: UserSignIn | {} = {}, ctx: any = {}): Promise<any> {
@@ -53,7 +62,11 @@ class User {
 	}
 
 	static async solicitarAlteracao(email: any) {
-		return await api.post('/Usuario/SolicitarAlteracao', { email });
+		return await api.post(`/Usuario/SolicitarAlteracao?Email=${email}`);
+	}
+
+	static async redefinirSenha(email:any, novasenha:any, token:string){
+		return await api.post(`/Usuario/RedefinirSenha?Email=${email}&NovaSenha=${novasenha}&Token=`+token)
 	}
 }
 

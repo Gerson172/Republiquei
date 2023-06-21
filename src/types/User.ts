@@ -28,11 +28,13 @@ export interface UserType {
 }
 
 export type Login = {
+	token: string,
 	id: number;
 	nome: string;
 	sobrenome: string;
 	email: string;
 	senha: string;
+	novasenha: string;
 	sucesso: boolean;
 	mensagem: string;
 	autheiticated: boolean;

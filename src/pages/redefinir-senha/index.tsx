@@ -5,10 +5,11 @@ import { useForm } from 'react-hook-form';
 import { ToastContainer } from 'react-toastify';
 import Head from '~/infra/components/Head';
 import LoginTypes from '~/validations/loginForm';
-import Login from '../login';
 import { User } from '~/service';
+import { Login } from '~/types/User';
+import { useRouter } from 'next/router';
 
-function confirmarEmail() {
+function RedefinirSenha() {
 	const {
 		register,
 		handleSubmit,
@@ -17,13 +18,23 @@ function confirmarEmail() {
 		mode: 'onBlur',
 	});
 
-const handleRequestEmail = async (data: Login) => {
-	console.log(data);
+
+    const router = useRouter()
+    const email = router.query?.email
+
+
+const handleRedifinirSenha = async (data: Login) => {
+    const tokenDecoded = router.asPath.replace(/.*token=/, '')
+    const tokenEncoded = encodeURIComponent(tokenDecoded);
+    if(tokenEncoded){
+    
+	console.log(tokenEncoded);
 	try {
-		await User.solicitarAlteracao(data.email);
+		await User.redefinirSenha(email, data.novasenha, tokenEncoded);
 	} catch (err) {
 		console.log('Erro ao fazer solicitar alteracao de senha', err);
 	}
+}
 };
 
 
@@ -54,40 +65,49 @@ const handleRequestEmail = async (data: Login) => {
 					</a>
 
 					<h1 className="text-xl text-slate-950 md:text-2xl font-bold leading-tight mt-12 mb-2">
-						Redefinir a senha
+                    Cadastrar nova senha
 					</h1>
-					<p className="text-sm text-slate-950">
-						Não se preocupe! Basta digitar seu e-mail e enviaremos um código
-						para redefinir sua senha.
-					</p>
 					<form
 						className="mt-6"
-						onSubmitCapture={handleSubmit(handleRequestEmail)}
+						onSubmitCapture={handleSubmit(handleRedifinirSenha)}
 					>
 						<div>
-							<label className="block font-semibold text-gray-700">Email</label>
+							<label className="block font-semibold text-gray-700">Nova senha</label>
 							<input
-								{...register('email')}
-								type="text"
-								id="email"
-								autoComplete="current-email"
-								placeholder="Insira o email"
+								{...register('senha')}
+								type="password"
+								id="senha"
+								placeholder="Insira uma nova senha"
 								className="w-full px-4 py-3 rounded-md bg-gray-100 mt-2 "
 							/>
-							{errors.email && (
+							{errors.senha && (
 								<span className="text-red-500 text-sm">
-									{errors.email?.message}
+									{errors.senha?.message}
 								</span>
 							)}
 						</div>
-
+						<div>
+							<label className="block font-semibold text-gray-700">Repetir nova senha</label>
+							<input
+								{...register('novasenha')}
+								type="password"
+								id="novasenha"
+								placeholder="Repita a senha"
+								className="w-full px-4 py-3 rounded-md bg-gray-100 mt-2 "
+							/>
+							{errors.novasenha && (
+								<span className="text-red-500 text-sm">
+									{errors.novasenha?.message}
+								</span>
+							)}
+						</div>
 						<button
 							type="submit"
 							className="w-full bg-sky-500 hover:bg-sky-600 
 								text-white font-semibold text-lg
 								shadow-xl drop-shadow-md rounded-lg p-4 mt-6 uppercase"
 						>
-							Enviar Email
+							Alterar senha
 						</button>
 					</form>
 
@@ -106,4 +126,4 @@ const handleRequestEmail = async (data: Login) => {
 	);
 }
 
-export default confirmarEmail;
+export default RedefinirSenha;
