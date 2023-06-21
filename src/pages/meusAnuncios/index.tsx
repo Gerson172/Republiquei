@@ -4,8 +4,6 @@ import AnuncioRepublicas from '~/components/Republicas/AnuncioRepublicas';
 import NavBar from '~/components/NavBar';
 import Head from '~/infra/components/Head';
 import { REPUBLIQUEI_JWT } from '~/utils';
-import { GetServerSideProps } from 'next';
-import { parseCookies } from 'nookies';
 import Footer from '~/components/Funcionalidade/Footer';
 
 function MeusAnuncios() {
@@ -50,17 +48,3 @@ function MeusAnuncios() {
 
 export default MeusAnuncios;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-	const cookies = parseCookies(context);
-
-	if (!cookies[REPUBLIQUEI_JWT])
-		return {
-			redirect: {
-				permanent: false,
-				destination: '/',
-			},
-		};
-	return {
-		props: {},
-	};
-};

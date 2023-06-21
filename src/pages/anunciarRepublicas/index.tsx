@@ -1,4 +1,4 @@
-import { GetServerSideProps, NextPage } from 'next';
+import { NextPage } from 'next';
 import NavBar from '../../components/NavBar';
 import { useEffect, useState } from 'react';
 import Footer from '../../components/Funcionalidade/Footer';
@@ -264,19 +264,6 @@ const AnunciarRepublica: NextPage = () => {
 	);
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-	const cookies = parseCookies(context);
 
-	if (!cookies[REPUBLIQUEI_JWT])
-		return {
-			redirect: {
-				permanent: false,
-				destination: '/',
-			},
-		};
-	return {
-		props: {},
-	};
-};
 
 export default AnunciarRepublica;
