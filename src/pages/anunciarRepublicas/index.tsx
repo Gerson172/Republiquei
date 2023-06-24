@@ -80,13 +80,13 @@ const AnunciarRepublica: NextPage = () => {
 	}, []);
 
 	const validationSchema = yup.object().shape({
-		...nomeImovel.fields,
+		nomeImovel,
 		...midiaImovel.fields,
 		...enderecoImovel.fields,
 		...caracteristicasImovel.fields,
 		...descricaoRepublica.fields,
 		...RegrasComordidadesYup.fields,
-		...valor.fields,
+		valor,
 	});
 
 	const formMethods = useForm<Imovel>({
@@ -134,11 +134,18 @@ const AnunciarRepublica: NextPage = () => {
 
 	const onSubmit = (data: Imovel) => {
 		console.log('Nome do Imóvel:', data.nomeImovel);
-		console.log(data);
+
+		const midia1 = localStorage.getItem('selectedImages1');
+		const midia2 = localStorage.getItem('selectedImages2');
+		const midia3 = localStorage.getItem('selectedImages3');
+
+		console.log(data.midia1, data.midia2, data.midia3);
+
 
 		const criarImovel = {
-			midia:
-				'https://images.unsplash.com/photo-1651932809880-bfd75fe113e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+			midia1: data.midia1,
+			midia2: data.midia2,
+			midia3: data.midia3,
 			capacidadePessoas: data.capacidadePessoas,
 			valor: data.valor,
 			descricao: data.descricao,
@@ -198,8 +205,11 @@ const AnunciarRepublica: NextPage = () => {
 			});
 	};
 
+
+
 	return (
 		<FormProvider {...formMethods}>
+
 			<NavBar />
 			<main className="flex flex-row m-16 items-center justify-center">
 				<section className="bg-[#F8F9FA] py-8 rounded-lg shadow-md border w-2/6 flex flex-col gap-2 pl-8">

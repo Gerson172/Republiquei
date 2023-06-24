@@ -5,7 +5,6 @@ import Router from 'next/router';
 import { useForm } from 'react-hook-form';
 import { Login } from '../../types/User';
 import LoginTypes from '../../validations/loginForm';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Head from '../../infra/components/Head';
 
@@ -18,12 +17,13 @@ function Login() {
 		formState: { errors },
 	} = useForm<Login>({
 		mode: 'onBlur',
-		resolver: yupResolver(LoginTypes),
 	});
 
-	const handleSignIn = async (data: Login) => {
+
+
+	function handleSignIn(data: Login){
 		try {
-			await User.signIn(data, {});
+			User.signIn(data, {});
 			setTimeout(() => {
 				Router.push('/');
 			}, 800);
@@ -35,7 +35,6 @@ function Login() {
 	return (
 		<>
 			<Head title="Login" />
-			<ToastContainer />
 			<section className="flex flex-col md:flex-row h-screen items-center">
 				<div className="hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">
 					<Image

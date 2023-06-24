@@ -1,5 +1,8 @@
 export type Imovel = {
 	idImovel: number;
+	midia1: string;
+	midia2: string;
+	midia3: string;
 	midia: string;
 	quantidadeComodo: number;
 	capacidadePessoas: number;

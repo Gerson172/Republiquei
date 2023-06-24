@@ -20,6 +20,7 @@ class Republica {
 		}
 	}
 
+
 	static async ObterImovelPorId(idImovel: any) {
 		const response = await api.get(
 			'/Imovel/ObterImovelPorId?IdImovel=' + String(idImovel),

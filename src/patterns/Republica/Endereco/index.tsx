@@ -33,7 +33,6 @@ export default function Endereco() {
 		}
 	}
 
-	const onSubmit = (data: Imovel) => console.log(data);
 
 	return (
 		<section className="flex flex-col gap-8 w-10/12">

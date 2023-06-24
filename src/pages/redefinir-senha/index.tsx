@@ -4,17 +4,22 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { ToastContainer } from 'react-toastify';
 import Head from '~/infra/components/Head';
-import LoginTypes from '~/validations/loginForm';
 import { User } from '~/service';
-import { Login } from '~/types/User';
 import { useRouter } from 'next/router';
+
+type redefinirSenha = {
+	token: string,
+	email: string;
+	novasenha: string;
+	senha: string;
+}
 
 function RedefinirSenha() {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<Login>({
+	} = useForm<redefinirSenha>({
 		mode: 'onBlur',
 	});
 
@@ -23,7 +28,7 @@ function RedefinirSenha() {
     const email = router.query?.email
 
 
-const handleRedifinirSenha = async (data: Login) => {
+const handleRedifinirSenha = async (data: redefinirSenha) => {
     const tokenDecoded = router.asPath.replace(/.*token=/, '')
     const tokenEncoded = encodeURIComponent(tokenDecoded);
     if(tokenEncoded){
@@ -31,6 +36,7 @@ const handleRedifinirSenha = async (data: Login) => {
 	console.log(tokenEncoded);
 	try {
 		await User.redefinirSenha(email, data.novasenha, tokenEncoded);
+		router.push('/login')
 	} catch (err) {
 		console.log('Erro ao fazer solicitar alteracao de senha', err);
 	}

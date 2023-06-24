@@ -15,8 +15,8 @@ function NavBar() {
 	const navItems = [
 		{ href: '/buscarRepublica', label: 'Buscar República' },
 		{ href: '/seja-um-proprietario', label: 'Para Proprietários' },
-		{ href: '/sobre', label: 'Sobre nós' },
-		{ href: '/ajuda', label: 'Ajuda' },
+		{ href: '/universidades', label: 'Para Universidades' },
+		{ href: '/sobre', label: 'Sobre nós' }
 	];
 
 	const [navbar, setNavbar] = useState(false);
@@ -184,7 +184,7 @@ function NavBar() {
 												aria-labelledby="options-menu"
 											>
 												<Link
-													href="#"
+													href="/meuPerfil"
 													className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
 													role="menuitem"
 												>

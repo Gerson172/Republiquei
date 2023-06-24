@@ -1,12 +1,12 @@
 import * as yup from 'yup';
 
-const nomeImovel = yup.object().shape({
-	nomeImovel: yup.string().required('O titulo do anuncio é obrigatório'),
-});
+const nomeImovel = yup.string().required('O título do anúncio é obrigatório').nullable();
+
 
 const midiaImovel = yup.object().shape({
-	midia: yup.string().required('É obrigatório imagens do imovel'),
+
 });
+
 
 const enderecoImovel = yup.object().shape({
 	cep: yup
@@ -44,9 +44,7 @@ const descricaoRepublica = yup.object().shape({
 	descricao: yup.string(),
 });
 
-const valor = yup.object().shape({
-	valor: yup.number().required('Informe um valor válido').nullable(),
-});
+const valor = yup.number().required('Informe um valor válido').nullable();
 
 const imovelForm = yup.object().shape({
 	enderecoImovel,

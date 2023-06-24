@@ -19,7 +19,7 @@ function MeusAnuncios() {
 		<>
 			<Head title="Meus Anuncios" />
 			<NavBar />
-			<main className="h-screen max-sm:h-full mb-8">
+			<main className="h-full max-sm:h-full mb-8">
 				<h2 className="text-4xl font-bold p-16 text-[#212529]">
 					Meus Anuncios
 				</h2>
